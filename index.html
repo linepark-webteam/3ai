@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>仮タイトル｜トップページ</title>
+  <!-- Bootstrap 5 -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="/css/common.css" />
+  <link rel="stylesheet" href="/css/top.css" />
+  <style>
+    /* CTA ボタンを目立たせるカスタムスタイル */
+    .btn--cta {
+      font-size: 1.25rem;
+      padding: 0.9rem 2.5rem;
+      border-radius: 1rem;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .btn--cta:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25);
+    }
+  </style>
+</head>
+<body>
+  <!-- =====================
+       Header : グローバルナビ & ロゴ
+  ====================== -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="logo" href="/">LOGO<span class="visually-hidden">ホームへ戻る</span></a>
+      <nav class="global-nav" aria-label="メインナビゲーション">
+        <ul class="nav-list">
+          <li><a href="/service.html">事業内容</a></li>
+          <li><a href="/property.html">物件情報</a></li>
+          <li><a href="/company.html">会社概要</a></li>
+          <li><a href="/recruit.html">採用情報</a></li>
+          <li><a class="btn btn--primary" href="/contact.html">お問い合わせ</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <!-- =====================
+       Hero Section
+  ====================== -->
+  <section class="hero">
+    <div class="hero__overlay"></div>
+    <div class="hero__inner container">
+      <h1 class="hero__title">メインキャッチコピー</h1>
+      <p class="hero__subtitle">サブメッセージが入ります。お客様の課題を解決するパートナー。など</p>
+      <a href="#service" class="btn btn--primary">サービスをみる</a>
+    </div>
+  </section>
+
+  <!-- =====================
+       Service Section（キャッチコピー＋メッセージ／バナー付き）
+  ====================== -->
+  <section id="service" class="service section container">
+    <!-- Catch copy & message row -->
+    <div class="row align-items-center mb-5 service-intro">
+      <div class="col-lg-6 text-lg-end mb-3 mb-lg-0">
+        <h2 class="display-6 fw-bold mb-0">サービスで実現する価値 など</h2>
+      </div>
+      <div class="col-lg-6">
+        <p class="lead mb-0">不動産に関するトータルソリューションを、ワンストップでご提供します。など</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Overlay banner with CTA -->
+  <div class="position-relative my-5">
+    <div class="service-banner bg-primary text-white text-center py-4 px-3 rounded w-100 shadow">
+      <p class="mb-3">詳細はサービスページをご覧ください。</p>
+      <a href="/service" class="btn btn-light fw-semibold">サービスページへ</a>
+    </div>
+  </div>
+
+  <!-- =====================
+       Strengths Section
+  ====================== -->
+  <section class="strengths section">
+    <div class="container strengths__grid">
+      <div class="strength-item">
+        <span class="icon icon--speed"><i class="bi bi-lightning-charge-fill fs-4 text-primary"></i></span>
+        <h3>スピード対応</h3>
+        <p>ご相談からご提案まで最短当日で実施。</p>
+        <p>ダミーテキスト</p>
+      </div>
+      <div class="strength-item">
+        <span class="icon icon--fair"><i class="bi bi-shield-check fs-4 text-primary"></i></span>
+        <h3>安心・信頼</h3>
+        <p>公正な視点で最適なソリューションをご提供。</p>
+        <p>ダミーテキスト</p>
+      </div>
+      <div class="strength-item">
+        <span class="icon icon--team"><i class="bi bi-people fs-4 text-primary"></i></span>
+        <h3>専門チーム</h3>
+        <p>各分野のプロフェッショナルが連携しサポート。</p>
+        <p>ダミーテキスト</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- =====================
+       Property Highlights
+  ====================== -->
+  <section id="property" class="property section container">
+    <h2 class="section__title">最新物件</h2>
+    <div class="property__slider">
+      <article class="property-card">
+        <img src="/img/sample-property.jpg" alt="サンプル物件" />
+        <div class="property-card__body">
+          <h3 class="property-card__title">○○市△△町 戸建て</h3>
+          <p class="property-card__meta">3,980万円 / 3LDK</p>
+          <a href="#" class="more">詳細</a>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <!-- =====================
+       Topics Section
+  ====================== -->
+  <section class="topics section container">
+    <h2 class="section__title">お知らせ</h2>
+    <ul class="topics__list">
+      <li><time datetime="2025-05-20">2025.05.20</time> <a href="#">新規物件情報を公開しました。</a></li>
+    </ul>
+    <p class="topics__more"><a href="#">一覧を見る</a></p>
+  </section>
+
+  <!-- =====================
+       Recruit Banner
+  ====================== -->
+  <section id="recruit" class="recruit-banner section">
+    <div class="recruit-banner__inner container">
+      <p class="recruit-banner__copy">私たちと一緒に働きませんか？</p>
+      <a href="/recruit.html" class="btn btn--secondary">採用情報を見る</a>
+    </div>
+  </section>
+
+  <!-- =====================
+       CTA Section
+  ====================== -->
+  <section id="contact" class="cta section">
+    <div class="container cta__inner">
+      <h2 class="cta__title">お問い合わせ</h2>
+      <p class="cta__tel"><a href="tel:000-0000-0000">000-0000-0000</a></p>
+      <a href="/contact.html" class="btn btn--primary btn--cta"><i class="bi bi-envelope-fill me-2"></i>お問い合わせフォームへ</a>
+    </div>
+  </section>
+
+  <!-- =====================
+       Footer
+  ====================== -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <nav class="footer-nav" aria-label="フッターナビ">
+        <ul>
+          <li><a href="/service.html">事業内容</a></li>
+          <li><a href="/property.html">物件情報</a></li>
+          <li><a href="/company.html">会社概要</a></li>
+          <li><a href="/recruit.html">採用情報</a></li>
+          <li><a href="#">プライバシーポリシー</a></li>
+        </ul>
+      </nav>
+      <address class="footer-address">〒000-0000 所在地：ダミーテキスト</address>
+      <p class="mb-0 text-center">&copy; 2025 仮社名. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
