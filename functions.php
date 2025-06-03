@@ -111,3 +111,25 @@ function sanai_theme_setup()
     );
 }
 add_action('after_setup_theme', 'sanai_theme_setup');
+
+
+// 新規物件登録用カスタム投稿タイプ
+function sanai_register_property_cpt() {
+  $labels = array(
+    'name'          => '物件',
+    'singular_name' => '物件',
+    // その他のラベルをここに設定
+  );
+  $args = array(
+    'labels'             => $labels,
+    'public'             => true,
+    'has_archive'        => true,
+    'supports'           => array( 'title', 'editor', 'thumbnail', 'custom-fields' ),
+    'menu_position'      => 5,
+    'menu_icon'          => 'dashicons-admin-multisite',
+    'show_in_rest'       => true,
+    'rewrite'            => array( 'slug' => 'property' ),
+  );
+  register_post_type( 'property', $args );
+}
+add_action( 'init', 'sanai_register_property_cpt' );
