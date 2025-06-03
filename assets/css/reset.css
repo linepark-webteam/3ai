@@ -1,0 +1,270 @@
+/*==================================================
+  reset.css
+  ブラウザごとのデフォルトスタイルをリセットし、
+  共通のベースラインを提供するリセットCSS
+==================================================*/
+
+/*--------------------------------------------------
+  1) 全要素の基本リセット
+--------------------------------------------------*/
+html,
+body,
+div,
+span,
+applet,
+object,
+iframe,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+blockquote,
+pre,
+a,
+abbr,
+acronym,
+address,
+big,
+cite,
+code,
+del,
+dfn,
+em,
+img,
+ins,
+kbd,
+q,
+s,
+samp,
+small,
+strike,
+strong,
+sub,
+sup,
+tt,
+var,
+b,
+u,
+i,
+center,
+dl,
+dt,
+dd,
+ol,
+ul,
+li,
+fieldset,
+form,
+label,
+legend,
+caption,
+article,
+aside,
+canvas,
+details,
+embed,
+figure,
+figcaption,
+footer,
+header,
+hgroup,
+menu,
+nav,
+output,
+ruby,
+section,
+summary,
+time,
+mark,
+audio,
+video {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  font-size: 100%;
+  font-family: inherit;
+  font-weight: inherit;
+  font-style: inherit;
+  vertical-align: baseline;
+  background: transparent;
+}
+
+/*--------------------------------------------------
+  2) HTML5 要素をブロックレベルに統一
+--------------------------------------------------*/
+article,
+aside,
+details,
+figcaption,
+figure,
+footer,
+header,
+hgroup,
+menu,
+nav,
+section {
+  display: block;
+}
+
+/*--------------------------------------------------
+  3) 全要素のボックスサイズを border-box に統一
+--------------------------------------------------*/
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+/*--------------------------------------------------
+  4) ボディの基本設定
+--------------------------------------------------*/
+body {
+  line-height: 1;
+  font-family: "Noto Sans JP", sans-serif;
+  color: #000;
+  background-color: #fff;
+  word-wrap: break-word;
+}
+
+/*--------------------------------------------------
+  5) リスト要素のリセット
+--------------------------------------------------*/
+ol,
+ul {
+  list-style: none;
+}
+
+/*--------------------------------------------------
+  6) 引用・ブロック要素の設定
+--------------------------------------------------*/
+blockquote,
+q {
+  quotes: none;
+}
+blockquote::before,
+blockquote::after,
+q::before,
+q::after {
+  content: "";
+  content: none;
+}
+
+/*--------------------------------------------------
+  7) テーブル要素のリセット
+--------------------------------------------------*/
+table {
+  border-collapse: collapse;
+  border-spacing: 0;
+}
+
+/*--------------------------------------------------
+  8) フォーム要素のリセット
+--------------------------------------------------*/
+button,
+input,
+select,
+textarea {
+  margin: 0;
+  padding: 0;
+  font-family: inherit;
+  font-size: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  outline: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+/*--------------------------------------------------
+  9) 画像・メディア要素のリセット
+--------------------------------------------------*/
+img,
+video,
+canvas,
+audio,
+iframe,
+embed,
+object {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+/*--------------------------------------------------
+ 10) リンク要素のリセット
+--------------------------------------------------*/
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+/*--------------------------------------------------
+ 11) ヘッダー／フッター／メインなどのセクショナル要素の余白調整
+--------------------------------------------------*/
+header,
+main,
+footer,
+nav,
+section,
+article,
+aside {
+  margin: 0;
+  padding: 0;
+}
+
+/*--------------------------------------------------
+ 12) フォーカス時のアウトラインリセット
+  ※ アクセシビリティの観点から、必要に応じて下記を調整してください
+--------------------------------------------------*/
+:focus {
+  outline: none;
+}
+
+/*--------------------------------------------------
+ 13) テキストレンダリングの最適化
+--------------------------------------------------*/
+body,
+button,
+input,
+select,
+textarea {
+  -webkit-text-size-adjust: 100%;
+  -moz-text-size-adjust: 100%;
+  -ms-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+/*--------------------------------------------------
+ 14) モダンブラウザ向けレイアウト安定化
+--------------------------------------------------*/
+html {
+  scroll-behavior: smooth;
+}
+
+/*--------------------------------------------------
+ 15) モバイルブラウザでのタップ領域リセット
+--------------------------------------------------*/
+button,
+input[type="button"],
+input[type="submit"],
+input[type="reset"] {
+  cursor: pointer;
+}
+
+/*--------------------------------------------------
+ 16) デフォルトのリッチテキストコントロールを無効化
+--------------------------------------------------*/
+[contenteditable] {
+  outline: none;
+}
+
+/*==================================================
+  ここまででブラウザ固有の基本デフォルトスタイルはほぼリセットされ、
+  ほとんどの要素がフラットなベースラインに統一されます。
+  必要に応じて追加カスタマイズやユーティリティクラスを以下に追記してください。
+==================================================*/

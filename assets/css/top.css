@@ -1,0 +1,309 @@
+/*==================================================
+  Home (TOP) Specific Styles (/css/top.css)
+==================================================*/
+
+/*------------------------------
+  Hero Section
+------------------------------*/
+.hero {
+  position: relative;
+  height: 85vh;
+  min-height: 480px;
+  background: url("/img/hero1.webp") center/cover no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--c-white);
+}
+
+.hero__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.5);
+}
+
+.hero__inner {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+}
+
+.hero__title {
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.hero__subtitle {
+  font-size: clamp(1.25rem, 3vw, 1.5rem);
+  margin-bottom: 2rem;
+}
+
+/*------------------------------
+  ボタン 共通（トップ専用拡張）
+------------------------------*/
+/* .btn は Bootstrap のクラスを活用 */
+.btn--cta {
+  background-color: var(--c-primary);
+  color: var(--c-white);
+  font-size: var(--fs-lg);
+  font-weight: 700;
+  padding: 0.75rem 2rem;
+  border-radius: 2rem;
+  transition: background-color 0.3s ease;
+  display: inline-block;
+  text-decoration: none;
+}
+.btn--cta:hover,
+.btn--cta:focus {
+  background-color: var(--c-primary-dark);
+  color: var(--c-white);
+}
+
+/*------------------------------
+  Service セクション
+------------------------------*/
+.service__grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.service__item {
+  background-color: var(--c-white);
+  border-radius: 0.5rem;
+  padding: 2rem;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.service__icon {
+  font-size: 2.5rem;
+  color: var(--c-primary);
+  margin-bottom: 1rem;
+}
+
+.service__item-title {
+  font-size: var(--fs-xl);
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+  color: var(--c-secondary-dark);
+}
+
+.service__item-text {
+  font-size: var(--fs-base);
+  color: var(--c-secondary-light);
+}
+
+/* サービスバナー */
+.service-banner {
+  background-color: var(--c-primary);
+  border-radius: 0.5rem;
+  margin-top: 3rem;
+  padding: 1.5rem;
+  text-align: center;
+}
+.service-banner__link {
+  text-decoration: none;
+  color: var(--c-white);
+}
+.service-banner__text {
+  font-size: var(--fs-lg);
+  font-weight: 700;
+}
+
+/*------------------------------
+  Property Highlights セクション
+------------------------------*/
+.property__slider {
+  display: flex;
+  gap: 1.5rem;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  padding-bottom: 1rem;
+}
+
+.property__card {
+  min-width: 280px;
+  background-color: var(--c-white);
+  border-radius: 0.5rem;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+
+.property__image {
+  width: 100%;
+  height: 180px;
+  object-fit: cover;
+}
+
+.property__info {
+  padding: 1rem;
+}
+
+.property__name {
+  font-size: var(--fs-lg);
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+  color: var(--c-secondary);
+}
+
+.property__price {
+  font-size: var(--fs-base);
+  color: var(--c-primary);
+  margin-bottom: 1rem;
+}
+
+.btn--small {
+  background-color: var(--c-secondary);
+  color: var(--c-white);
+  font-size: var(--fs-sm);
+  padding: 0.5rem 1rem;
+  border-radius: 1rem;
+  text-decoration: none;
+  transition: background-color 0.3s ease;
+}
+.btn--small:hover {
+  background-color: var(--c-secondary-light);
+}
+
+/*------------------------------
+  Topics セクション
+------------------------------*/
+.topics__list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  margin-top: 2rem;
+}
+
+.topics__item {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.topics__date {
+  font-size: var(--fs-sm);
+  color: var(--c-secondary-light);
+  min-width: 80px;
+}
+
+.topics__link {
+  color: var(--c-secondary-dark);
+  font-size: var(--fs-base);
+  text-decoration: none;
+}
+.topics__link:hover {
+  color: var(--c-primary);
+}
+
+.topics__more {
+  margin-top: 1rem;
+}
+
+.topics__more-link {
+  font-size: var(--fs-base);
+  color: var(--c-primary);
+  text-decoration: none;
+}
+.topics__more-link:hover {
+  text-decoration: underline;
+}
+
+/*------------------------------
+  Recruit バナー
+------------------------------*/
+.recruit-banner {
+  position: relative;
+  background: url("/img/recruit-banner.webp") center/cover no-repeat;
+  height: 50vh;
+  min-height: 360px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--c-white);
+}
+
+.recruit-banner__overlay {
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+}
+
+.recruit-banner__inner {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  max-width: 600px;
+}
+
+.recruit-banner__title {
+  font-size: clamp(1.75rem, 5vw, 2.25rem);
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.recruit-banner__text {
+  font-size: var(--fs-base);
+  margin-bottom: 1.5rem;
+}
+
+/*------------------------------
+  CTA セクション
+------------------------------*/
+.cta {
+  background-color: var(--c-secondary-light);
+  color: var(--c-white);
+}
+
+.cta__title {
+  font-size: var(--fs-xl);
+  font-weight: 700;
+  margin-bottom: 1rem;
+}
+
+.cta__tel a {
+  color: var(--c-white);
+  font-size: 1.75rem;
+  font-weight: 700;
+  text-decoration: none;
+  margin-bottom: 1.5rem;
+  display: inline-block;
+}
+
+/*------------------------------
+  レスポンシブ調整
+------------------------------*/
+@media (max-width: 992px) {
+  .hero {
+    height: 70vh;
+  }
+  .service__grid {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  }
+  .recruit-banner {
+    height: 40vh;
+  }
+}
+
+@media (max-width: 576px) {
+  .hero {
+    height: 60vh;
+  }
+  .hero__title {
+    font-size: clamp(1.5rem, 6vw, 2.25rem);
+  }
+  .hero__subtitle {
+    font-size: clamp(1rem, 4vw, 1.25rem);
+  }
+  .service__item {
+    padding: 1.5rem;
+  }
+  .recruit-banner__title {
+    font-size: clamp(1.25rem, 6vw, 1.75rem);
+  }
+}
