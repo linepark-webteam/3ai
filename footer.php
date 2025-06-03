@@ -16,7 +16,7 @@
       ?>
 
       <!-- 住所（固定テキスト or ウィジェット化してもよい） -->
-      <address class="footer-address">〒000-0000 千葉県松戸市根本155-2 ウィズプラス松戸201</address>
+      <address class="footer-address">〒000-0000 ダミーアドレス</address>
       <p class="copyright">&copy; <?php echo date( 'Y' ); ?> 三愛不動産管理. All Rights Reserved.</p>
     </div>
   </footer>
