@@ -1,12 +1,13 @@
 /*
 Theme Name:   三愛不動産管理
-Theme URI:    https://example.com/    ← 任意でテーマの説明ページなどを記載
+Theme URI:    https://example.com/
 Author:       LiNE PARK
 Author URI:   https://example.com/
-Description:  三愛不動産管理サイトのカスタムテーマ
-Version:      1.0
+Description:  三愛不動産管理の公式テーマ
+Version:      1.0.0
 License:      GNU General Public License v2 or later
 License URI:  https://www.gnu.org/licenses/gpl-2.0.html
-Text Domain:  sanai-wp-theme
 Tags:         custom, real estate, responsive
+Text Domain:  sanai-textdomain
+Domain Path:  /languages
 */
