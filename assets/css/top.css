@@ -9,7 +9,7 @@
   position: relative;
   height: 85vh;
   min-height: 480px;
-  background: url("/img/hero1.webp") center/cover no-repeat;
+  background: url("/img/") center/cover no-repeat;
   display: flex;
   align-items: center;
   justify-content: center;
