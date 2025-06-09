@@ -1,6 +1,10 @@
-  <?php
-// header.php
+<?php
+
+/**
+ * ヘッダーテンプレート (template-parts/header.php)
+ */
 ?>
+
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
 <head>

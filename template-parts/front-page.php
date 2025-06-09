@@ -1,6 +1,6 @@
 <?php
 /**
- * フロントページ用テンプレート (front-page.php)
+ * フロントページ用テンプレート (template-parts/front-page.php)
  */
 
 get_header();
