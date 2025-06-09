@@ -2,7 +2,8 @@
 /**
  * template-parts/content-loop.php
  * 
- * 通常投稿（post）のループを共通化する部分テンプレート
+ * 通常投稿（post）のループを <li> 形式で出力する共通テンプレート
+ * ※ページネーションは呼び出し側で出力する想定
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
@@ -12,26 +13,16 @@ if ( ! defined( 'ABSPATH' ) ) {
 if ( have_posts() ) :
     while ( have_posts() ) : the_post();
         ?>
-        <article id="post-<?php the_ID(); ?>" <?php post_class( 'topics__item' ); ?>>
+        <li class="topics__item">
             <time class="topics__date" datetime="<?php echo esc_attr( get_the_date( 'Y-m-d' ) ); ?>">
                 <?php echo esc_html( get_the_date( 'Y.m.d' ) ); ?>
             </time>
-            <a href="<?php the_permalink(); ?>" class="topics__link">
-                <?php the_title(); ?>
-            </a>
-        </article>
+            <a href="<?php the_permalink(); ?>" class="topics__link"><?php the_title(); ?></a>
+        </li>
         <?php
     endwhile;
-
-    // ページナビゲーションを追加
-    the_posts_pagination( array(
-        'mid_size'  => 2, // 現在ページの前後に表示するページ番号の数
-        'prev_text' => __( '« 前へ', 'sanai-textdomain' ),
-        'next_text' => __( '次へ »', 'sanai-textdomain' ),
-    ) );
-
 else :
     ?>
-    <p class="no-posts"><?php esc_html_e( '投稿がありません。', 'sanai-textdomain' ); ?></p>
+    <li class="topics__item"><?php esc_html_e( '投稿が見つかりません。', 'sanai-textdomain' ); ?></li>
     <?php
 endif;

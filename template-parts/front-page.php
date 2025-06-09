@@ -101,41 +101,64 @@ get_header();
     </div>
   </section>
 
-  <!-- Topics セクション -->
-  <section id="topics" class="topics section container">
-    <div class="section-head">
-      <h2 class="section-title"><?php esc_html_e( 'お知らせ', 'sanai-textdomain' ); ?></h2>
-    </div>
-    <div class="topics__list">
+<!-- Topics セクション -->
+<section id="topics" class="topics section container">
+  <div class="section-head">
+    <h2 class="section-title"><?php esc_html_e( 'お知らせ', 'sanai-textdomain' ); ?></h2>
+  </div>
+
+  <ul class="topics__list">
+    <?php
+    // カスタムクエリの準備（paged を含める）
+    $paged = get_query_var( 'paged', 1 );
+    $news_args = array(
+      'post_type'      => 'post',
+      'posts_per_page' => 3,
+      'orderby'        => 'date',
+      'order'          => 'DESC',
+      'paged'          => $paged,
+    );
+    $news_query = new WP_Query( $news_args );
+
+    if ( $news_query->have_posts() ) :
+      // メインクエリを退避し、グローバルを上書き
+      $original_query = $wp_query;
+      $wp_query       = $news_query;
+
+      // ループ本体（<li>～</li> を出力）
+      get_template_part( 'template-parts/content', 'loop' );
+
+      // ループ終了後にリセット
+      wp_reset_postdata();
+      $wp_query = $original_query;
+    else :
+      // 投稿がない場合も <li> を出すため、content-loop.php の else 部分が出力される
+      get_template_part( 'template-parts/content', 'loop' );
+    endif;
+    ?>
+  </ul>
+
+  <?php if ( $news_query->max_num_pages > 1 ) : ?>
+    <nav class="topics__pagination" aria-label="<?php esc_attr_e( 'お知らせのページナビゲーション', 'sanai-textdomain' ); ?>">
       <?php
-      // 通常投稿(post) の最新 5 件を取得
-      $news_args = array(
-        'post_type'      => 'post',
-        'posts_per_page' => 5,
-        'orderby'        => 'date',
-        'order'          => 'DESC',
-      );
-      $news_query = new WP_Query( $news_args );
-      if ( $news_query->have_posts() ) :
-        // 元の $wp_query を保存
-        $original_query = $wp_query;
-        // グローバルの $wp_query に $news_query を代入
-        $wp_query = $news_query;
-        // content-loop.php を実行
-        get_template_part( 'template-parts/content', 'loop' );
-        // ループ後にリセット
-        wp_reset_postdata();
-        // 元の $wp_query を戻す
-        $wp_query = $original_query;
-      else :
+      // グローバル $wp_query には一時的に $news_query が入っている想定なので、the_posts_pagination() が効く
+      // ただし、wp_reset_postdata() 後に $wp_query は戻っているため、再度クエリオブジェクトを渡すか
+      // get_the_posts_pagination() 関数を使う方法もあります。ここでは簡潔に get_the_posts_pagination() を利用。
+
+      echo get_the_posts_pagination( array(
+        'mid_size'  => 1,
+        'prev_text' => __( '« 前へ', 'sanai-textdomain' ),
+        'next_text' => __( '次へ »', 'sanai-textdomain' ),
+      ) );
       ?>
-        <li class="topics__item"><?php esc_html_e( '現在、お知らせはありません。', 'sanai-textdomain' ); ?></li>
-      <?php endif; ?>
-    </div>
-    <div class="topics__more text-end">
-      <a href="<?php echo esc_url( home_url( '/topics/' ) ); ?>" class="topics__more-link"><?php esc_html_e( '一覧を見る', 'sanai-textdomain' ); ?></a>
-    </div>
-  </section>
+    </nav>
+  <?php endif; ?>
+
+  <div class="topics__more text-end">
+    <a href="<?php echo esc_url( home_url( '/topics/' ) ); ?>" class="topics__more-link"><?php esc_html_e( '一覧を見る', 'sanai-textdomain' ); ?></a>
+  </div>
+</section>
+
 
   <!-- Recruit バナー -->
   <section id="recruit" class="recruit-banner">
