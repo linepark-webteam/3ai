@@ -8,13 +8,14 @@
 --------------------------------------------------*/
 :root {
   /* Color tokens */
-  --c-primary: #F6A62E;
+  --c-primary: #f6a62e;
   --c-primary-dark: #d98b14;
-  --c-secondary: #35495E;
+  --c-secondary: #35495e;
   --c-secondary-light: #50677e;
-  --c-bg: #F8F8F8;
+  --c-bg: #f8f8f8;
   --c-white: #ffffff;
   --c-black: #0d0d0d;
+  --c-navy: #1a2854;
 
   /* Font Size */
   --fs-xs: 0.75rem;
@@ -87,15 +88,26 @@ img {
   text-align: center;
 }
 
-/*--------------------------------------------------
-  ヘッダー共通スタイル
---------------------------------------------------*/
+/*==================================================
+  Header カスタマイズ
+  ────────────────────────────────────────────────
+  - 背景色を #1a2854 に変更
+  - .container をフル幅化して左右端に寄せる
+  - ナビ・ハンバーガーを白基調に
+==================================================*/
 .site-header {
-  background-color: var(--c-white);
+  background-color: var(--c-navy);
   position: sticky;
   top: 0;
   z-index: 100;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.site-header .container {
+  width: 100%;
+  max-width: none;
+  margin: 0;
+  padding: 0 1rem; /* 必要に応じて左右余白を調整 */
 }
 
 .header-inner {
@@ -107,7 +119,10 @@ img {
 
 /* ロゴ */
 .logo img {
-  height: 40px;
+  /* 画像がない場合にaltテキストの色 */
+  color: var(--c-white);
+  /* フォントサイズも一応指定 */
+  font-size: 1rem;
 }
 
 /* グローバルナビゲーション（PC） */
@@ -120,7 +135,7 @@ img {
 }
 
 .global-nav__item a {
-  color: var(--c-secondary);
+  color: var(--c-white);
   font-size: var(--fs-base);
   text-decoration: none;
   font-weight: 500;
@@ -140,18 +155,22 @@ img {
   gap: 5px;
   padding: 0;
 }
+
 .hamburger__line {
   width: 25px;
   height: 3px;
-  background-color: var(--c-secondary);
+  background-color: var(--c-white);
   transition: transform 0.3s ease;
 }
+
 .hamburger.is-active .hamburger__line:nth-child(1) {
   transform: translateY(8px) rotate(45deg);
 }
+
 .hamburger.is-active .hamburger__line:nth-child(2) {
   opacity: 0;
 }
+
 .hamburger.is-active .hamburger__line:nth-child(3) {
   transform: translateY(-8px) rotate(-45deg);
 }
@@ -163,24 +182,31 @@ img {
   top: 80px;
   left: 0;
   width: 100%;
-  background-color: var(--c-white);
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  background-color: var(--c-navy);
 }
+
 .mobile-nav.is-open {
   display: block;
 }
+
 .mobile-nav__list {
   list-style: none;
   margin: 0;
   padding: 1rem;
 }
+
 .mobile-nav__item + .mobile-nav__item {
   margin-top: 1rem;
 }
+
 .mobile-nav__item a {
-  color: var(--c-secondary);
+  color: var(--c-white);
   font-size: var(--fs-lg);
   text-decoration: none;
+}
+
+.mobile-nav__item a:hover {
+  color: var(--c-primary);
 }
 
 /* スマホ表示時 */
@@ -197,7 +223,7 @@ img {
   フッター共通スタイル
 --------------------------------------------------*/
 .site-footer {
-  background-color: var(--c-secondary);
+  background-color: var(--c-navy);
   color: var(--c-white);
   padding: 2rem 0;
 }
