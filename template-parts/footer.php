@@ -7,18 +7,18 @@
 <!-- フッター -->
 <footer class="site-footer">
   <div class="footer-inner container">
-    <!-- フッターナビゲーション -->
+
     <?php
-    wp_nav_menu(
-      array(
-        'theme_location' => 'footer_nav',
-        'container'      => 'nav',
-        'container_class' => 'footer-nav',
-        'menu_class'     => 'footer-nav__list',
-        'fallback_cb'    => false,
-        'depth'          => 1,
-      )
-    );
+    // フッターナビゲーション
+    wp_nav_menu([
+      'theme_location'  => 'footer_nav',
+      'container'       => 'nav',
+      'container_class' => 'footer-nav',
+      'menu_class'     => 'footer-nav__list',
+      'depth'          => 1,
+      // 未設定時はデフォルトのナビゲーションを出力
+      'fallback_cb'     => 'sanai_default_global_nav',
+    ]);
     ?>
 
     <!-- 住所（固定テキスト or ウィジェット化してもよい） -->
