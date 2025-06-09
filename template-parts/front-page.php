@@ -109,55 +109,49 @@ get_header();
 
   <ul class="topics__list">
     <?php
-    // カスタムクエリの準備（paged を含める）
     $paged = get_query_var( 'paged', 1 );
-    $news_args = array(
-      'post_type'      => 'post',
-      'posts_per_page' => 3,
+    $notice_args = array(
+      'post_type'      => 'notice',
+      'posts_per_page' => 5,         // 表示件数
       'orderby'        => 'date',
       'order'          => 'DESC',
       'paged'          => $paged,
     );
-    $news_query = new WP_Query( $news_args );
+    $notice_query = new WP_Query( $notice_args );
 
-    if ( $news_query->have_posts() ) :
-      // メインクエリを退避し、グローバルを上書き
-      $original_query = $wp_query;
-      $wp_query       = $news_query;
-
-      // ループ本体（<li>～</li> を出力）
-      get_template_part( 'template-parts/content', 'loop' );
-
-      // ループ終了後にリセット
+    if ( $notice_query->have_posts() ) :
+      while ( $notice_query->have_posts() ) : $notice_query->the_post();
+        get_template_part( 'template-parts/content', 'notice' );
+      endwhile;
       wp_reset_postdata();
-      $wp_query = $original_query;
     else :
-      // 投稿がない場合も <li> を出すため、content-loop.php の else 部分が出力される
-      get_template_part( 'template-parts/content', 'loop' );
+      // 投稿がない場合のフォールバック
+      echo '<li class="topics__item">'
+         . esc_html__( 'お知らせはまだありません。', 'sanai-textdomain' )
+         . '</li>';
     endif;
     ?>
   </ul>
 
-  <?php if ( $news_query->max_num_pages > 1 ) : ?>
-    <nav class="topics__pagination" aria-label="<?php esc_attr_e( 'お知らせのページナビゲーション', 'sanai-textdomain' ); ?>">
+  <?php if ( $notice_query->max_num_pages > 1 ) : ?>
+    <nav class="topics__pagination" aria-label="<?php esc_attr_e( 'お知らせ ページナビゲーション', 'sanai-textdomain' ); ?>">
       <?php
-      // グローバル $wp_query には一時的に $news_query が入っている想定なので、the_posts_pagination() が効く
-      // ただし、wp_reset_postdata() 後に $wp_query は戻っているため、再度クエリオブジェクトを渡すか
-      // get_the_posts_pagination() 関数を使う方法もあります。ここでは簡潔に get_the_posts_pagination() を利用。
-
       echo get_the_posts_pagination( array(
         'mid_size'  => 1,
         'prev_text' => __( '« 前へ', 'sanai-textdomain' ),
         'next_text' => __( '次へ »', 'sanai-textdomain' ),
+        'screen_reader_text' => __( 'お知らせのページナビゲーション', 'sanai-textdomain' ),
       ) );
       ?>
     </nav>
   <?php endif; ?>
 
   <div class="topics__more text-end">
-    <a href="<?php echo esc_url( home_url( '/topics/' ) ); ?>" class="topics__more-link"><?php esc_html_e( '一覧を見る', 'sanai-textdomain' ); ?></a>
+    <a href="<?php echo esc_url( home_url( '/topics/' ) ); ?>"
+       class="topics__more-link"><?php esc_html_e( '一覧を見る', 'sanai-textdomain' ); ?></a>
   </div>
 </section>
+
 
 
   <!-- Recruit バナー -->
