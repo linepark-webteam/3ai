@@ -24,11 +24,17 @@
     <!-- 会社情報 -->
     <div class="footer-company">
       <p>免許番号：神奈川県知事（7）第21620号</p>
+      <?php if (function_exists('the_custom_logo') && has_custom_logo()) : ?>
+        <div class="logo"><?php the_custom_logo(); ?></div>
+      <?php else : ?>
+        <img src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/img/logo.png" alt="<?php bloginfo('name'); ?>" />
+      <?php endif; ?>
       <address>
-        〒241-0022<br>
-        横浜市旭区鶴ヶ峰2丁目2-3<br>
-        TEL：<a href="tel:0459512722">045-951-2722</a>　FAX：045-951-2725
+        <p>〒241-0022</p>
+        <p>横浜市旭区鶴ヶ峰2丁目2-3</p>
       </address>
+      <p>TEL：<a href="tel:0459512722">045-951-2722</a></p>
+      <p>FAX：045-951-2725</p>
       <p>営業時間：9:30～18:30</p>
       <p>定休日：水曜日</p>
     </div>
@@ -40,4 +46,5 @@
 
 <?php wp_footer(); ?>
 </body>
+
 </html>
