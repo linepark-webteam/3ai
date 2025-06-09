@@ -1,5 +1,5 @@
 /*==================================================
-  Home (TOP) Specific Styles (/css/top.css)
+  Home (TOP) Specific Styles (assets/css/top.css)
 ==================================================*/
 
 /*------------------------------
@@ -9,7 +9,7 @@
   position: relative;
   height: 85vh;
   min-height: 480px;
-  background: url("../img/top-hero-01.webp") center/cover no-repeat;
+  background: url("../img/top-hero-01.jpg") center/cover no-repeat;
   display: flex;
   align-items: center;
   justify-content: center;
