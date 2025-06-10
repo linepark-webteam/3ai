@@ -23,12 +23,13 @@
 
     <!-- 会社情報 -->
     <div class="footer-company">
-      <p>免許番号：神奈川県知事（7）第21620号</p>
       <?php if (function_exists('the_custom_logo') && has_custom_logo()) : ?>
         <div class="logo"><?php the_custom_logo(); ?></div>
       <?php else : ?>
         <img src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/img/logo.png" alt="<?php bloginfo('name'); ?>" />
       <?php endif; ?>
+
+      <p>免許番号：神奈川県知事（7）第21620号</p>
       <address>
         <p>〒241-0022</p>
         <p>横浜市旭区鶴ヶ峰2丁目2-3</p>
@@ -40,7 +41,7 @@
     </div>
 
     <!-- コピーライト -->
-    <p class="copyright">&copy; <?php echo date('Y'); ?> 三愛不動産管理. All Rights Reserved.</p>
+    <p class="copyright">&copy; 2025 三愛不動産管理. All Rights Reserved.</p>
   </div>
 </footer>
 
