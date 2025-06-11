@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Template Name: 採用ページ
  * template-parts/page-recruit.php
@@ -12,17 +13,13 @@ get_header();
 
 <main>
   <!-- Hero -->
-  <?php get_template_part( 'template-parts/section', 'hero' ); ?>
+  <?php get_template_part('template-parts/section', 'hero'); ?>
 
   <!-- Recruit -->
-      <section id="recruit" class="recruit section container">
-        <div class="recruit__content text-center py-5">
-          <p><?php esc_html_e( '只今準備中です。掲載まで今しばらくお待ちください。', 'sanai-textdomain' ); ?></p>
-        </div>
-      </section>
+  <?php get_template_part('template-parts/section', 'recruit'); ?>
 
   <!-- CTA -->
-  <?php get_template_part( 'template-parts/section', 'cta' ); ?>
+  <?php get_template_part('template-parts/section', 'cta'); ?>
 </main>
 
 <?php
