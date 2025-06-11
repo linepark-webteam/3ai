@@ -1,27 +1,29 @@
 <?php
 /**
+ * Template Name: 採用ページ
  * template-parts/page-recruit.php
- * 採用ページテンプレート
  * 
+ * @package Sanai_WP_Theme
+ * @since 1.0.0
  */
+
 get_header();
 ?>
 
 <main>
-  <section id="recruit" class="recruit section container">
-    <header class="recruit__header">
-      <h1 class="recruit__title"><?php the_title(); ?></h1>
-    </header>
-    <div class="recruit__content">
-      <?php
-      if ( have_posts() ) :
-        while ( have_posts() ) : the_post();
-          the_content();  // 管理画面で入力された本文を出力
-        endwhile;
-      endif;
-      ?>
-    </div>
-  </section>
+  <!-- Hero -->
+  <?php get_template_part( 'template-parts/section', 'hero' ); ?>
+
+  <!-- Recruit -->
+      <section id="recruit" class="recruit section container">
+        <div class="recruit__content text-center py-5">
+          <p><?php esc_html_e( '只今準備中です。掲載まで今しばらくお待ちください。', 'sanai-textdomain' ); ?></p>
+        </div>
+      </section>
+
+  <!-- CTA -->
+  <?php get_template_part( 'template-parts/section', 'cta' ); ?>
 </main>
 
-<?php get_footer(); ?>
+<?php
+get_footer();

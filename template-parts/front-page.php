@@ -12,7 +12,6 @@ get_header();
 ?>
 
 <main>
-<main>
   <!-- Hero -->
   <?php get_template_part('template-parts/section', 'hero'); ?>
 
@@ -30,8 +29,6 @@ get_header();
 
   <!-- CTA -->
   <?php get_template_part('template-parts/section', 'cta'); ?>
-</main>
-
 </main>
 
 <?php

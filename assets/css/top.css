@@ -252,28 +252,6 @@
   margin-bottom: 1.5rem;
 }
 
-/*------------------------------
-  CTA セクション
-------------------------------*/
-.cta {
-  background-color: var(--c-secondary-light);
-  color: var(--c-white);
-}
-
-.cta__title {
-  font-size: var(--fs-xl);
-  font-weight: 700;
-  margin-bottom: 1rem;
-}
-
-.cta__tel a {
-  color: var(--c-white);
-  font-size: 1.75rem;
-  font-weight: 700;
-  text-decoration: none;
-  margin-bottom: 1.5rem;
-  display: inline-block;
-}
 
 /*------------------------------
   レスポンシブ調整
