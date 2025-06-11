@@ -12,8 +12,8 @@ get_header();
 ?>
 
 <main>
-  <!-- Hero -->
-  <?php get_template_part('template-parts/section', 'hero'); ?>
+  <!-- Subhero -->
+  <?php get_template_part( 'template-parts/section', 'subhero' ); ?>
 
   <!-- Recruit -->
   <?php get_template_part('template-parts/section', 'recruit'); ?>

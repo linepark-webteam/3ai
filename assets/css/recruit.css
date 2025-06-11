@@ -1,0 +1,92 @@
+/*==================================================
+  Recruit Specific Styles (assets/css/recruit.css)
+==================================================*/
+
+/*------------------------------
+  Subhero Section（下層ページ共通サブヒーロー）
+------------------------------*/
+.subhero {
+  background-color: var(--c-secondary-light); /* サブヒーロー用背景色 */
+  padding: 4rem 0;
+  text-align: center;
+}
+.subhero__inner {
+  max-width: 800px;
+  margin: 0 auto;
+}
+.subhero__title {
+  font-size: clamp(2rem, 5vw, 3rem);
+  font-weight: 700;
+  color: var(--c-primary-dark);
+  margin: 0;
+}
+
+/*------------------------------
+  Recruit Section（採用ページ用）
+------------------------------*/
+.recruit {
+  padding: 4rem 0;
+  background-color: var(--c-white);
+}
+.recruit__header {
+  margin-bottom: 2rem;
+  text-align: center;
+}
+.recruit__title {
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  font-weight: 700;
+  color: var(--c-secondary-dark);
+}
+.recruit__content {
+  max-width: 720px;
+  margin: 0 auto;
+  line-height: 1.8;
+  color: var(--c-secondary);
+}
+.recruit__content p {
+  margin-bottom: 1.5rem;
+}
+.recruit__content ul,
+.recruit__content ol {
+  margin: 1rem 0 1.5rem 1.5rem;
+}
+.recruit__content a {
+  color: var(--c-primary);
+  text-decoration: underline;
+}
+.recruit__content a:hover {
+  text-decoration: none;
+}
+
+/*------------------------------
+  レスポンシブ調整
+------------------------------*/
+@media (max-width: 992px) {
+  .subhero {
+    padding: 3rem 0;
+  }
+  .recruit {
+    padding: 3rem 0;
+  }
+  .recruit-banner {
+    height: 40vh;
+  }
+}
+
+@media (max-width: 576px) {
+  .subhero {
+    padding: 2rem 0;
+  }
+  .subhero__title {
+    font-size: clamp(1.5rem, 6vw, 2.25rem);
+  }
+  .recruit__title {
+    font-size: clamp(1.5rem, 6vw, 2rem);
+  }
+  .recruit__content {
+    padding: 0 1rem;
+  }
+  .recruit-banner__title {
+    font-size: clamp(1.25rem, 6vw, 1.75rem);
+  }
+}
