@@ -15,9 +15,17 @@
   margin: 0 auto;
 }
 .subhero__title {
-  font-size: clamp(2rem, 5vw, 3rem);
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
   font-weight: 700;
-  color: var(--c-primary-dark);
+  color: #ffffff; /* 本体ホワイト */
+  /* prettier-ignore */
+  text-shadow:
+    -1px -1px 10px #1a2854,  /* 左上 */
+     1px -1px 10px #1a2854,  /* 右上 */
+    -1px  1px 10px #1a2854,  /* 左下 */
+     1px  1px 10px #1a2854; /* 右下 */
+  /* 文字の見切れ対策 */
+  display: inline-block;
   margin: 0;
 }
 
