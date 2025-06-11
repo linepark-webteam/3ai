@@ -6,27 +6,8 @@
   Subhero Section（下層ページ共通サブヒーロー）
 ------------------------------*/
 .subhero {
-  background-color: var(--c-secondary-light); /* サブヒーロー用背景色 */
-  padding: 4rem 0;
-  text-align: center;
-}
-.subhero__inner {
-  max-width: 800px;
-  margin: 0 auto;
-}
-.subhero__title {
-  font-size: clamp(1.75rem, 4vw, 2.5rem);
-  font-weight: 700;
-  color: #ffffff; /* 本体ホワイト */
-  /* prettier-ignore */
-  text-shadow:
-    -1px -1px 10px #1a2854,  /* 左上 */
-     1px -1px 10px #1a2854,  /* 右上 */
-    -1px  1px 10px #1a2854,  /* 左下 */
-     1px  1px 10px #1a2854; /* 右下 */
-  /* 文字の見切れ対策 */
-  display: inline-block;
-  margin: 0;
+  /* recruitのsubhero用の画像を後ほど指定 */
+  /* background: url("../img/subhero-recruit-bg.jpg") center/cover no-repeat; */ 
 }
 
 /*------------------------------
@@ -70,9 +51,6 @@
   レスポンシブ調整
 ------------------------------*/
 @media (max-width: 992px) {
-  .subhero {
-    padding: 3rem 0;
-  }
   .recruit {
     padding: 3rem 0;
   }
@@ -82,12 +60,6 @@
 }
 
 @media (max-width: 576px) {
-  .subhero {
-    padding: 2rem 0;
-  }
-  .subhero__title {
-    font-size: clamp(1.5rem, 6vw, 2.25rem);
-  }
   .recruit__title {
     font-size: clamp(1.5rem, 6vw, 2rem);
   }
