@@ -264,6 +264,29 @@ img {
   margin: 0;
 }
 
+
+/*------------------------------
+  ボタン 共通スタイル
+------------------------------*/
+/* .btn は Bootstrap のクラスを活用 */
+.btn--cta {
+  background-color: var(--c-primary);
+  color: var(--c-white);
+  font-size: var(--fs-lg);
+  font-weight: 700;
+  padding: 0.75rem 2rem;
+  border-radius: 2rem;
+  transition: background-color 0.3s ease;
+  display: inline-block;
+  text-decoration: none;
+}
+.btn--cta:hover,
+.btn--cta:focus {
+  background-color: var(--c-primary-dark);
+  color: var(--c-white);
+}
+
+
 /*------------------------------
   CTA （お問い合わせ）セクション共通スタイル
 ------------------------------*/
