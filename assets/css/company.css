@@ -2,6 +2,10 @@
   Company Specific Styles (assets/css/company.css)
 ==================================================*/
 
+:root {
+  --greeting-width: clamp(300px, 75vw, 900px);
+}
+
 .subhero {
   /* companyのsubhero用の画像を後ほど指定 */
   /* background: url("../img/subhero-company-bg.jpg") center/cover no-repeat; */ 
@@ -24,9 +28,10 @@
   width: 100%;
   display: flex;
   justify-content: center;
+
 }
 .greeting__image {
-  width: clamp(300px, 75vw, 900px);
+  width: var(--greeting-width);
   height: auto;
   border-radius: 10px;
 }
@@ -34,8 +39,9 @@
 /* メッセージ部分 */
 .greeting__message {
   position: relative;
-  max-width: 800px;
-  width: 100%;
+  /* 画像と同じ幅にする */
+  width: var(--greeting-width);
+  margin: 0 auto;      /* 中央寄せ */
   padding: 1rem;
 }
 
@@ -45,7 +51,10 @@
   margin-top: 1.5rem;
   text-align: right;
   font-weight: 700;
-  font-size: 1rem;
+  /* フォントサイズを少し大きく */
+  font-size: clamp(1rem, 2vw, 1.5rem);
+  /* 行間も適宜調整 */
+  line-height: 1.4;
 }
 
 
