@@ -28,7 +28,7 @@
 .greeting__image {
   width: clamp(300px, 75vw, 900px);
   height: auto;
-  border-radius: 5%;
+  border-radius: 10px;
 }
 
 /* メッセージ部分 */
