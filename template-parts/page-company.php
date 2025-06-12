@@ -25,6 +25,9 @@ get_header();
 
     <!-- 地図埋め込み -->
     <?php get_template_part('template-parts/section', 'map'); ?>
+
+    <!-- CTA -->
+    <?php get_template_part('template-parts/section', 'cta'); ?>
 </main>
 
 <?php get_footer(); ?>
