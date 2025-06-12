@@ -8,18 +8,46 @@
 }
 
 
-/* Greeting */
+/* ================================
+   代表挨拶（greeting）セクション
+   ================================ */
 .greeting__inner {
   display: flex;
-  flex-wrap: wrap;
+  flex-direction: column;
   align-items: center;
   gap: 2rem;
+  text-align: left; /* メッセージは左揃え */
 }
-.greeting__image img {
-  width: 200px;
+
+/* 写真を中央に大きく */
+.greeting__figure {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+.greeting__image {
+  width: clamp(300px, 75vw, 900px);
   height: auto;
-  border-radius: 50%;
+  border-radius: 5%;
 }
+
+/* メッセージ部分 */
+.greeting__message {
+  position: relative;
+  max-width: 800px;
+  width: 100%;
+  padding: 1rem;
+}
+
+/* 署名を右下に */
+.greeting__signature {
+  display: block;
+  margin-top: 1.5rem;
+  text-align: right;
+  font-weight: 700;
+  font-size: 1rem;
+}
+
 
 /* Company Info Table */
 .company-info__table {
