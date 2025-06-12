@@ -1,6 +1,6 @@
 <?php
 /**
- * template-parts/section-cts.php
+ * template-parts/section-cta.php
  * お問い合わせ CTA 用テンプレートパーツ
  * 
  * @package Sanai_WP_Theme

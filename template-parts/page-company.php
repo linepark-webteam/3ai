@@ -17,15 +17,14 @@ get_header();
     <!-- 代表挨拶 -->
     <?php get_template_part('template-parts/section', 'greeting'); ?>
 
-
     <!-- 会社情報テーブル -->
     <?php get_template_part('template-parts/section', 'company-info'); ?>
 
     <!-- 社屋紹介 -->
-<?php get_template_part( 'template-parts/section', 'office' ); ?>
+    <?php get_template_part('template-parts/section', 'office'); ?>
 
     <!-- 地図埋め込み -->
-<?php get_template_part( 'template-parts/section', 'map' ); ?>
+    <?php get_template_part('template-parts/section', 'map'); ?>
 </main>
 
 <?php get_footer(); ?>

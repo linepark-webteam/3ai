@@ -1,3 +1,14 @@
+<?php
+
+/**
+ * template-parts/section-map.php
+ * 会社概要 所在地地図 用テンプレートパーツ
+ * 
+ * @package Sanai_WP_Theme
+ * @since 1.0.0
+ */
+?>
+
 <section class="map section container">
   <h2 class="section-title">所在地地図</h2>
   <div class="map__embed">
