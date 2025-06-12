@@ -2,9 +2,6 @@
   Recruit Specific Styles (assets/css/recruit.css)
 ==================================================*/
 
-/*------------------------------
-  Subhero Section（下層ページ共通サブヒーロー）
-------------------------------*/
 .subhero {
   /* recruitのsubhero用の画像を後ほど指定 */
   /* background: url("../img/subhero-recruit-bg.jpg") center/cover no-repeat; */ 

@@ -1,0 +1,54 @@
+/*==================================================
+  Company Specific Styles (assets/css/company.css)
+==================================================*/
+
+.subhero {
+  /* companyのsubhero用の画像を後ほど指定 */
+  /* background: url("../img/subhero-company-bg.jpg") center/cover no-repeat; */ 
+}
+
+
+/* Greeting */
+.greeting__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 2rem;
+}
+.greeting__image img {
+  width: 200px;
+  height: auto;
+  border-radius: 50%;
+}
+
+/* Company Info Table */
+.company-info__table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.company-info__table th,
+.company-info__table td {
+  border: 1px solid #ddd;
+  padding: 0.75rem;
+}
+.company-info__table th {
+  width: 30%;
+  background-color: #f5f5f5;
+  text-align: left;
+}
+
+/* Office Photo */
+.office__photo {
+  text-align: center;
+}
+.office__photo img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 0.5rem;
+}
+
+/* Map Embed */
+.map__embed iframe {
+  border: 0;
+  border-radius: 0.5rem;
+}

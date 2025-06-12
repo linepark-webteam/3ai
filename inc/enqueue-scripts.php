@@ -62,6 +62,18 @@ function sanai_enqueue_assets()
 
     // 6. recruit.css（採用ページ専用）
     //  template-parts/ 以下ではなく、ルート直下の page-recruit.php を指定
+    if (is_page('company')) {
+        wp_enqueue_style(
+            'sanai-company',
+            get_template_directory_uri() . '/assets/css/company.css',
+            array('sanai-common'),
+            $theme_version,
+            'all'
+        );
+    }
+
+    // 7. recruit.css（採用ページ専用）
+    //  template-parts/ 以下ではなく、ルート直下の page-recruit.php を指定
     if (is_page('recruit')) {
         wp_enqueue_style(
             'sanai-recruit',
@@ -72,7 +84,7 @@ function sanai_enqueue_assets()
         );
     }
 
-    // 7. テーマ独自の JS を読み込む場合（必要に応じて）
+    // 8. テーマ独自の JS を読み込む場合（必要に応じて）
     // wp_enqueue_script(
     //   'sanai-main-js',
     //   get_template_directory_uri() . '/assets/js/main.js',
