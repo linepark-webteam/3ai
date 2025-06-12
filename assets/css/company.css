@@ -3,14 +3,13 @@
 ==================================================*/
 
 :root {
-  --greeting-width: clamp(300px, 75vw, 900px);
+  --company-width: clamp(300px, 75vw, 900px);
 }
 
 .subhero {
   /* companyのsubhero用の画像を後ほど指定 */
-  /* background: url("../img/subhero-company-bg.jpg") center/cover no-repeat; */ 
+  /* background: url("../img/subhero-company-bg.jpg") center/cover no-repeat; */
 }
-
 
 /* ================================
    代表挨拶（greeting）セクション
@@ -28,10 +27,9 @@
   width: 100%;
   display: flex;
   justify-content: center;
-
 }
 .greeting__image {
-  width: var(--greeting-width);
+  width: var(--company-width);
   height: auto;
   border-radius: 10px;
 }
@@ -40,8 +38,8 @@
 .greeting__message {
   position: relative;
   /* 画像と同じ幅にする */
-  width: var(--greeting-width);
-  margin: 0 auto;      /* 中央寄せ */
+  width: var(--company-width);
+  margin: 0 auto; /* 中央寄せ */
   padding: 1rem;
 }
 
@@ -57,11 +55,17 @@
   line-height: 1.4;
 }
 
-
 /* Company Info Table */
+.company-info {
+  display: flex;
+  flex-direction: column;  /* 見出し→テーブル の縦並び */
+  align-items: center;     /* 子要素を横方向中央寄せ */
+}
+
 .company-info__table {
-  width: 100%;
+  width: var(--company-width);
   border-collapse: collapse;
+  margin: 2rem auto;
 }
 .company-info__table th,
 .company-info__table td {
@@ -74,18 +78,35 @@
   text-align: left;
 }
 
-/* Office Photo */
+/* 社屋写真セクション */
+.office {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 .office__photo {
-  text-align: center;
+  width: var(--company-width);
+  text-align: left;
 }
 .office__photo img {
-  max-width: 100%;
+  width: var(--company-width);
   height: auto;
   border-radius: 0.5rem;
+  display: block;
+  margin: 1.5rem auto;
 }
 
 /* Map Embed */
+.map {
+  display: flex;
+  flex-direction: column;
+  align-items: center;     /* iframe を中央寄せ */
+}
+
 .map__embed iframe {
+  display: block;
+  width: var(--company-width);
   border: 0;
   border-radius: 0.5rem;
+  margin: 1.5rem auto;
 }
