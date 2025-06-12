@@ -11,6 +11,7 @@ get_header();
 ?>
 
 <main id="mainContent">
+
     <!-- Subhero -->
     <?php get_template_part('template-parts/section', 'subhero'); ?>
 
@@ -28,6 +29,7 @@ get_header();
 
     <!-- CTA -->
     <?php get_template_part('template-parts/section', 'cta'); ?>
+
 </main>
 
 <?php get_footer(); ?>
