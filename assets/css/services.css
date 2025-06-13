@@ -1,0 +1,111 @@
+/*==================================================
+  Services Specific Styles (assets/css/services.css)
+==================================================*/
+
+/* Overview */
+.services__overview {
+  margin: 2rem 0;
+}
+.services__overview-text {
+  font-size: 1rem;
+  max-width: 800px;
+  margin: 0 auto;
+  color: #555;
+  text-align: center;
+}
+
+/* Navigation */
+.services__nav {
+  margin: 3rem 0;
+}
+.services__nav-list {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.services__nav-item {
+}
+.services__nav-link {
+  display: block;
+  padding: 0.5rem 1rem;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  background-color: #f9f9f9;
+  text-decoration: none;
+  color: #333;
+  transition: background-color 0.3s, color 0.3s;
+}
+.services__nav-link:hover,
+.services__nav-link:focus {
+  background-color: #333;
+  color: #fff;
+}
+
+/* Service Detail */
+.services__detail {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin: 4rem 0;
+}
+.services__detail:nth-child(even) {
+  flex-direction: row-reverse;
+}
+.services__detail-number {
+  font-size: 0.875rem;
+  color: #888;
+  margin-bottom: 0.5rem;
+}
+.services__detail-title--en {
+  font-size: 1.125rem;
+  color: #666;
+  text-transform: uppercase;
+  margin: 0;
+}
+.services__detail-title--jp {
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin: 0.5rem 0 1rem;
+}
+.services__detail-text {
+  flex: 1 1 60%;
+  padding: 1rem;
+}
+.services__detail-list {
+  list-style: disc inside;
+  margin: 0 0 1rem;
+  padding: 0;
+}
+.services__detail-list-item {
+  margin-bottom: 0.5rem;
+  color: #444;
+}
+.services__detail-image {
+  flex: 1 1 40%;
+  padding: 1rem;
+}
+.services__detail-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+}
+
+/*----------------------------------------
+  レスポンシブ
+----------------------------------------*/
+@media (max-width: 768px) {
+  .services__detail {
+    flex-direction: column;
+  }
+  .services__detail:nth-child(even) {
+    flex-direction: column;
+  }
+  .services__nav-list {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+}

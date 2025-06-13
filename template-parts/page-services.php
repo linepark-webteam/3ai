@@ -10,12 +10,19 @@
 get_header();
 ?>
 
-<main id="mainContent">
+<main id="mainContent" class="page-services">
 
     <!-- Subhero -->
     <?php get_template_part('template-parts/section', 'subhero'); ?>
 
+    <!-- Overview -->
+    <?php get_template_part('template-parts/section-services', 'overview'); ?>
 
+    <!-- Navigation -->
+    <?php get_template_part('template-parts/section-services', 'nav'); ?>
+
+    <!-- Service Details -->
+    <?php get_template_part('template-parts/section-services', 'details'); ?>
 
     <!-- CTA -->
     <?php get_template_part('template-parts/section', 'cta'); ?>
