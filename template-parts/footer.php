@@ -1,5 +1,4 @@
 <?php
-
 /**
  * フッターテンプレート (template-parts/footer.php)
  */
@@ -10,7 +9,7 @@
 
     <?php
     // フッターナビゲーション
-    wp_nav_menu([
+    wp_nav_menu( [
       'theme_location'  => 'footer_nav',
       'container'       => 'nav',
       'container_class' => 'footer-nav',
@@ -18,34 +17,51 @@
       'depth'           => 1,
       // 未設定時はデフォルトのナビゲーションを出力
       'fallback_cb'     => 'sanai_default_global_nav',
-    ]);
+    ] );
     ?>
 
     <!-- 会社情報 -->
     <div class="footer-company">
-      <?php if (function_exists('the_custom_logo') && has_custom_logo()) : ?>
+      <?php if ( function_exists( 'the_custom_logo' ) && has_custom_logo() ) : ?>
         <div class="logo"><?php the_custom_logo(); ?></div>
       <?php else : ?>
-        <img src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/img/logo.png" alt="<?php bloginfo('name'); ?>" />
+        <img
+          src="<?php echo esc_url( get_template_directory_uri() . '/assets/img/logo.png' ); ?>"
+          alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>"
+        />
       <?php endif; ?>
 
-      <p>免許番号：神奈川県知事（7）第21620号</p>
+      <p><?php echo esc_html__( '免許番号：神奈川県知事（7）第21620号', 'sanai-textdomain' ); ?></p>
       <address>
-        <p>〒241-0022</p>
-        <p>横浜市旭区鶴ヶ峰2丁目2-3</p>
+        <p><?php echo esc_html__( '〒241-0022', 'sanai-textdomain' ); ?></p>
+        <p><?php echo esc_html__( '横浜市旭区鶴ヶ峰2丁目2-3', 'sanai-textdomain' ); ?></p>
       </address>
-      <p>TEL：<a href="tel:0459512722">045-951-2722</a></p>
-      <p>FAX：045-951-2725</p>
-      <p>営業時間：9:30～18:30</p>
-      <p>定休日：水曜日</p>
+      <p>
+        <?php echo esc_html__( 'TEL：', 'sanai-textdomain' ); ?>
+        <a href="tel:<?php echo esc_attr( '0459512722' ); ?>">
+          <?php echo esc_html( '045-951-2722' ); ?>
+        </a>
+      </p>
+      <p>
+        <?php echo esc_html__( 'FAX：', 'sanai-textdomain' ); ?>
+        <?php echo esc_html( '045-951-2725' ); ?>
+      </p>
+      <p>
+        <?php echo esc_html__( '営業時間：9:30～18:30', 'sanai-textdomain' ); ?>
+      </p>
+      <p>
+        <?php echo esc_html__( '定休日：水曜日', 'sanai-textdomain' ); ?>
+      </p>
     </div>
 
     <!-- コピーライト -->
-    <p class="copyright">&copy; 2025 三愛不動産管理. All Rights Reserved.</p>
+    <p class="copyright">
+      &copy; <?php echo esc_html( date( 'Y' ) ); ?>
+      <?php echo esc_html__( '三愛不動産管理. All Rights Reserved.', 'sanai-textdomain' ); ?>
+    </p>
   </div>
 </footer>
 
 <?php wp_footer(); ?>
 </body>
-
 </html>

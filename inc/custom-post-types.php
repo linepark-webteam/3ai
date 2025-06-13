@@ -34,17 +34,19 @@ function sanai_register_property_cpt() {
     $args = array(
         'labels'             => $labels,
         'public'             => true,
-        'has_archive'        => 'property',
+        // アーカイブを有効化し、スラッグを corp-property-list に
+        'has_archive'        => 'corp-property-list',
         'show_in_rest'       => true,
         'menu_position'      => 5,
         'menu_icon'          => 'dashicons-building',
-        'supports'           => array( 'title', 'editor', 'thumbnail', 'custom-fields' ),
-        'rewrite'            => array(
-            'slug'       => 'property',
+        'supports'           => [ 'title', 'editor', 'thumbnail', 'custom-fields' ],
+        'rewrite'            => [
+            // 一覧ページ URL を /corp-property-list/ に
+            'slug'       => 'corp-property-list',
             'with_front' => false,
-        ),
+        ],
         'capability_type'    => 'post',
-        'taxonomies'         => array( 'category', 'post_tag' ),
+        'taxonomies'         => [ 'category', 'post_tag' ],
         'hierarchical'       => false,
         'exclude_from_search'=> false,
         'publicly_queryable' => true,
