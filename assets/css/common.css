@@ -291,6 +291,7 @@ img {
 }
 
 .subhero__title {
+  position: relative;
   font-size: clamp(1.75rem, 4vw, 2.5rem);
   font-weight: 700;
   color: #ffffff; /* 本体ホワイト */
@@ -304,6 +305,84 @@ img {
   display: inline-block;
   margin: 0;
 }
+.subhero__title::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -0.5rem; /* 見出し下の距離 */
+  width: 100%; /* ラインの長さ */
+  height: 4px; /* ラインの太さ */
+  background-color: var(--c-primary);
+  border-radius: 2px;
+}
+
+/* 下層ページタイトルのアニメーション 3種類 */
+/* 1. 左から右へスライドイン */
+/* アニメーション定義 */
+@keyframes underline-slide {
+  from { width: 0; }
+  to   { width: 100%; }
+}
+
+/* 適用クラス */
+.underline-slide::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -0.5rem;
+  height: 4px;
+  background-color: var(--c-primary);
+  border-radius: 2px;
+  width: 0;
+  /* アニメーションをロード時に一度だけ実行 */
+  animation: underline-slide 0.6s ease-out forwards;
+}
+
+/* 2. センターから両サイドへ広がる */
+/* アニメーション定義 */
+@keyframes underline-expand {
+  from { transform: scaleX(0); }
+  to   { transform: scaleX(1); }
+}
+/* 適用クラス */
+.underline-expand::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -0.5rem;
+  height: 4px;
+  background-color: var(--c-primary);
+  border-radius: 2px;
+  width: 100%;
+  transform-origin: center;
+  transform: scaleX(0);
+  animation: underline-expand 0.6s ease-out forwards;
+}
+
+/* 3. フェード＋スケール */
+/* アニメーション定義 */
+@keyframes underline-fade {
+  0%   { opacity: 0; transform: scaleX(0.5); }
+  50%  { opacity: 1; transform: scaleX(1.1); }
+  100% { opacity: 1; transform: scaleX(1); }
+}
+
+/* 適用クラス */
+.underline-fade::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: -0.5rem;
+  height: 4px;
+  background-color: var(--c-primary);
+  border-radius: 2px;
+  width: 100%;
+  transform-origin: left;
+  opacity: 0;
+  animation: underline-fade 0.8s ease-out forwards;
+}
+
+
 /*------------------------------
   レスポンシブ調整
 ------------------------------*/

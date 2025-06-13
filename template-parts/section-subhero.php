@@ -21,7 +21,7 @@ if (has_post_thumbnail()) {
 <section id="subhero" class="subhero" <?php echo $inline_style; ?>>
   <div class="subhero__overlay"></div>
   <div class="subhero__inner container text-center">
-    <h1 class="subhero__title">
+    <h1 class="subhero__title underline-fade">
       <?php
       // 投稿タイトルは動的データなので、esc_html() でエスケープして出力
       echo esc_html(get_the_title());

@@ -58,8 +58,8 @@
 /* Company Info Table */
 .company-info {
   display: flex;
-  flex-direction: column;  /* 見出し→テーブル の縦並び */
-  align-items: center;     /* 子要素を横方向中央寄せ */
+  flex-direction: column; /* 見出し→テーブル の縦並び */
+  align-items: center; /* 子要素を横方向中央寄せ */
 }
 
 .company-info__table {
@@ -100,13 +100,17 @@
 .map {
   display: flex;
   flex-direction: column;
-  align-items: center;     /* iframe を中央寄せ */
+  align-items: center; /* iframe を中央寄せ */
 }
 
-.map__embed iframe {
-  display: block;
+.map__embed {
   width: var(--company-width);
+  margin: 1.5rem auto;
+}
+.map__embed iframe {
+  width: 100%;
+  aspect-ratio: 16 / 9; /* アスペクト比 16:9 */
   border: 0;
   border-radius: 0.5rem;
-  margin: 1.5rem auto;
+  display: block;
 }
