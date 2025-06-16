@@ -17,6 +17,15 @@ if (has_post_thumbnail()) {
     esc_url($bg_url)
   );
 }
+
+// アーカイブページなら CPT のアーカイブタイトルを。
+// シングルページなら投稿タイトルを取得。
+if (is_post_type_archive('property')) {
+  // 表示用にエスケープされた文字列を取得
+  $title_text = post_type_archive_title('', false);
+} else {
+  $title_text = get_the_title();
+}
 ?>
 <section id="subhero" class="subhero" <?php echo $inline_style; ?>>
   <div class="subhero__overlay"></div>
@@ -24,7 +33,7 @@ if (has_post_thumbnail()) {
     <h1 class="subhero__title underline-fade">
       <?php
       // 投稿タイトルは動的データなので、esc_html() でエスケープして出力
-      echo esc_html(get_the_title());
+      echo esc_html( $title_text );
       ?>
     </h1>
   </div>

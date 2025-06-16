@@ -10,11 +10,12 @@
 get_header();
 ?>
 
-<main id="mainContent" class="container">
-    <section id="propertyList" class="property-list section">
-        <h1 class="section-title">
-            <?php esc_html_e('物件一覧', 'sanai-textdomain'); ?>
-        </h1>
+<main id="mainContent" class="archive-property">
+
+    <!-- Subhero -->
+    <?php get_template_part('template-parts/section', 'subhero'); ?>
+
+    <section id="propertyList" class="property-list section container">
 
         <?php if (have_posts()) : ?>
             <ul class="property-list__items">
@@ -79,6 +80,10 @@ get_header();
             <p><?php esc_html_e('現在、物件情報はありません。', 'sanai-textdomain'); ?></p>
         <?php endif; ?>
     </section>
+
+    <!-- CTA -->
+    <?php get_template_part('template-parts/section', 'cta'); ?>
+
 </main>
 
 <?php get_footer(); ?>
