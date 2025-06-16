@@ -12,7 +12,7 @@
 ------------------------------*/
 .recruit {
   padding: 4rem 0;
-  background-color: var(--c-white);
+  background-color: var(--c-bg);
 }
 .recruit__header {
   margin-bottom: 2rem;
