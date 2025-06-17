@@ -84,16 +84,29 @@ function sanai_enqueue_assets()
         );
     }
 
-    // 8. contact.css（お問い合わせフォーム専用）
-    if (is_page_template('contact/index.php')) {   // ← テンプレート名で判定
+    // 8. contact-common.css（/contact/ 以下で共通）
+    if (preg_match('#/contact/#', $_SERVER['REQUEST_URI'])) {
         wp_enqueue_style(
-            'sanai-contact',
-            get_template_directory_uri() . '/assets/css/contact.css',
-            array('sanai-common'),     // 依存関係：common.css の後に読み込む
+            'sanai-contact-common',
+            get_template_directory_uri() . '/assets/css/contact-common.css',
+            array('sanai-common'),   // 必要なら依存を変更
             $theme_version,
             'all'
         );
     }
+
+    // 9. contact.css（お問い合わせフォーム専用）
+    if (is_page_template('contact/index.php')) {
+        wp_enqueue_style(
+            'sanai-contact',
+            get_template_directory_uri() . '/assets/css/contact.css',
+            array('sanai-contact-common'),     // 依存関係：contact-common.css の後に読み込む
+            $theme_version,
+            'all'
+        );
+    }
+
+
 
     // XX. テーマ独自の JS を読み込む場合（必要に応じて）
     // wp_enqueue_script(

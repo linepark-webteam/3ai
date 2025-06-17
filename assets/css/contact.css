@@ -1,145 +1,21 @@
-/* ────────────── contact.css / contact.scss ───────────── */
-/* テーマ全体の変数例（任意） */
-:root {
-  --c-primary: #0070f3; /* キーカラー */
-  --c-gray-300: #cfd4db;
-  --c-gray-500: #6b7280;
-}
+/* ========== Contact 入力・完了ページ専用 ========== */
 
-/* レイアウト全体 */
-.contact.section {
-  max-width: 800px; /* 中央寄せ・読みやすい幅 */
-  margin: 0 auto;
-  padding: 4rem 1rem;
-}
-
-/* 進捗カード（横並び） */
-.contact-steps {
-  display: flex;
-  justify-content: center;
-  gap: 2.5rem;           /* カード間余白 */
-  margin-bottom: 3rem;
-  padding: 0;
-  list-style: none;
-}
-
-/* カード本体 */
-.contact-step {
-  flex: 1 1 200px;       /* 可変幅＋最小 200px */
-  max-width: 240px;
-  text-align: center;
-  background: #fff;
-  border: 2px solid var(--c-gray-300);
-  border-radius: 1rem;
-  padding: 1.5rem 1rem;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
-  transition: transform 0.3s ease, border-color 0.3s ease;
-}
-
-/* インデックス（01 / 02 / 03） */
-.contact-step__index {
-  display: block;
-  font-size: 1.8rem;
-  font-weight: 700;
-  color: var(--c-gray-500);
-  margin-bottom: 0.25rem;
-}
-
-/* タイトル（フォーム入力など） */
-.contact-step__title {
-  font-weight: 600;
-  color: var(--c-gray-500);
-}
-
-/* ホバーで少し浮き上がる */
-.contact-step:hover {
-  transform: translateY(-4px);
-}
-
-/* 現在ステップを強調 */
-.contact-step.is-current {
-  border-color: var(--c-primary);
-  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
-}
-
-/* 現在ステップ内の文字色もキーカラーに */
-.contact-step.is-current .contact-step__index,
-.contact-step.is-current .contact-step__title {
-  color: var(--c-primary);
-}
-
-/* ─── スマホ：縦並び ─────────────────────── */
-@media (max-width: 600px) {
-  .contact-steps {
-    flex-direction: column;
-    gap: 1.5rem;
-    align-items: center;
-  }
-  .contact-step {
-    max-width: 100%;
-  }
-}
-
-/* ラベル・入力 */
-.contact-form__group {
-  margin-bottom: 2rem;
-}
-.contact-form__label {
-  font-weight: 700;
-}
-.required {
-  color: #ff3b30;
-  margin-left: 0.25rem;
-}
-.form-control,
-.form-check-input {
-  max-width: 100%;
-}
-
-/* ラジオ横並び */
-.form-check-inline {
-  align-items: center;
-}
-.form-check-input {
-  margin-top: 0.15rem;
-  margin-right: 0.4rem;
-}
-
-/* エラーアラート */
-.alert-danger {
-  margin-bottom: 2rem;
-}
-
-/* 確認画面の DL テーブル風 */
-.contact-confirm__list {
-  margin: 0 0 3rem;
-}
-.contact-confirm__list dt {
-  font-weight: 700;
-  margin-top: 1.5rem;
-}
-.contact-confirm__list dd {
-  margin-left: 0;
-  border-bottom: 1px dashed var(--c-gray-300);
-  padding-bottom: 0.75rem;
-}
+/* アラート（入力ページ） */
+.alert-danger{margin-bottom:2rem;}
 
 /* 完了ページ中央寄せ */
-.contact-thanks p {
-  margin-top: 1rem;
-}
+.contact-thanks p{margin-top:1rem;}
 
-/* ボタン（Bootstrap をロードしていない場合の最低限） */
-.btn-primary {
-  background: var(--c-primary);
-  color: #fff;
-  padding: 0.75rem 2.5rem;
-  border-radius: 0.5rem;
+/* ボタン (Bootstrap 未読込時の補強) */
+.btn-primary{
+  background:var(--c-primary);
+  color:#fff;
+  padding:.75rem 2.5rem;
+  border-radius:.5rem;
 }
-.btn-outline-secondary {
-  border: 2px solid var(--c-gray-500);
-  color: var(--c-gray-500);
-  padding: 0.75rem 2.5rem;
-  border-radius: 0.5rem;
+.btn-outline-secondary{
+  border:2px solid var(--c-gray-500);
+  color:var(--c-gray-500);
+  padding:.75rem 2.5rem;
+  border-radius:.5rem;
 }
-/* ───────────────────────────────────────────── */
