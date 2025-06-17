@@ -1,0 +1,93 @@
+/* ────────────── contact.css / contact.scss ───────────── */
+/* テーマ全体の変数例（任意） */
+:root {
+  --c-primary: #0070f3; /* キーカラー */
+  --c-gray-300: #cfd4db;
+  --c-gray-500: #6b7280;
+}
+
+/* レイアウト全体 */
+.contact.section {
+  max-width: 800px; /* 中央寄せ・読みやすい幅 */
+  margin: 0 auto;
+  padding: 4rem 1rem;
+}
+
+/* 進捗バー */
+.contact-progress {
+  @apply flex justify-center gap-6 mb-12 list-none;
+}
+.contact-progress__item {
+  font-weight: 700;
+  color: var(--c-gray-500);
+}
+.contact-progress__item.is-current {
+  color: var(--c-primary);
+}
+.contact-progress__item span {
+  margin-right: 0.25rem;
+}
+
+/* ラベル・入力 */
+.contact-form__group {
+  margin-bottom: 2rem;
+}
+.contact-form__label {
+  font-weight: 700;
+}
+.required {
+  color: #ff3b30;
+  margin-left: 0.25rem;
+}
+.form-control,
+.form-check-input {
+  max-width: 100%;
+}
+
+/* ラジオ横並び */
+.form-check-inline {
+  align-items: center;
+}
+.form-check-input {
+  margin-top: 0.15rem;
+  margin-right: 0.4rem;
+}
+
+/* エラーアラート */
+.alert-danger {
+  margin-bottom: 2rem;
+}
+
+/* 確認画面の DL テーブル風 */
+.contact-confirm__list {
+  margin: 0 0 3rem;
+}
+.contact-confirm__list dt {
+  font-weight: 700;
+  margin-top: 1.5rem;
+}
+.contact-confirm__list dd {
+  margin-left: 0;
+  border-bottom: 1px dashed var(--c-gray-300);
+  padding-bottom: 0.75rem;
+}
+
+/* 完了ページ中央寄せ */
+.contact-thanks p {
+  margin-top: 1rem;
+}
+
+/* ボタン（Bootstrap をロードしていない場合の最低限） */
+.btn-primary {
+  background: var(--c-primary);
+  color: #fff;
+  padding: 0.75rem 2.5rem;
+  border-radius: 0.5rem;
+}
+.btn-outline-secondary {
+  border: 2px solid var(--c-gray-500);
+  color: var(--c-gray-500);
+  padding: 0.75rem 2.5rem;
+  border-radius: 0.5rem;
+}
+/* ───────────────────────────────────────────── */

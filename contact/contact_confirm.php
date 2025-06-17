@@ -7,6 +7,14 @@
 require_once dirname( __DIR__, 4 ) . '/wp-load.php';
 session_start();
 
+/* 確認画面専用 CSS を追加 */
+wp_enqueue_style(
+  'sanai-contact-confirm',
+  get_theme_file_uri( 'assets/css/contact_confirm.css' ),
+  array( 'sanai-common' ),   // 共通CSSの後
+  '1.0.0'
+);
+
 
 /* ---------- 1) CSRF & リクエストバリデーション ---------- */
 if (

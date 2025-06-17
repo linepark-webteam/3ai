@@ -1,0 +1,37 @@
+/* -------------------------------------------------
+   contact_confirm.css  ─ 確認画面専用スタイル
+   ------------------------------------------------- */
+
+/* 全体レイアウト */
+.contact-confirm.section {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 4rem 1rem;
+}
+
+/* 進捗バー（02 がアクティブ）*/
+.contact-progress__item.is-current {
+  color: var(--c-primary);
+}
+
+/* 定義リストをテーブル風に */
+.contact-confirm__list {
+  margin: 0 0 3rem;
+  border-top: 1px solid var(--c-gray-300);
+}
+
+.contact-confirm__list dt {
+  font-weight: 700;
+  padding: 1.25rem 0 0.25rem;
+  border-bottom: 1px dashed var(--c-gray-300);
+}
+
+.contact-confirm__list dd {
+  margin: 0 0 1.25rem;
+  white-space: pre-line; /* 改行保持 */
+}
+
+/* ボタン間の余白 */
+.contact-confirm .btn {
+  min-width: 180px;
+}
