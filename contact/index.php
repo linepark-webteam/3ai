@@ -27,12 +27,12 @@
 
     <section class="contact section container">
 
-        <!-- 進捗インジケーター -->
-        <ol class="contact-progress" aria-label="<?php esc_attr_e('お問い合わせ手順', 'sanai-textdomain'); ?>">
-            <li class="contact-progress__item is-current"><span>01.</span><?php esc_html_e('フォーム入力', 'sanai-textdomain'); ?></li>
-            <li class="contact-progress__item"><span>02.</span><?php esc_html_e('内容確認', 'sanai-textdomain'); ?></li>
-            <li class="contact-progress__item"><span>03.</span><?php esc_html_e('送信完了',   'sanai-textdomain'); ?></li>
-        </ol>
+        <?php
+        // index.php  → $step = 1;
+        // confirm.php → $step = 2;
+        // thanks.php  → $step = 3;
+        get_template_part( 'template-parts/contact', 'progress', [ 'step' => 1 ] );
+        ?>
 
         <!-- バリデーションエラー表示 -->
         <?php if (isset($_SESSION['contact_errors'])) : ?>

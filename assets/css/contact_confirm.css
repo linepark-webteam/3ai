@@ -2,6 +2,12 @@
    contact_confirm.css  ─ 確認画面専用スタイル
    ------------------------------------------------- */
 
+:root {
+  --c-primary: #d19600; /* キーカラー */
+  --c-gray-300: #cfd4db;
+  --c-gray-500: #6b7280;
+}
+
 /* 全体レイアウト */
 .contact-confirm.section {
   max-width: 800px;
@@ -9,9 +15,71 @@
   padding: 4rem 1rem;
 }
 
-/* 進捗バー（02 がアクティブ）*/
-.contact-progress__item.is-current {
+/* 進捗カード（横並び） */
+.contact-steps {
+  display: flex;
+  justify-content: center;
+  gap: 2.5rem; /* カード間余白 */
+  margin-bottom: 3rem;
+  padding: 0;
+  list-style: none;
+}
+
+/* カード本体 */
+.contact-step {
+  flex: 1 1 200px; /* 可変幅＋最小 200px */
+  max-width: 240px;
+  text-align: center;
+  background: #fff;
+  border: 2px solid var(--c-gray-300);
+  border-radius: 1rem;
+  padding: 1.5rem 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, border-color 0.3s ease;
+}
+
+/* インデックス（01 / 02 / 03） */
+.contact-step__index {
+  display: block;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--c-gray-500);
+  margin-bottom: 0.25rem;
+}
+
+/* タイトル（フォーム入力など） */
+.contact-step__title {
+  font-weight: 600;
+  color: var(--c-gray-500);
+}
+
+/* ホバーで少し浮き上がる */
+.contact-step:hover {
+  transform: translateY(-4px);
+}
+
+/* 現在ステップを強調 */
+.contact-step.is-current {
+  border-color: var(--c-primary);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
+}
+
+/* 現在ステップ内の文字色もキーカラーに */
+.contact-step.is-current .contact-step__index,
+.contact-step.is-current .contact-step__title {
   color: var(--c-primary);
+}
+
+/* ─── スマホ：縦並び ─────────────────────── */
+@media (max-width: 600px) {
+  .contact-steps {
+    flex-direction: column;
+    gap: 1.5rem;
+    align-items: center;
+  }
+  .contact-step {
+    max-width: 100%;
+  }
 }
 
 /* 定義リストをテーブル風に */
