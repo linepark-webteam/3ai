@@ -2,6 +2,12 @@
   Services Specific Styles (assets/css/services.css)
 ==================================================*/
 
+.subhero {
+  /* serviceのsubhero用の画像を後ほど指定 */
+  /* background: url("../img/subhero-service-bg.jpg") center/cover no-repeat; */ 
+}
+
+
 /* Overview */
 .services__overview {
   margin: 2rem 0;
