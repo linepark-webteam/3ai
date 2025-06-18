@@ -9,8 +9,5 @@
   <div class="hero__inner container text-center">
     <h1 class="hero__title"><?php bloginfo('name'); ?></h1>
     <p class="hero__subtitle"><?php bloginfo('description'); ?></p>
-    <a href="#service" class="btn btn--cta">
-      <?php esc_html_e('サービスをみる', 'sanai-textdomain'); ?>
-    </a>
   </div>
 </section>
