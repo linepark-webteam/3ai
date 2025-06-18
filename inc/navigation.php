@@ -32,7 +32,7 @@ function sanai_default_global_nav() {
 }
 
 /**
- * モバイル用デフォルトナビ
+ * モバイル用デフォルトナビ（＋CTA）
  */
 function sanai_default_mobile_nav() {
     $items = [
@@ -40,9 +40,9 @@ function sanai_default_mobile_nav() {
         [ 'title' => '物件情報',    'url' => home_url( '/corp-property-list' ) ],
         [ 'title' => '会社概要',    'url' => home_url( '/company' ) ],
         [ 'title' => '採用情報',    'url' => home_url( '/recruit' ) ],
-        [ 'title' => 'お問い合わせ','url' => home_url( '/contact' ) ],
     ];
 
+    // ▼ <nav> 内：通常リンク
     echo '<nav class="mobile-nav"><ul class="mobile-nav__list">';
     foreach ( $items as $item ) {
         printf(
@@ -52,4 +52,18 @@ function sanai_default_mobile_nav() {
         );
     }
     echo '</ul></nav>';
+
+    // ▼ <nav> の直後：CTA 固定バー
+    ?>
+    <div class="mobile-nav__cta">
+      <a href="<?php echo esc_url( home_url( '/contact/' ) ); ?>"
+         class="btn btn--cta mobile-nav__btn">
+        お問い合わせ
+      </a>
+      <a href="tel:045-951-2722"
+         class="btn btn--cta mobile-nav__btn">
+        045-951-2722
+      </a>
+    </div>
+    <?php
 }
