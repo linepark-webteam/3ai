@@ -196,7 +196,7 @@ img {
   bottom: 0;
   z-index: 99;
   background-color: var(--c-navy);
-  padding: 80px 1rem 140px; /* 上：ヘッダー高ぶん確保、下：CTAぶん余白 */
+  padding: 80px 1rem 2rem; /* 上：ヘッダー高ぶん確保、下：CTAぶん余白 */
   overflow-y: auto; /* メニューが長い場合でもスクロール可能 */
   flex-direction: column;
   align-items: center;
@@ -231,28 +231,36 @@ img {
 
 /* ───────── CTA（お問い合わせ＆TEL）配置 ───────── */
 .mobile-nav__cta {
-  position: fixed;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 1000;
-  background-color: var(--c-navy);
-  padding: 1.5rem 1rem 2rem;
-  display: none; /* 初期状態は非表示 */
+  /* 固定解除 */
+  position: static;
+  margin-top: 2rem; /* メニュー項目との間隔 */
+  width: 100%;
+  display: flex;
   flex-direction: column;
   gap: 1rem;
   align-items: center;
 }
-/* メニューが開いているときだけ CTA を表示 */
-body.nav-open .mobile-nav__cta {
-  display: flex;
-}
 
-/* ボタン共通拡張 */
+/* ───────── ボタンのグラデーションスタイル ───────── */
 .mobile-nav__btn {
   width: 100%;
-  max-width: 320px; /* 大きすぎる端末での伸び過ぎ防止 */
+  max-width: 320px;
   text-align: center;
+  /* 新しいデザイン */
+  background: linear-gradient(135deg, #87adff 0%, #2979ff 50%, #082b6f 100%);
+  color: var(--c-white);
+  font-size: var(--fs-lg);
+  font-weight: 700;
+  padding: 0.9rem 2rem;
+  border-radius: 0.5rem;
+  text-decoration: none;
+  transition: opacity 0.3s ease;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+}
+
+.mobile-nav__btn:hover,
+.mobile-nav__btn:focus {
+  opacity: 0.85; /* ホバー時にわずかに暗く */
 }
 
 /* スマホ表示時 */
