@@ -3,8 +3,14 @@
 ==================================================*/
 
 .subhero {
-  /* recruitのsubhero用の画像を後ほど指定 */
-  /* background: url("../img/subhero-recruit-bg.jpg") center/cover no-repeat; */ 
+  /* recruitのsubhero専用の画像を指定 */
+  background: url("../img/subhero-recruit-bg.png") center/cover no-repeat; 
+  background-attachment: fixed;
+}
+@media (max-width: 768px) {
+  .subhero {
+    background-attachment: scroll;
+  }
 }
 
 /*------------------------------

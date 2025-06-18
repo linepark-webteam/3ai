@@ -456,12 +456,30 @@ img {
   color: var(--c-white);
 }
 
-/*------------------------------
-  CTA （お問い合わせ）セクション共通スタイル
-------------------------------*/
+/*---------------------------------------
+  CTA （お問い合わせ）セクション
+---------------------------------------*/
 .cta {
-  background-color: var(--c-secondary-light);
+  position: relative;
+  background: url('../img/contact-cta-bg.png') center/cover no-repeat fixed;
   color: var(--c-white);
+  overflow: hidden;              /* オーバーレイはみ出し防止 */
+}
+
+/* オーバーレイ（疑似要素でも可） */
+.cta__overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, .45); /* 文字が読みにくい場合は濃度を調整 */
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* テキスト／ボタン用ラッパー */
+.cta__inner {
+  position: relative;
+  z-index: 1;
+  padding: 4rem 1rem;            /* 余白は任意で調整 */
 }
 
 .cta__title {
@@ -478,3 +496,11 @@ img {
   margin-bottom: 1.5rem;
   display: inline-block;
 }
+
+/* モバイルでは parallax をオフにしてパフォーマンス改善 */
+@media (max-width: 768px) {
+  .cta {
+    background-attachment: scroll;
+  }
+}
+

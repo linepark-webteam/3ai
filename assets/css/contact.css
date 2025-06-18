@@ -3,6 +3,17 @@
   Contact 入力・完了ページ専用 (assets/css/contact.css)
 ==================================================*/
 
+.subhero {
+  /* contactのsubhero専用の画像を指定 */
+  background: url("../img/subhero-contact-bg.png") center/cover no-repeat;
+  background-attachment: fixed;
+}
+@media (max-width: 768px) {
+  .subhero {
+    background-attachment: scroll;
+  }
+}
+
 .contact-form__radios {
     display: flex;
     flex-direction: column;

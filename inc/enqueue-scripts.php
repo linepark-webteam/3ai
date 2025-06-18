@@ -49,7 +49,7 @@ function sanai_enqueue_assets()
         'all'
     );
 
-    // 5. top.css（トップページ用）
+    //  top.css（トップページ用）
     if (is_front_page() || is_home()) {
         wp_enqueue_style(
             'sanai-top',
@@ -60,8 +60,31 @@ function sanai_enqueue_assets()
         );
     }
 
-    // 6. recruit.css（採用ページ専用）
-    //  template-parts/ 以下ではなく、ルート直下の page-recruit.php を指定
+    //  service.css（事業内容ページ専用）
+    //  template-parts/ 以下ではなく、ルート直下の page-service.php を指定
+    if (is_page('services')) {
+        wp_enqueue_style(
+            'sanai-services',
+            get_template_directory_uri() . '/assets/css/services.css',
+            array('sanai-common'),
+            $theme_version,
+            'all'
+        );
+    }
+
+    //  property-list.css（物件一覧アーカイブ用）
+    if (is_post_type_archive('property')) {
+        wp_enqueue_style(
+            'sanai-property-list',
+            get_template_directory_uri() . '/assets/css/property-list.css',
+            array('sanai-common'),
+            $theme_version,
+            'all'
+        );
+    }
+
+    //  company.css（会社概要ページ専用）
+    //  template-parts/ 以下ではなく、ルート直下の page-company.php を指定
     if (is_page('company')) {
         wp_enqueue_style(
             'sanai-company',
@@ -72,7 +95,7 @@ function sanai_enqueue_assets()
         );
     }
 
-    // 7. recruit.css（採用ページ専用）
+    //  recruit.css（採用ページ専用）
     //  template-parts/ 以下ではなく、ルート直下の page-recruit.php を指定
     if (is_page('recruit')) {
         wp_enqueue_style(
@@ -84,7 +107,7 @@ function sanai_enqueue_assets()
         );
     }
 
-    // 8. contact-common.css（/contact/ 以下で共通）
+    //  contact-common.css（/contact/ 以下で共通）
     if (preg_match('#/contact/#', $_SERVER['REQUEST_URI'])) {
         wp_enqueue_style(
             'sanai-contact-common',
@@ -95,7 +118,7 @@ function sanai_enqueue_assets()
         );
     }
 
-    // 9. contact.css（お問い合わせフォーム専用）
+    //  contact.css（お問い合わせフォーム専用）
     if (is_page_template('contact/index.php')) {
         wp_enqueue_style(
             'sanai-contact',
