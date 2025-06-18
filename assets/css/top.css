@@ -9,11 +9,19 @@
   position: relative;
   height: 85vh;
   min-height: 480px;
-  background: url("../img/top-hero-01.jpg") center/cover no-repeat;
   display: flex;
   align-items: center;
   justify-content: center;
   color: var(--c-white);
+   /* 背景位置を変数へバインド */
+  --heroY: 0px; /* ← デフォルト値 */
+  background: url("../img/top-hero-01.png") center/cover no-repeat;
+  background-position: center calc(50% + var(--heroY));
+  will-change: background-position; /* パフォーマンス向上 */
+}
+/* モバイルは固定スクロールを切って負荷を軽減（任意） */
+@media (max-width: 768px) {
+  .hero { background-attachment: scroll; }
 }
 
 .hero__overlay {
@@ -230,7 +238,6 @@
   font-size: var(--fs-base);
   margin-bottom: 1.5rem;
 }
-
 
 /*------------------------------
   レスポンシブ調整

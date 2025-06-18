@@ -58,5 +58,16 @@
         'fallback_cb'     => 'sanai_default_mobile_nav',
       ]);
       ?>
+      <div class="mobile-nav__cta">
+        <!-- ▼両方とも .btn--cta を付与し、差分クラス .btn--tel を削除 -->
+        <a href="<?php echo esc_url(home_url('/contact/')); ?>"
+          class="btn btn--cta mobile-nav__btn">
+          お問い合わせ
+        </a>
+        <a href="tel:045-951-2722"
+          class="btn btn--cta mobile-nav__btn">
+          045-951-2722
+        </a>
+      </div>
     </div>
   </header>

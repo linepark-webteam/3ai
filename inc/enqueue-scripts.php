@@ -131,13 +131,13 @@ function sanai_enqueue_assets()
 
 
 
-    // XX. テーマ独自の JS を読み込む場合（必要に応じて）
-    // wp_enqueue_script(
-    //   'sanai-main-js',
-    //   get_template_directory_uri() . '/assets/js/main.js',
-    //   array( 'jquery' ),
-    //   $theme_version,
-    //   true
-    // );
+    //  テーマ独自の JS
+    wp_enqueue_script(
+      'sanai-main-js',
+      get_template_directory_uri() . '/assets/js/main.js',
+      array( 'jquery' ),
+      $theme_version,
+      true
+    );
 }
 add_action('wp_enqueue_scripts', 'sanai_enqueue_assets');
