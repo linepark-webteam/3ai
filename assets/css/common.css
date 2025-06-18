@@ -196,6 +196,13 @@ img {
   bottom: 0;
   z-index: 99;
   background-color: var(--c-navy);
+  /* prettier ignore */
+  background-image: linear-gradient(
+    to bottom,
+    #1a2854 0%,
+    #091c5b 40%,
+    #0f1733 100%
+  );
   padding: 80px 1rem 2rem; /* 上：ヘッダー高ぶん確保、下：CTAぶん余白 */
   overflow-y: auto; /* メニューが長い場合でもスクロール可能 */
   flex-direction: column;
