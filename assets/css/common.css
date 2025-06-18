@@ -261,6 +261,7 @@ img {
 .mobile-nav__btn:hover,
 .mobile-nav__btn:focus {
   opacity: 0.85; /* ホバー時にわずかに暗く */
+  color: var(--c-white); /* 文字色は変化させない */
 }
 
 /* スマホ表示時 */
