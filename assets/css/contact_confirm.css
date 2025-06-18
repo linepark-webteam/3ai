@@ -1,19 +1,45 @@
-/* ========== Contact 確認ページ専用 ========== */
+/*==================================================
+  Contact 確認ページ専用 (assets/css/contact_confirm.css)
+==================================================*/
 
-/* ★ キーカラーだけ変えたい場合は上書き */
-:root{ --c-primary:#f6a62e; }  /* オレンジ系 */
+/* ★ キーカラーを上書き */
+:root {
+  --c-steps: #f6a62e;
+}
+
+.contact-step.is-current {
+    border-color: var(--c-steps);
+}
 
 /* 定義リストをテーブル風に */
-.contact-confirm__list{margin:0 0 3rem;}
-.contact-confirm__list dt{
-  font-weight:700;
-  padding:1.25rem 0 .25rem;
-  border-bottom:1px dashed var(--c-gray-300);
+.contact-confirm__list {
+  margin: 0 0 3rem;
 }
-.contact-confirm__list dd{
-  margin:0 0 1.25rem;
-  white-space:pre-line;
+.contact-confirm__list dt {
+  font-weight: 700;
+  padding: 1.25rem 0 0.25rem;
+  border-bottom: 1px dashed var(--c-gray-300);
+}
+.contact-confirm__list dd {
+  margin: 0 0 1.25rem;
+  white-space: pre-line;
 }
 
 /* ボタン横並び＆最小幅 */
-.contact-confirm .btn{min-width:180px;}
+.contact-confirm .btn {
+  min-width: 180px;
+}
+
+/* contact_confirm.css 最後に追加 */
+@media (max-width: 600px) {
+  .contact-confirm form.text-center {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;     /* 100% 幅に */
+    gap: 1rem;
+  }
+  .contact-confirm form.text-center .btn {
+    width: 100%;
+    margin: 0;                /* me-3 を打ち消す */
+  }
+}

@@ -207,6 +207,7 @@
                     required>
                 <label class="form-check-label" for="agree">
                     <?php esc_html_e('プライバシーポリシーに同意する', 'sanai-textdomain'); ?>
+                    <span class="required">※</span>
                 </label>
             </div>
 

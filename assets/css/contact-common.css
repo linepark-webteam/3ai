@@ -1,72 +1,102 @@
-/* ========== Contact 共通 ========== */
+/*==================================================
+  Contact Common Styles (assets/css/contact-common.css)
+==================================================*/
 
 /* グローバル変数（全ページ統一） */
-:root{
-  --c-primary: #0070f3;
+:root {
+  --c-steps: #0070f3;
   --c-gray-300: #cfd4db;
   --c-gray-500: #6b7280;
 }
 
 /* 共通レイアウト */
 .contact.section,
-.contact-confirm.section{
-  max-width:800px;
-  margin:0 auto;
-  padding:4rem 1rem;
+.contact-confirm.section {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 4rem .5rem;
 }
 
-/* ── 進捗カード ───────────────── */
-.contact-steps{
-  display:flex;
-  justify-content:center;
-  gap:2.5rem;               /* ≥600px 用 */
-  margin-bottom:3rem;
-  padding:0;
-  list-style:none;
+/* 進捗カード */
+.contact-steps {
+  display: flex;
+  justify-content: center;
+  gap: 2.5rem; /* ≥600px 用 */
+  margin-bottom: 3rem;
+  padding: 0;
+  list-style: none;
 }
-.contact-step{
-  flex:1 1 160px;
-  max-width:220px;
-  text-align:center;
-  background:#fff;
-  border:2px solid var(--c-gray-300);
-  border-radius:1rem;
-  padding:1.25rem 1rem;
-  box-shadow:0 4px 12px rgba(0,0,0,.05);
-  transition:transform .3s ease,border-color .3s ease;
+.contact-step {
+  flex: 1 1 160px;
+  max-width: 220px;
+  text-align: center;
+  background: #fff;
+  border: 2px solid var(--c-gray-300);
+  border-radius: 1rem;
+  padding: 1.25rem 1rem;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: transform 0.3s ease, border-color 0.3s ease;
 }
-.contact-step__index{
-  display:block;
-  font-size:1.8rem;
-  font-weight:700;
-  color:var(--c-gray-500);
-  margin-bottom:.25rem;
+.contact-step__index {
+  display: block;
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--c-gray-500);
+  margin-bottom: 0.25rem;
 }
-.contact-step__title{font-weight:600;color:var(--c-gray-500);}
-.contact-step:hover{transform:translateY(-4px);}
-.contact-step.is-current{
-  border-color:var(--c-primary);
-  box-shadow:0 6px 14px rgba(0,0,0,.1);
+.contact-step__title {
+  font-weight: 600;
+  color: var(--c-gray-500);
+}
+.contact-step:hover {
+  transform: translateY(-4px);
+}
+.contact-step.is-current {
+  border-color: var(--c-steps);
+  box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
 }
 .contact-step.is-current .contact-step__index,
-.contact-step.is-current .contact-step__title{color:var(--c-primary);}
+.contact-step.is-current .contact-step__title {
+  color: var(--c-steps);
+}
 
 /* ─ スマホ( <600px ) ─ */
-@media (max-width:600px){
-  .contact-steps{gap:1rem;}
-  .contact-step{
-    flex:1 1 110px;
-    max-width:140px;
-    padding:1rem .75rem;
+@media (max-width: 600px) {
+  .contact-steps {
+    gap: .5rem;
   }
-  .contact-step__index{font-size:1.4rem;}
-  .contact-step__title{font-size:.85rem;}
+  .contact-step {
+    flex: 1 1 110px;
+    max-width: 140px;
+    padding: 1rem 0.5rem;
+  }
+  .contact-step__index {
+    font-size: 1.4rem;
+  }
+  .contact-step__title {
+    font-size: 0.85rem;
+  }
 }
 
 /* 汎用フォーム部品（ラベル／必須マーク等） */
-.contact-form__group{margin-bottom:2rem;}
-.contact-form__label{font-weight:700;}
-.required{color:#ff3b30;margin-left:.25rem;}
-.form-control,.form-check-input{max-width:100%;}
-.form-check-inline{align-items:center;}
-.form-check-input{margin-top:.15rem;margin-right:.4rem;}
+.contact-form__group {
+  margin-bottom: 2rem;
+}
+.contact-form__label {
+  font-weight: 700;
+}
+.required {
+  color: #ff3b30;
+  margin-left: 0.25rem;
+}
+.form-control,
+.form-check-input {
+  max-width: 100%;
+}
+.form-check-inline {
+  align-items: center;
+}
+.form-check-input {
+  margin-top: 0.15rem;
+  margin-right: 0.4rem;
+}

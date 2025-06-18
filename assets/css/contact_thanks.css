@@ -1,0 +1,40 @@
+/* ===============================================
+   Contact 完了ページ専用 (assets/css/contact_thanks.css)
+   =============================================== */
+/* 進捗ステップのカラーは共通 CSS に任せるが
+   送信完了(03)をさらに強調したい場合はオレンジ上書き */
+:root {
+  --c-steps: #43aa14;
+}
+
+/* ボタン中央寄せ用に幅を調整（任意） */
+.contact-thanks .btn {
+  min-width: 220px;
+  padding: 0.9rem 2.5rem;
+  font-size: 1.05rem;
+}
+
+/* 完了メッセージにやさしい色味を追加 */
+.contact-thanks .section-title {
+  margin-bottom: 1.5rem;
+}
+
+.contact-thanks p {
+  font-size: 1rem;
+  line-height: 1.8;
+  max-width: 650px;
+  margin: 0 auto 2.5rem;
+}
+
+
+
+/* 小画面でも余白を確保 */
+@media (max-width: 600px) {
+  .contact-thanks .btn {
+    width: 100%;
+  }
+  .contact-thanks p {
+    text-align: left;
+    padding: 0 0.5rem;
+  }
+}

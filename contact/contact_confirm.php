@@ -7,14 +7,20 @@
 require_once dirname(__DIR__, 4) . '/wp-load.php';
 session_start();
 
-/* 確認画面専用 CSS を追加 */
+/* ▼ ここで共通 → 個別の順に enqueue */
 wp_enqueue_style(
-  'sanai-contact-confirm',
-  get_theme_file_uri('assets/css/contact_confirm.css'),
-  array('sanai-common'),   // 共通CSSの後
+  'sanai-contact-common',
+  get_theme_file_uri( 'assets/css/contact-common.css' ),
+  [ 'sanai-common' ],  /* 依存は共通に合わせる */
   '1.0.0'
 );
 
+wp_enqueue_style(
+  'sanai-contact-confirm',
+  get_theme_file_uri( 'assets/css/contact_confirm.css' ),
+  [ 'sanai-contact-common' ],
+  '1.0.0'
+);
 
 /* ---------- 1) CSRF & リクエストバリデーション ---------- */
 if (
