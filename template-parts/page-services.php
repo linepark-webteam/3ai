@@ -1,9 +1,7 @@
 <?php
-
 /**
  * Template Name: 事業内容ページ
- * template-parts/page-services.php
- * 
+ *
  * @package Sanai_WP_Theme
  * @since 1.0.0
  */
@@ -12,21 +10,27 @@ get_header();
 
 <main id="mainContent" class="page-services">
 
-    <!-- Subhero -->
-    <?php get_template_part('template-parts/section', 'subhero'); ?>
+	<?php get_template_part( 'template-parts/section', 'subhero' ); ?>
 
-    <!-- Overview -->
-    <?php get_template_part('template-parts/section-services', 'overview'); ?>
+	<?php get_template_part( 'template-parts/section-services', 'overview' ); ?>
 
-    <!-- Navigation -->
-    <?php get_template_part('template-parts/section-services', 'nav'); ?>
+	<?php get_template_part( 'template-parts/section-services', 'nav' ); ?>
 
-    <!-- Service Details -->
-    <?php get_template_part('template-parts/section-services', 'details'); ?>
+	<?php get_template_part( 'template-parts/section-services', 'details' ); ?>
 
-    <!-- CTA -->
-    <?php get_template_part('template-parts/section', 'cta'); ?>
+	<?php get_template_part( 'template-parts/section', 'cta' ); ?>
 
 </main>
 
-<?php get_footer(); ?>
+<?php
+// ──────────────────────────────────────────────
+// Intersection Observer & Smooth-Scroll
+// ──────────────────────────────────────────────
+wp_enqueue_script(
+	'sanai-services',
+	get_template_directory_uri() . '/assets/js/services.js',
+	array(),
+	null,
+	true
+);
+get_footer();

@@ -1,9 +1,18 @@
 /*==================================================
-  Services Specific Styles (assets/css/services.css)
+  Services Page Styles  (replace services.css)
 ==================================================*/
 
+/* -------- 基本カラー -------- */
+.page-services {
+  --c-primary: #f6a62e;
+  --c-bg: #0e3b7c;
+  --c-text: #ffffff;
+  background: var(--c-bg);
+  color: var(--c-text);
+}
+
+/* ====== Sub-hero ====== */
 .subhero {
-  /* serviceのsubhero専用の画像を指定 */
   background: url("../img/subhero-service-bg.png") center/cover no-repeat;
   background-attachment: fixed;
 }
@@ -13,108 +22,120 @@
   }
 }
 
-/* Overview */
+/* ====== Overview ====== */
 .services__overview {
-  margin: 2rem 0;
+  margin: 2.5rem auto;
 }
 .services__overview-text {
-  font-size: 1rem;
-  max-width: 800px;
+  max-width: 48rem;
   margin: 0 auto;
-  color: #555;
   text-align: center;
+  line-height: 1.8;
 }
 
-/* Navigation */
+/* ====== Navigation ====== */
 .services__nav {
-  margin: 3rem 0;
+  margin: 3rem auto;
 }
 .services__nav-list {
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
-  gap: 1rem;
+  gap: 0.75rem;
   list-style: none;
-  padding: 0;
   margin: 0;
-}
-.services__nav-item {
+  padding: 0;
 }
 .services__nav-link {
-  display: block;
-  padding: 0.5rem 1rem;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  background-color: #f9f9f9;
+  position: relative;
+  padding: 0.4rem 1.2rem;
+  color: var(--c-text);
   text-decoration: none;
-  color: #333;
-  transition: background-color 0.3s, color 0.3s;
+  background: none;
+  border: none;
 }
-.services__nav-link:hover,
-.services__nav-link:focus {
-  background-color: #333;
-  color: #fff;
+.services__nav-link::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  bottom: -4px;
+  height: 2px;
+  background: var(--c-primary);
+  scale: 0 1;
+  transform-origin: left;
+  transition: scale 0.3s;
+}
+.services__nav-link:hover::after {
+  scale: 1 1;
 }
 
-/* Service Detail */
+/* ====== Service Detail ====== */
 .services__detail {
   display: flex;
-  flex-wrap: wrap;
   align-items: center;
-  margin: 4rem 0;
+  gap: 2rem;
+  margin: 4rem auto;
+  max-width: 1200px;
+  scroll-margin-top: 80px; /* ヘッダー分オフセット */
 }
-.services__detail:nth-child(even) {
+/* 偶数（左右反転） */
+.services__detail--reverse {
   flex-direction: row-reverse;
 }
+
+/* 本文側 */
+.services__detail-body {
+  flex: 1 1 420px;
+  max-width: 34rem;
+}
 .services__detail-number {
-  font-size: 0.875rem;
-  color: #888;
-  margin-bottom: 0.5rem;
+  font-size: 0.9rem;
+  color: var(--c-primary);
+  margin: 0 0 0.25rem;
 }
 .services__detail-title--en {
-  font-size: 1.125rem;
-  color: #666;
+  font-size: 1.1rem;
   text-transform: uppercase;
   margin: 0;
+  opacity: 0.85;
 }
 .services__detail-title--jp {
   font-size: 1.75rem;
   font-weight: 700;
-  margin: 0.5rem 0 1rem;
-}
-.services__detail-text {
-  flex: 1 1 60%;
-  padding: 1rem;
+  margin: 0.25rem 0 1rem;
 }
 .services__detail-list {
-  list-style: disc inside;
-  margin: 0 0 1rem;
-  padding: 0;
+  list-style: disc;
+  padding-left: 1.2rem;
 }
 .services__detail-list-item {
-  margin-bottom: 0.5rem;
-  color: #444;
+  margin-bottom: 0.4rem;
+  line-height: 1.6;
 }
+
+/* 画像側 */
 .services__detail-image {
-  flex: 1 1 40%;
-  padding: 1rem;
+  flex: 1 1 640px;
 }
 .services__detail-image img {
   width: 100%;
   height: auto;
-  border-radius: 8px;
+  border-radius: 6px;
 }
 
-/*----------------------------------------
-  レスポンシブ
-----------------------------------------*/
+/* ====== Responsive ====== */
+@media (max-width: 992px) {
+  .services__detail,
+  .services__detail--reverse {
+    flex-direction: column;
+  }
+  .services__detail-image,
+  .services__detail-body {
+    flex: 1 1 100%;
+  }
+}
+
 @media (max-width: 768px) {
-  .services__detail {
-    flex-direction: column;
-  }
-  .services__detail:nth-child(even) {
-    flex-direction: column;
-  }
   .services__nav-list {
     flex-direction: column;
     gap: 0.5rem;
