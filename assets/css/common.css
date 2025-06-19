@@ -16,6 +16,8 @@
   --c-white: #ffffff;
   --c-black: #0d0d0d;
   --c-navy: #1a2854;
+  --c-navy-bg: #194181;
+
 
   /* Font Size */
   --fs-xs: 0.75rem;
@@ -43,8 +45,8 @@ html {
 body {
   margin: 0;
   padding: 0;
-  background-color: var(--c-navy);
-  color: var(--c-black);
+  background-color: var(--c-navy-bg);
+  color: var(--c-white);
   font-family: "Noto Sans JP", sans-serif;
   line-height: 1.6;
 }
