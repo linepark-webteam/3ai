@@ -128,6 +128,7 @@
   .services__detail,
   .services__detail--reverse {
     flex-direction: column;
+    align-items: baseline;
   }
   .services__detail-image,
   .services__detail-body {
@@ -137,7 +138,8 @@
 
 @media (max-width: 768px) {
   .services__nav-list {
-    flex-direction: column;
+    flex-direction: row;
     gap: 0.5rem;
+    justify-content: flex-start;
   }
 }
