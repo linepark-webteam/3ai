@@ -17,7 +17,7 @@
 <body <?php body_class(); ?>>
   <!-- ヘッダー -->
   <header class="site-header">
-    <div class="header-inner container">
+    <div class="header-inner container-fruid">
       <!-- サイトロゴ（カスタムロゴを有効化している場合は以下のように出力可能） -->
       <?php if (function_exists('the_custom_logo') && has_custom_logo()) : ?>
         <div class="logo"><?php the_custom_logo(); ?></div>
@@ -40,12 +40,18 @@
       ]);
       ?>
 
-      <!-- ハンバーガーメニュー -->
-      <button class="hamburger" aria-label="メニューを開く">
-        <span class="hamburger__line"></span>
-        <span class="hamburger__line"></span>
-        <span class="hamburger__line"></span>
-      </button>
+      <!-- ハンバーガー + Menu ラベル -->
+      <div class="menu-toggle">
+        <span class="menu-toggle__text">Menu</span>
+        <button id="hamburger-btn"
+          class="hamburger"
+          aria-label="メニューを開く"
+          aria-controls="site-global-nav"
+          aria-expanded="false">
+          <span class="hamburger__line"></span>
+          <span class="hamburger__line"></span>
+        </button>
+      </div>
 
       <?php
       // モバイルメニュー

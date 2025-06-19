@@ -48,6 +48,13 @@ function sanai_enqueue_assets()
         $theme_version,
         'all'
     );
+    wp_enqueue_style(
+        'sanai-header',
+        get_template_directory_uri() . '/assets/css/header.css',
+        array('sanai-reset'),
+        $theme_version,
+        'all'
+    );
 
     //  top.css（トップページ用）
     if (is_front_page() || is_home()) {
