@@ -79,3 +79,23 @@
     }
   });
 })();
+
+/* ─────────────────────────────────────────
+ *  3. 現在ページに .is-current を付与
+ * ───────────────────────────────────────── */
+(() => {
+  const LINKS = document.querySelectorAll(
+    '.global-nav__item > a, .mobile-nav__item > a'
+  );
+  if (!LINKS.length) return;
+
+  const currentPath = location.pathname.replace(/\/$/, ''); // 末尾スラッシュ統一
+
+  LINKS.forEach(link => {
+    const linkPath = link.pathname.replace(/\/$/, '');
+    // 完全一致 or 末尾一致（親メニューをハイライトしたい場合）
+    if (currentPath === linkPath || currentPath.startsWith(linkPath + '/')) {
+      link.parentElement.classList.add('is-current');
+    }
+  });
+})();

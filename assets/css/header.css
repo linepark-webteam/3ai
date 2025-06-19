@@ -181,3 +181,23 @@
     display: flex;
   }
 }
+
+
+/*=====================================
+  is-current ナビリンク装飾
+=====================================*/
+.global-nav__item.is-current > a,
+.mobile-nav__item.is-current > a{
+  color: var(--c-primary);
+  position: relative;
+}
+
+.global-nav__item.is-current > a::after,
+.mobile-nav__item.is-current > a::after{
+  content:'';
+  position:absolute;
+  left:0; bottom:-4px;            /* 距離・太さお好みで */
+  width:100%; height:2px;
+  background:var(--c-primary);
+  border-radius:1px;
+}
