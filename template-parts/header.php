@@ -40,9 +40,9 @@
       ]);
       ?>
 
-      <!-- ハンバーガー + Menu ラベル -->
-      <div class="menu-toggle">
-        <span class="menu-toggle__text">Menu</span>
+      <!-- Menu ラベル + ハンバーガー -->
+      <div class="menu-toggle" role="button" tabindex="0">
+        <span class="menu-toggle__text" id="menu-label">Menu</span>
         <button id="hamburger-btn"
           class="hamburger"
           aria-label="メニューを開く"
