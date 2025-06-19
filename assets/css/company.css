@@ -126,3 +126,8 @@
   border-radius: 0.5rem;
   display: block;
 }
+@media (max-width: 600px) {
+  .map__embed iframe {
+    aspect-ratio: 1 / 1; /* アスペクト比 16:9 */
+  }
+}
