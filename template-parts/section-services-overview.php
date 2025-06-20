@@ -10,7 +10,7 @@
 <section class="services__overview section container">
 	<p class="services__overview-text">
 		<?php esc_html_e(
-			'土地（底地）やマンション・アパートなど、不動産の調査・管理から買取・仲介まで、公平かつ客観的な視点を大切にしながら、お客様をサポートしていきます。',
+			'賃貸管理・仲介から駐車場運営、売買仲介、査定・買取、資産コンサルティング、リフォーム提案まで──多彩な不動産サービスをワンストップでご提供し、お客様の資産価値最大化をサポートします。',
 			'sanai-textdomain'
 		); ?>
 	</p>

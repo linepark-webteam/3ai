@@ -14,7 +14,7 @@ get_header();
 
 	<?php get_template_part( 'template-parts/section-services', 'overview' ); ?>
 
-	<?php get_template_part( 'template-parts/section-services', 'nav' ); ?>
+	<?php // get_template_part( 'template-parts/section-services', 'nav' ); ?>
 
 	<?php get_template_part( 'template-parts/section-services', 'details' ); ?>
 

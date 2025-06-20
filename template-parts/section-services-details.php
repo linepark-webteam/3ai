@@ -6,163 +6,64 @@
  *
  * @package Sanai_WP_Theme
  * @since 1.0.0
- */
+*/
+// ─────────────────────────────────────────
+// 事業データ（必要に応じて追加・編集）
+// ─────────────────────────────────────────
+$services = [
+    [
+        'jp'    => '賃貸管理・賃貸仲介',
+        'image' => 'services-01.webp',
+    ],
+    [
+        'jp'    => '駐車場管理・運営',
+        'image' => 'services-02.webp',
+    ],
+    [
+        'jp'    => '売買仲介営業',
+        'image' => 'services-03.webp',
+    ],
+    [
+        'jp'    => '不動産査定・買取提案',
+        'image' => 'services-04.webp',
+    ],
+    [
+        'jp'    => '資産コンサルティング',
+        'image' => 'services-05.webp',
+    ],
+    [
+        'jp'    => 'リフォーム提案',
+        'image' => 'services-06.webp',
+    ],
+];
 ?>
-<?php
-/**
- * 事業内容 – 各事業詳細
- *
- * @package Sanai_WP_Theme
- * @since   1.0.0
- */
 
-/**
- * NOTE:
- * ここでは可読性を優先して静的 HTML を直書きしています。
- * 件数や内容が頻繁に変わる場合は、配列＋ループに置き換えてください。
- */
-?>
+<?php foreach ( $services as $index => $service ) : ?>
+    <?php
+        $num      = $index + 1;                                           // 1-based 番号
+        $id       = 'service' . $num;                                     // id="service1" など
+        $reverse  = ( $num % 2 === 0 ) ? ' services__detail--reverse' : '';
+        $slugged  = sprintf( 'Service %02d', $num );                      // “Service 01”
+        $img_src  = esc_url( get_template_directory_uri() . '/assets/img/' . $service['image'] );
+        $title_jp = esc_html__( $service['jp'], 'sanai-textdomain' );
+    ?>
 
-<!-- ▼ Service 01 -->
-<section id="service1" class="services__detail section container">
-    <div class="services__detail-body">
-        <h3 class="services__detail-number"><?php esc_html_e('Service 01', 'sanai-textdomain'); ?></h3>
-        <h4 class="services__detail-title services__detail-title--en">
-            <?php esc_html_e('New construction for sale & renovation business', 'sanai-textdomain'); ?>
-        </h4>
-        <h4 class="services__detail-title services__detail-title--jp">
-            <?php esc_html_e('新築戸建・土地分譲 リノベーション事業', 'sanai-textdomain'); ?>
-        </h4>
+    <!-- ▼ <?php echo esc_html( $slugged ); ?> -->
+    <section id="<?php echo esc_attr( $id ); ?>" class="services__detail section container<?php echo esc_attr( $reverse ); ?>">
+        <div class="services__detail-body">
+            <h3 class="services__detail-number">
+                <?php echo esc_html( $slugged ); ?>
+            </h3>
+            <h4 class="services__detail-title services__detail-title--jp">
+                <?php echo $title_jp; ?>
+            </h4>
+        </div>
 
-        <ul class="services__detail-list">
-            <li class="services__detail-list-item"><?php esc_html_e('土地・建物分譲事業の企画・販売', 'sanai-textdomain'); ?></li>
-            <li class="services__detail-list-item"><?php esc_html_e('アパート事業の企画・販売', 'sanai-textdomain'); ?></li>
-            <li class="services__detail-list-item"><?php esc_html_e('建替・リフォームの企画・提案', 'sanai-textdomain'); ?></li>
-        </ul>
-    </div>
-
-    <figure class="services__detail-image">
-        <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/img/test.jpg'); ?>"
-            alt="<?php esc_attr_e('新築戸建・土地分譲 リノベーション事業', 'sanai-textdomain'); ?>">
-    </figure>
-</section>
-
-<!-- ▼ Service 02 -->
-<section id="service2" class="services__detail services__detail--reverse section container">
-    <div class="services__detail-body">
-        <h3 class="services__detail-number"><?php esc_html_e('Service 02', 'sanai-textdomain'); ?></h3>
-        <h4 class="services__detail-title services__detail-title--en">
-            <?php esc_html_e('Buy and sell support', 'sanai-textdomain'); ?>
-        </h4>
-        <h4 class="services__detail-title services__detail-title--jp">
-            <?php esc_html_e('不動産買取売却サポート', 'sanai-textdomain'); ?>
-        </h4>
-
-        <ul class="services__detail-list">
-            <li class="services__detail-list-item"><?php esc_html_e('不動産買取（仲介手数料不要）', 'sanai-textdomain'); ?></li>
-            <li class="services__detail-list-item"><?php esc_html_e('底地・老朽アパート買取（オーナーチェンジ）', 'sanai-textdomain'); ?></li>
-            <li class="services__detail-list-item"><?php esc_html_e('空き家・再生不可物件の買取', 'sanai-textdomain'); ?></li>
-        </ul>
-    </div>
-
-    <figure class="services__detail-image">
-        <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/img/test.jpg'); ?>"
-            alt="<?php esc_attr_e('不動産買取売却サポート', 'sanai-textdomain'); ?>">
-    </figure>
-</section>
-
-<!-- ▼ Service 03 -->
-<section id="service3" class="services__detail section container">
-    <div class="services__detail-body">
-        <h3 class="services__detail-number"><?php esc_html_e('Service 03', 'sanai-textdomain'); ?></h3>
-        <h4 class="services__detail-title services__detail-title--en">
-            <?php esc_html_e('Land rights adjustment', 'sanai-textdomain'); ?>
-        </h4>
-        <h4 class="services__detail-title services__detail-title--jp">
-            <?php esc_html_e('底地・借地権の権利調整', 'sanai-textdomain'); ?>
-        </h4>
-
-        <ul class="services__detail-list">
-            <li class="services__detail-list-item"><?php esc_html_e('借地権の買い取り交渉・地代の増額交渉', 'sanai-textdomain'); ?></li>
-            <li class="services__detail-list-item"><?php esc_html_e('契約違反に対する注意喚起・解約代行', 'sanai-textdomain'); ?></li>
-            <li class="services__detail-list-item"><?php esc_html_e('借地人からの苦情対応', 'sanai-textdomain'); ?></li>
-        </ul>
-    </div>
-
-    <figure class="services__detail-image">
-        <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/img/test.jpg'); ?>"
-            alt="<?php esc_attr_e('底地・借地権の権利調整', 'sanai-textdomain'); ?>">
-    </figure>
-</section>
-
-<!-- ▼ Service 04 -->
-<section id="service4" class="services__detail services__detail--reverse section container">
-    <div class="services__detail-body">
-        <h3 class="services__detail-number"><?php esc_html_e('Service 04', 'sanai-textdomain'); ?></h3>
-        <h4 class="services__detail-title services__detail-title--en">
-            <?php esc_html_e('Inheritance support', 'sanai-textdomain'); ?>
-        </h4>
-        <h4 class="services__detail-title services__detail-title--jp">
-            <?php esc_html_e('相続・終活サポート', 'sanai-textdomain'); ?>
-        </h4>
-
-        <ul class="services__detail-list">
-            <li class="services__detail-list-item"><?php esc_html_e('相続税課税試算', 'sanai-textdomain'); ?></li>
-            <li class="services__detail-list-item"><?php esc_html_e('遺産分割シミュレーション', 'sanai-textdomain'); ?></li>
-            <li class="services__detail-list-item"><?php esc_html_e('公正証書遺言作成サポート', 'sanai-textdomain'); ?></li>
-        </ul>
-    </div>
-
-    <figure class="services__detail-image">
-        <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/img/test.jpg'); ?>"
-            alt="<?php esc_attr_e('相続・終活サポート', 'sanai-textdomain'); ?>">
-    </figure>
-</section>
-
-<!-- ▼ Service 05 -->
-<section id="service5" class="services__detail section container">
-    <div class="services__detail-body">
-        <h3 class="services__detail-number"><?php esc_html_e('Service 05', 'sanai-textdomain'); ?></h3>
-        <h4 class="services__detail-title services__detail-title--en">
-            <?php esc_html_e('Effective land utilization & real estate management', 'sanai-textdomain'); ?>
-        </h4>
-        <h4 class="services__detail-title services__detail-title--jp">
-            <?php esc_html_e('土地有効活用不動産事業', 'sanai-textdomain'); ?>
-        </h4>
-
-        <ul class="services__detail-list">
-            <li class="services__detail-list-item"><?php esc_html_e('アパート・マンション企画・経営', 'sanai-textdomain'); ?></li>
-            <li class="services__detail-list-item"><?php esc_html_e('高齢者施設運営企画提案', 'sanai-textdomain'); ?></li>
-            <li class="services__detail-list-item"><?php esc_html_e('賃料請求・代理受領・滞納対応', 'sanai-textdomain'); ?></li>
-        </ul>
-    </div>
-
-    <figure class="services__detail-image">
-        <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/img/test.jpg'); ?>"
-            alt="<?php esc_attr_e('土地有効活用不動産事業', 'sanai-textdomain'); ?>">
-    </figure>
-</section>
-
-<!-- ▼ Service 06 -->
-<section id="service6" class="services__detail services__detail--reverse section container">
-    <div class="services__detail-body">
-        <h3 class="services__detail-number"><?php esc_html_e('Service 06', 'sanai-textdomain'); ?></h3>
-        <h4 class="services__detail-title services__detail-title--en">
-            <?php esc_html_e('Rental Brokerage & Property Management', 'sanai-textdomain'); ?>
-        </h4>
-        <h4 class="services__detail-title services__detail-title--jp">
-            <?php esc_html_e('賃貸仲介・賃貸管理', 'sanai-textdomain'); ?>
-        </h4>
-
-        <ul class="services__detail-list">
-            <li class="services__detail-list-item"><?php esc_html_e('物件情報の収集・掲載', 'sanai-textdomain'); ?></li>
-            <li class="services__detail-list-item"><?php esc_html_e('契約締結・更新手続き', 'sanai-textdomain'); ?></li>
-            <li class="services__detail-list-item"><?php esc_html_e('家賃集金・滞納対応', 'sanai-textdomain'); ?></li>
-        </ul>
-    </div>
-
-    <figure class="services__detail-image">
-        <img src="<?php echo esc_url(get_template_directory_uri() . '/assets/img/test.jpg'); ?>"
-            alt="<?php esc_attr_e('賃貸仲介・賃貸管理', 'sanai-textdomain'); ?>">
-    </figure>
-</section>
+        <figure class="services__detail-image">
+            <img
+                src="<?php echo $img_src; ?>"
+                alt="<?php echo esc_attr( $title_jp ); ?>"
+            >
+        </figure>
+    </section>
+<?php endforeach; ?>
