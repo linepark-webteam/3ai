@@ -29,16 +29,15 @@ get_header();
       </ul>
 
       <!-- ページネーション -->
-      <nav class="notice__pagination" aria-label="<?php esc_attr_e('お知らせ ページナビゲーション', 'sanai-textdomain'); ?>">
-        <?php
-        echo get_the_posts_pagination([
-          'mid_size'           => 1,
-          'prev_text'          => __('« 前へ', 'sanai-textdomain'),
-          'next_text'          => __('次へ »', 'sanai-textdomain'),
-          'screen_reader_text' => __('お知らせのページナビゲーション', 'sanai-textdomain'),
-        ]);
-        ?>
-      </nav>
+  <?php
+    // WP組み込みの<nav>をそのまま出力
+    echo get_the_posts_pagination( [
+      'mid_size'           => 1,
+      'prev_text'          => __('« 前へ',    'sanai-textdomain'),
+      'next_text'          => __('次へ »',   'sanai-textdomain'),
+      'screen_reader_text' => __('お知らせのページナビゲーション', 'sanai-textdomain'),
+    ] );
+  ?>
 
     <?php else : ?>
       <p><?php esc_html_e('お知らせはまだありません。', 'sanai-textdomain'); ?></p>

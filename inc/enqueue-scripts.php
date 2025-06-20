@@ -82,7 +82,7 @@ function sanai_enqueue_assets()
     //  list-property.css（物件一覧アーカイブ用）
     if (is_post_type_archive('property')) {
         wp_enqueue_style(
-            'sanai-property-list',
+            'sanai-list-property',
             get_template_directory_uri() . '/assets/css/list-property.css',
             array('sanai-common'),
             $theme_version,
@@ -93,7 +93,7 @@ function sanai_enqueue_assets()
     //  list-notice.css（物件一覧アーカイブ用）
     if (is_post_type_archive('notice')) {
         wp_enqueue_style(
-            'sanai-notice-list',
+            'sanai-list-notice',
             get_template_directory_uri() . '/assets/css/list-notice.css',
             array('sanai-common'),
             $theme_version,

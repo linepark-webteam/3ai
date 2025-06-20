@@ -12,3 +12,29 @@
     background-attachment: scroll;
   }
 }
+
+.notice__item {
+  display: flex;
+  justify-content: flex-start;
+  align-items: baseline;
+  gap: 0.5rem;
+}
+
+.notice__date {
+  font-size: 0.8rem;
+}
+
+.notice__title {
+  font-size: 1.2rem;
+}
+
+.navigation.pagination {
+  display: flex;
+  justify-content: center;
+}
+
+.nav-links {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
