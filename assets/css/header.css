@@ -89,8 +89,8 @@
   transform: translateY(-4px) rotate(-45deg);
 }
 
-/* ── PC Nav hidden ────────────────────────────── */
-.global-nav {
+/* ── PC header nav hidden ────────────────────────────── */
+.site-header .global-nav {
   display: none !important;
 }
 
