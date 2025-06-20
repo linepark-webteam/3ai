@@ -1,13 +1,12 @@
 <?php
 /**
  * inc/custom-post-types.php
- * カスタム投稿タイプ「物件」を登録する
  */
 
 if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
-
+// カスタム投稿タイプ「物件」を登録する
 function sanai_register_property_cpt() {
     $labels = array(
         'name'                  => __( '物件一覧', 'sanai-textdomain' ),

@@ -1,0 +1,39 @@
+/* assets/css/property.css */
+
+.single-property .property-images {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 1rem;
+}
+.property-main-img,
+.property-map-thumb img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+}
+.property-summary {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem 1.5rem;
+  list-style: none;
+  margin: 1rem 0;
+  padding: 0;
+}
+.property-contact {
+  display: inline-block;
+  margin-top: .5rem;
+}
+.property-spec__table {
+  width: 100%;
+  border-collapse: collapse;
+}
+.property-spec__table th,
+.property-spec__table td {
+  border-bottom: 1px solid #ccc;
+  padding: .5rem .75rem;
+}
+@media (max-width: 768px) {
+  .single-property .property-images {
+    grid-template-columns: 1fr;
+  }
+}

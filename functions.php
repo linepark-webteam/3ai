@@ -24,6 +24,9 @@ require_once get_template_directory() . '/inc/custom-post-types.php';
 // 4. デフォルトナビコールバック
 require_once get_template_directory() . '/inc/navigation.php';
 
+// 5. 物件メタボックス
+require_once get_template_directory() . '/inc/meta-boxes.php';
+
 // 必要に応じて、さらに以下のようにファイル分割可能
 // require_once get_template_directory() . '/inc/widgets.php';
 // require_once get_template_directory() . '/inc/extras.php';
