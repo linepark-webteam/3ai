@@ -60,7 +60,7 @@ $services = [
 
 	<div class="service-banner text-center">
 		<a href="<?php echo esc_url( home_url( '/service/' ) ); ?>" class="service-banner__link">
-			<?php esc_html_e( 'サービス詳細を見る', 'sanai-textdomain' ); ?>
+			<?php esc_html_e( 'サービス一覧ページへ', 'sanai-textdomain' ); ?>
 		</a>
 	</div>
 </section>

@@ -99,3 +99,19 @@
     }
   });
 })();
+
+
+/*------------TOPページ Service section reveal ------------*/
+document.addEventListener('DOMContentLoaded', () => {
+  const cards = document.querySelectorAll('.service__item');
+  const io = new IntersectionObserver(
+    entries => entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('is-visible');
+        io.unobserve(entry.target);
+      }
+    }),
+    { threshold: 0.2, rootMargin: '0px 0px -10% 0px' }
+  );
+  cards.forEach(card => io.observe(card));
+});

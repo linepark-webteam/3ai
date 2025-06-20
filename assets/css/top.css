@@ -2,6 +2,14 @@
   Home (TOP) Specific Styles (assets/css/top.css)
 ==================================================*/
 
+:root {
+  --c-bg-gradient-start: #f0f4ff;
+  --c-bg-gradient-end:   #ffffff;
+  --c-card-shadow: 0 4px 12px rgba(0 0 0 / 0.05);
+  --c-card-shadow-hover: 0 8px 20px rgba(0 0 0 / 0.10);
+}
+
+
 /*------------------------------
   Hero Section
 ------------------------------*/
@@ -47,57 +55,130 @@
   margin-bottom: 2rem;
 }
 
-/*------------------------------
-  Service セクション
-------------------------------*/
-.service__grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-  gap: 2rem;
-  margin-top: 2rem;
+/*==================================================
+  #service セクション
+==================================================*/
+.service {
+  position: relative;
+  padding-block: clamp(4rem, 8vw, 6rem);
+  /* background: linear-gradient(135deg,
+              var(--c-bg-gradient-start) 0%,
+              var(--c-bg-gradient-end) 60%); */
 }
 
-.service__item {
-  background-color: var(--c-white);
-  border-radius: 0.5rem;
-  padding: 2rem;
+/* ───────── セクションヘッド ───────── */
+.service .section-head {
   text-align: center;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+}
+.service .section-title {
+  font-size: clamp(1.75rem, 4.5vw, 2.5rem);
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+.service .section-subtitle {
+  font-size: clamp(1rem, 2.8vw, 1.125rem);
+  color: var(--c-white);
 }
 
+/*==================================================
+  サービスカードグリッド
+==================================================*/
+.service__grid {
+  margin-block: clamp(2rem, 6vw, 3rem) 3.5rem;
+  display: grid;
+  gap: 2rem;
+  grid-template-columns: repeat(auto-fit, minmax(10rem, 1fr));
+  list-style: none;
+  padding: 0;
+}
+
+/* ───────── カード ───────── */
+.service__item {
+  position: relative;
+  background: #fff;
+  border-radius: 0.75rem;
+  padding: 2rem 1rem 2.25rem;
+  text-align: center;
+  box-shadow: var(--c-card-shadow);
+  isolation: isolate;               /* ホバー時に影重なりを抑制 */
+  transition:
+    opacity 0.6s ease,
+    transform 0.6s ease,
+    box-shadow 0.3s ease;
+  opacity: 0;                       /* IntersectionObserver で解除 */
+  transform: translateY(40px);
+}
+
+.service__item.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.service__item:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--c-card-shadow-hover);
+}
+
+/* ───────── アイコン ───────── */
 .service__icon {
+  display: inline-block;
   font-size: 2.5rem;
+  line-height: 1;
   color: var(--c-primary);
   margin-bottom: 1rem;
 }
 
+/* ───────── タイトル ───────── */
 .service__item-title {
-  font-size: var(--fs-xl);
+  font-size: 1.125rem;
   font-weight: 600;
-  margin-bottom: 0.75rem;
-  color: var(--c-secondary-light);
+  margin: 0;
+  color:var(--c-secondary);
 }
 
-.service__item-text {
-  font-size: var(--fs-base);
-  color: var(--c-secondary-light);
-}
-
-/* サービスバナー */
+/*==================================================
+  「サービス一覧ページへ」 CTA バナー
+==================================================*/
 .service-banner {
-  background-color: var(--c-primary);
-  border-radius: 0.5rem;
-  margin-top: 3rem;
-  padding: 1.5rem;
-  text-align: center;
+  margin-top: 0.5rem;
 }
+
 .service-banner__link {
-  text-decoration: none;
-  color: var(--c-white);
+  display: inline-block;
+  padding: 0.75rem 2.5rem;
+  background: var(--c-primary);
+  color: #fff;
+  font-weight: 600;
+  border-radius: 100vmax;
+  transition: background 0.3s ease, transform 0.2s ease;
 }
-.service-banner__text {
-  font-size: var(--fs-lg);
-  font-weight: 700;
+
+.service-banner__link:hover,
+.service-banner__link:focus-visible {
+  /* background: shade(var(--c-primary), 10%);  */
+  transform: translateY(-2px);
+}
+
+/*==================================================
+  Motion Reduction
+==================================================*/
+@media (prefers-reduced-motion: reduce) {
+  .service__item,
+  .service__item.is-visible,
+  .service__item:hover,
+  .service-banner__link,
+  .service-banner__link:hover {
+    transition: none !important;
+    transform: none !important;
+  }
+}
+
+/*==================================================
+  ブレイクポイント調整（任意）
+==================================================*/
+/* 例：タブレットで列間余白を縮小 */
+@media (max-width: 768px) {
+  .service__grid { gap: 1.5rem; }
 }
 
 /*------------------------------
