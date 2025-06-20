@@ -79,11 +79,22 @@ function sanai_enqueue_assets()
         );
     }
 
-    //  property-list.css（物件一覧アーカイブ用）
+    //  list-property.css（物件一覧アーカイブ用）
     if (is_post_type_archive('property')) {
         wp_enqueue_style(
             'sanai-property-list',
-            get_template_directory_uri() . '/assets/css/property-list.css',
+            get_template_directory_uri() . '/assets/css/list-property.css',
+            array('sanai-common'),
+            $theme_version,
+            'all'
+        );
+    }
+
+    //  list-notice.css（物件一覧アーカイブ用）
+    if (is_post_type_archive('notice')) {
+        wp_enqueue_style(
+            'sanai-notice-list',
+            get_template_directory_uri() . '/assets/css/list-notice.css',
             array('sanai-common'),
             $theme_version,
             'all'

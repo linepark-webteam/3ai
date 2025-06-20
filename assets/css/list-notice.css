@@ -1,0 +1,14 @@
+/*==================================================
+  Archive (物件一覧ページ) Specific Styles (assets/css/property-list.css)
+==================================================*/
+
+.subhero {
+  /* 物件一覧のsubhero専用の画像を指定 */
+  background: url("../img/subhero-list-notice-bg.png") center/cover no-repeat;
+  background-attachment: fixed;
+}
+@media (max-width: 768px) {
+  .subhero {
+    background-attachment: scroll;
+  }
+}
