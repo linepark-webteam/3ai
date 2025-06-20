@@ -156,16 +156,16 @@
 }
 
 /*------------------------------
-  Topics セクション
+  notice セクション
 ------------------------------*/
-.topics__list {
+.notice__list {
   list-style: none;
   margin: 0;
   padding: 0;
   margin-top: 2rem;
 }
 
-.topics__item {
+.notice__item {
   display: flex;
   align-items: baseline;
   gap: 1rem;
@@ -173,31 +173,31 @@
   border-bottom: 1px solid #e0e0e0;
 }
 
-.topics__date {
+.notice__date {
   font-size: var(--fs-sm);
   color: var(--c-white);
   min-width: 80px;
 }
 
-.topics__link {
+.notice__link {
   color: var(--c-white);
   font-size: var(--fs-base);
   text-decoration: none;
 }
-.topics__link:hover {
+.notice__link:hover {
   color: var(--c-primary);
 }
 
-.topics__more {
+.notice__more {
   margin-top: 1rem;
 }
 
-.topics__more-link {
+.notice__more-link {
   font-size: var(--fs-base);
   color: var(--c-primary);
   text-decoration: none;
 }
-.topics__more-link:hover {
+.notice__more-link:hover {
   text-decoration: underline;
 }
 

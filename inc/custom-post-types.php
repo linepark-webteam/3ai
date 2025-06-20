@@ -59,7 +59,7 @@ add_action( 'init', 'sanai_register_property_cpt' );
 
 // カスタム投稿タイプ「お知らせ」を登録
 function sanai_register_notice_cpt() {
-    $labels = array(
+    $labels = [
         'name'               => __( 'お知らせ', 'sanai-textdomain' ),
         'singular_name'      => __( 'お知らせ', 'sanai-textdomain' ),
         'menu_name'          => __( 'お知らせ管理', 'sanai-textdomain' ),
@@ -70,17 +70,17 @@ function sanai_register_notice_cpt() {
         'search_items'       => __( 'お知らせを検索', 'sanai-textdomain' ),
         'not_found'          => __( 'お知らせはありません', 'sanai-textdomain' ),
         'not_found_in_trash' => __( 'ゴミ箱にお知らせはありません', 'sanai-textdomain' ),
-    );
-    $args = array(
-        'labels'             => $labels,
-        'public'             => true,      // フロントにも公開
-        'has_archive'        => false,     // アーカイブ不要なら false
-        'show_in_rest'       => true,      // Gutenberg / REST API 対応
-        'supports'           => array( 'title' ), // タイトルのみ
-        'menu_position'      => 6,
-        'menu_icon'          => 'dashicons-megaphone',
-        'rewrite'            => array( 'slug' => 'notice' ),
-    );
+    ];
+    $args = [
+        'labels'        => $labels,
+        'public'        => true,
+        'has_archive'   => true,
+        'rewrite'       => [ 'slug' => 'notice' ],
+        'show_in_rest'  => true,
+        'supports'      => [ 'title' ],
+        'menu_position' => 6,
+        'menu_icon'     => 'dashicons-megaphone',
+    ];
     register_post_type( 'notice', $args );
 }
 add_action( 'init', 'sanai_register_notice_cpt' );

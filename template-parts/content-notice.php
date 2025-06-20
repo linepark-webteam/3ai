@@ -7,10 +7,10 @@ if ( ! defined( 'ABSPATH' ) ) {
     exit;
 }
 ?>
-<li class="topics__item">
-  <time class="topics__date"
+<li class="notice__item">
+  <time class="notice__date"
         datetime="<?php echo esc_attr( get_the_date( 'Y-m-d' ) ); ?>">
     <?php echo esc_html( get_the_date( 'Y.m.d' ) ); ?>
   </time>
-  <span class="topics__title"><?php the_title(); ?></span>
+  <span class="notice__title"><?php the_title(); ?></span>
 </li>

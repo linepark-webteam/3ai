@@ -21,8 +21,9 @@ if (has_post_thumbnail()) {
 // アーカイブページなら CPT のアーカイブタイトルを。
 // シングルページなら投稿タイトルを取得。
 if (is_post_type_archive('property')) {
-  // 表示用にエスケープされた文字列を取得
   $title_text = post_type_archive_title('', false);
+} else if (is_post_type_archive('notice')) {
+    $title_text = post_type_archive_title('', false);
 } else {
   $title_text = get_the_title();
 }

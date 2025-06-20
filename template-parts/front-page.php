@@ -21,8 +21,8 @@ get_header();
   <!-- Property -->
   <?php get_template_part('template-parts/section', 'property'); ?>
 
-  <!-- Topics -->
-  <?php get_template_part('template-parts/section', 'topics'); ?>
+  <!-- Notice -->
+  <?php get_template_part('template-parts/section', 'notice'); ?>
 
   <!-- Recruit -->
   <?php // get_template_part('template-parts/section', 'recruit'); ?>
