@@ -397,7 +397,7 @@ img {
 ---------------------------------------*/
 .cta {
   position: relative;
-  background: url("../img/contact-cta-bg.png") center/cover no-repeat fixed;
+  background: url("../img/contact-cta-bg.webp") center/cover no-repeat fixed;
   color: var(--c-white);
   overflow: hidden; /* オーバーレイはみ出し防止 */
 }

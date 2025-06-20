@@ -13,7 +13,7 @@
 
 /* ====== Sub-hero ====== */
 .subhero {
-  background: url("../img/subhero-service-bg.png") center/cover no-repeat;
+  background: url("../img/subhero-service-bg.webp") center/cover no-repeat;
   background-attachment: fixed;
 }
 @media (max-width: 768px) {

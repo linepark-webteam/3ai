@@ -4,7 +4,7 @@
 
 .subhero {
   /* recruitのsubhero専用の画像を指定 */
-  background: url("../img/subhero-recruit-bg.png") center/cover no-repeat; 
+  background: url("../img/subhero-recruit-bg.webp") center/cover no-repeat; 
   background-attachment: fixed;
 }
 @media (max-width: 768px) {

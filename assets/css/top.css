@@ -23,7 +23,7 @@
   color: var(--c-white);
    /* 背景位置を変数へバインド */
   --heroY: 0px; /* ← デフォルト値 */
-  background: url("../img/top-hero-01.png") center/cover no-repeat;
+  background: url("../img/top-hero-01.webp") center/cover no-repeat;
   background-position: center calc(50% + var(--heroY));
   will-change: background-position; /* パフォーマンス向上 */
 }

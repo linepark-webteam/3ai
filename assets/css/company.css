@@ -8,7 +8,7 @@
 
 .subhero {
   /* companyのsubhero専用の画像を指定 */
-  background: url("../img/subhero-company-bg.png") center/cover no-repeat;
+  background: url("../img/subhero-company-bg.webp") center/cover no-repeat;
   background-attachment: fixed;
 }
 @media (max-width: 768px) {
