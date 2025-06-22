@@ -16,8 +16,8 @@
   <div class="greeting__inner">
     <figure class="greeting__figure">
       <img
-        src="<?php echo esc_url(get_template_directory_uri() . '/assets/img/test.jpg'); ?>"
-        alt="<?php esc_attr_e('代表者写真', 'sanai-textdomain'); ?>"
+        src="<?php echo esc_url(get_template_directory_uri() . '/assets/img/rep-img.webp'); ?>"
+        alt="<?php esc_attr_e('代表取締役 天久 太郎', 'sanai-textdomain'); ?>"
         class="greeting__image">
     </figure>
 
