@@ -23,12 +23,14 @@
     <!-- 会社情報 -->
     <div class="footer-company">
       <?php if ( function_exists( 'the_custom_logo' ) && has_custom_logo() ) : ?>
-        <div class="logo"><?php the_custom_logo(); ?></div>
+        <div class="footer-logo"><?php the_custom_logo(); ?></div>
       <?php else : ?>
+        <div class="footer-logo">
         <img
           src="<?php echo esc_url( get_template_directory_uri() . '/assets/img/logo.png' ); ?>"
           alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>"
         />
+        </div>
       <?php endif; ?>
 
       <p><?php echo esc_html__( '免許番号：神奈川県知事（7）第21620号', 'sanai-textdomain' ); ?></p>

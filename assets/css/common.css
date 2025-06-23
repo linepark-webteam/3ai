@@ -135,6 +135,11 @@ img {
   align-items: baseline;
   gap: 0.2rem;
 }
+.footer-logo{
+  width: 120px;
+  height: auto;
+  margin: 0 auto; /* 中央寄せ */
+}
 
 .footer-address {
   font-size: var(--fs-sm);

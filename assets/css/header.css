@@ -33,6 +33,8 @@
   margin: 0 10px;
 }
 .logo {
+  width: 6vw;
+  height: auto;
   position: relative;
   z-index: 1001;
   color: var(--c-white);
