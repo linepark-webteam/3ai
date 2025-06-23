@@ -21,12 +21,12 @@ require_once get_template_directory() . '/inc/theme-setup.php';
 // 3. カスタム投稿タイプ
 require_once get_template_directory() . '/inc/custom-post-types.php';
 
-// 4. デフォルトナビコールバック
+// 4.独自物件投稿フォーム
+require_once get_template_directory() . '/inc/property-entry.php';
+
+// 5. デフォルトナビコールバック
 require_once get_template_directory() . '/inc/navigation.php';
 
-// 5. 物件メタボックス
-require_once get_template_directory() . '/inc/meta-boxes.php';
+// 6. 物件メタボックス
+// require_once get_template_directory() . '/inc/meta-boxes.php';
 
-// 必要に応じて、さらに以下のようにファイル分割可能
-// require_once get_template_directory() . '/inc/widgets.php';
-// require_once get_template_directory() . '/inc/extras.php';

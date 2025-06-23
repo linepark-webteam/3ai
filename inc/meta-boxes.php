@@ -26,15 +26,16 @@ add_action( 'add_meta_boxes', 'sanai_add_property_metaboxes' );
 function sanai_property_basic_fields( $post ) {
     wp_nonce_field( basename( __FILE__ ), 'sanai_property_nonce' );
 
-    $fields = [
-        'price'        => __( '価格（万円）', 'sanai-textdomain' ),
-        'address'      => __( '所在地', 'sanai-textdomain' ),
-        'area'         => __( '専有面積（m²）', 'sanai-textdomain' ),
-        'floor_plan'   => __( '間取り', 'sanai-textdomain' ),
-        'nearest_stn'  => __( '最寄駅', 'sanai-textdomain' ),
-        'map_image'    => __( '地図サムネイル画像 URL', 'sanai-textdomain' ),
-        'built_year'   => __( '築年', 'sanai-textdomain' ),
-    ];
+$fields = [
+    'price'       => __( '価格（万円）', 'sanai-textdomain' ),
+    'address'     => __( '所在地', 'sanai-textdomain' ),
+    'area'        => __( '専有面積（m²）', 'sanai-textdomain' ),
+    'floor_plan'  => __( '間取り', 'sanai-textdomain' ),
+    'access'      => __( 'アクセス', 'sanai-textdomain' ),
+    'map_image'   => __( '地図サムネイル画像 URL', 'sanai-textdomain' ),
+    'built_year'  => __( '築年', 'sanai-textdomain' ),
+];
+
 
     echo '<table class="form-table">';
     foreach ( $fields as $key => $label ) {
@@ -63,7 +64,8 @@ function sanai_save_property_meta( $post_id ) {
     if ( ! current_user_can( 'edit_post', $post_id ) ) { return; }
 
     /* --- 保存するキー --- */
-    $meta_keys = [ 'price', 'address', 'area', 'floor_plan', 'nearest_stn', 'map_image', 'built_year' ];
+    $meta_keys = [ 'price', 'address', 'area', 'floor_plan', 'access', 'map_image', 'built_year' ];
+
 
     foreach ( $meta_keys as $key ) {
         $new_value = isset( $_POST[ $key ] ) ? sanitize_text_field( $_POST[ $key ] ) : '';

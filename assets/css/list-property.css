@@ -12,3 +12,14 @@
     background-attachment: scroll;
   }
 }
+
+.navigation.pagination {
+  display: flex;
+  justify-content: center;
+}
+
+.nav-links {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}

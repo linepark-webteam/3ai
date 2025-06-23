@@ -30,26 +30,26 @@ function sanai_register_property_cpt() {
         'items_list'            => __( '物件リスト', 'sanai-textdomain' ),
     );
 
-    $args = array(
+    $args = [
         'labels'             => $labels,
-        'public'             => true,
-        // アーカイブを有効化し、スラッグを corp-property-list に
+        'public'             => true,          // フロント表示は維持
         'has_archive'        => 'corp-property-list',
-        'show_in_rest'       => true,
-        'menu_position'      => 5,
+        'show_in_rest'       => true,          // REST API / Gutenberg 用
+        /* ▼ ここを追加・変更 ▼ */
+        'show_ui'            => false,         // 投稿一覧・編集画面を非表示
+        'show_in_menu'       => false,         // サイドバーのメニューも非表示
+        /* ▲ ここまで ▲ */
+        'menu_position'      => 5,             // （非表示なので無視される）
         'menu_icon'          => 'dashicons-building',
         'supports'           => [ 'title', 'editor', 'thumbnail', 'custom-fields' ],
         'rewrite'            => [
-            // 一覧ページ URL を /corp-property-list/ に
             'slug'       => 'corp-property-list',
             'with_front' => false,
         ],
-        'capability_type'    => 'post',
         'taxonomies'         => [ 'category', 'post_tag' ],
         'hierarchical'       => false,
-        'exclude_from_search'=> false,
         'publicly_queryable' => true,
-    );
+    ];
 
     register_post_type( 'property', $args );
 }
