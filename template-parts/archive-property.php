@@ -31,7 +31,7 @@ get_header();
                     $placeholder     = __('—', 'sanai-textdomain');
                     $address_display = $address !== '' ? esc_html($address) : $placeholder;
                     $access_display  = $access  !== '' ? esc_html($access) : $placeholder;
-                    $price_display   = $price   !== '' ? esc_html($price) : $placeholder; // ← そのまま表示
+                    $price_display   = $price   !== '' ? esc_html($price) : $placeholder;
 
                     /*──────── サムネイル処理 ────────*/
                     if (has_post_thumbnail()) {
@@ -44,9 +44,23 @@ get_header();
                             ]
                         );
                     } else {
-                        $thumb = '<img src="' . esc_url(get_template_directory_uri() . '/assets/img/no-image.png') . '"'
-                            . ' alt="' . esc_attr__('No Image', 'sanai-textdomain') . '"'
-                            . ' class="property-list__thumbnail" />';
+                        // property_images メタに保存されている添付 ID 配列から 1 枚目を取得
+                        $ids = (array) get_post_meta(get_the_ID(), 'property_images', true);
+                        if (! empty($ids)) {
+                            $thumb = wp_get_attachment_image(
+                                $ids[0],
+                                'medium',
+                                false,
+                                [
+                                    'class' => 'property-list__thumbnail',
+                                    'alt'   => the_title_attribute(['echo' => false]),
+                                ]
+                            );
+                        } else {
+                            $thumb = '<img src="' . esc_url(get_template_directory_uri() . '/assets/img/no-image.png') . '"'
+                                . ' alt="' . esc_attr__('No Image', 'sanai-textdomain') . '"'
+                                . ' class="property-list__thumbnail" />';
+                        }
                     }
                     ?>
 
@@ -74,7 +88,7 @@ get_header();
                                     <?php echo $access_display; ?>
                                 </p>
 
-                                <!-- 5. 価格（数値でもテキストでもそのまま） -->
+                                <!-- 5. 価格 -->
                                 <p class="property-list__price">
                                     <i class="bi bi-currency-yen me-1"></i>
                                     <?php echo $price_display; ?>
