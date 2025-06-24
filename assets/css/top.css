@@ -9,9 +9,9 @@
   --c-card-shadow-hover: 0 8px 20px rgba(0 0 0 / 0.1);
 }
 
-/*------------------------------
-  Hero Section
-------------------------------*/
+/*--------------------------------------------------
+  Hero Section（マルチ BG＋Ken Burns＋文字分割）
+--------------------------------------------------*/
 .hero {
   position: relative;
   height: 100vh;
@@ -20,40 +20,59 @@
   align-items: center;
   justify-content: center;
   color: var(--c-white);
-  /* 背景位置を変数へバインド */
-  --heroY: 0px; /* ← デフォルト値 */
-  background: url("../img/top-hero-01.webp") center/cover no-repeat;
-  background-position: center calc(50% + var(--heroY));
-  will-change: background-position; /* パフォーマンス向上 */
-}
-/* モバイルは固定スクロールを切って負荷を軽減（任意） */
-@media (max-width: 768px) {
-  .hero {
-    background-attachment: scroll;
-  }
+  overflow: hidden;
 }
 
+/* 背景レイヤー共通 */
+.hero__bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  will-change: transform, opacity;
+  opacity: 0; /* GSAP で制御 */
+  transform-origin: center;
+}
+
+/* 個別画像 */
+.hero__bg--1 {
+  background-image: url("../img/top-hero-01.webp");
+}
+.hero__bg--2 {
+  background-image: url("../img/top-hero-02.webp");
+}
+.hero__bg--3 {
+  background-image: url("../img/top-hero-03.webp");
+}
+
+/* オーバーレイ */
 .hero__overlay {
   position: absolute;
   inset: 0;
-  background: rgba(0, 0, 0, 0.5);
+  background: rgba(0, 0, 0, 0.2); /* ご指定どおり 0.2 */
+  z-index: 1;
 }
 
+/* テキスト */
 .hero__inner {
   position: relative;
-  z-index: 1;
+  z-index: 2;
   text-align: center;
 }
-
 .hero__title {
-  font-size: clamp(2rem, 5vw, 3rem);
+  font-size: clamp(2rem, 5vw, 3.5rem);
   font-weight: 700;
   margin-bottom: 1rem;
 }
-
 .hero__subtitle {
   font-size: clamp(1.25rem, 3vw, 1.5rem);
-  margin-bottom: 2rem;
+}
+
+/* 文字分割用スパン */
+.hero__title .char,
+.hero__subtitle .char {
+  display: inline-block; /* transform を効かせるため */
+  white-space: pre; /* スペースも保持 */
 }
 
 /*==================================================

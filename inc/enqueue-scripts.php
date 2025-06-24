@@ -55,26 +55,55 @@ function sanai_enqueue_assets()
         wp_enqueue_style('sanai-contact', get_template_directory_uri() . '/assets/css/contact.css', ['sanai-contact-common'], $ver);
     }
 
-    /* --- 共通 JS --- */
+    /*
+	 * 1) GSAP 本体
+	 * -------------------------------------------------- */
+    wp_enqueue_script(
+        'gsap',
+        'https://cdn.jsdelivr.net/npm/gsap@3.12.4/dist/gsap.min.js',
+        [],          // 依存なし
+        null,        // CDN 側の version を使用（固定したい場合は '3.12.4' など）
+        true         // フッターで読み込み
+    );
+
+    /*
+	 * 2) GSAP ScrollTrigger（任意／使わない場合はコメントアウト）
+	 * -------------------------------------------------- */
+    wp_enqueue_script(
+        'gsap-scrolltrigger',
+        'https://cdn.jsdelivr.net/npm/gsap@3.12.4/dist/ScrollTrigger.min.js',
+        ['gsap'],    // GSAP 本体に依存
+        null,
+        true
+    );
+
+    /*
+	 * 3) 共通メイン JS
+	 *    - jQuery（既存依存）＋ GSAP＋ScrollTrigger を順番保証
+	 * -------------------------------------------------- */
     wp_enqueue_script(
         'sanai-main-js',
         get_template_directory_uri() . '/assets/js/main.js',
-        ['jquery'],
+        ['jquery', 'gsap', 'gsap-scrolltrigger'],
         $ver,
         true
     );
 
-    /* --- 物件個別ページ JS --- */
+    /*
+	 * 4) 物件個別ページ JS
+	 *    ※依存関係がなければ [] のままで構いません
+	 * -------------------------------------------------- */
     wp_enqueue_script(
-    'sanai-property-single',
-    get_template_directory_uri() . '/assets/js/property-single.js',
-    [],
-    $ver,
-    true
-);
-
+        'sanai-property-single',
+        get_template_directory_uri() . '/assets/js/property-single.js',
+        [],
+        $ver,
+        true
+    );
 }
 add_action('wp_enqueue_scripts', 'sanai_enqueue_assets');
+
+
 
 /**
  * inc/enqueue-admin-scripts.php
