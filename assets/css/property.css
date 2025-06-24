@@ -27,10 +27,11 @@
   gap: 0.5rem;
 }
 .property-gallery li img {
-  width: 96px;
-  height: 96px;
+  width: 120px;
+  height: 120px;
   object-fit: cover;
   border-radius: 4px;
+  cursor: pointer;
 }
 
 /* ---------- 2. タイトル ---------- */
@@ -101,10 +102,15 @@
   .summary-label {
     flex: 0 0 5.5rem;
   }
-  .property-gallery li img{
-  width:15vw;
-  height:15vw;
-  object-fit:cover;
-  border-radius:4px;
+  .property-gallery li img {
+    width: 15vw;
+    height: 15vw;
+    object-fit: cover;
+    border-radius: 4px;
+  }
 }
+
+/* For Animation */
+.property-main-img {
+  transition: opacity 0.4s ease;
 }
