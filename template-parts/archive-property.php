@@ -1,5 +1,4 @@
 <?php
-
 /**
  * Archive template for Property (物件一覧ページ)
  * template-parts/archive-property.php
@@ -12,113 +11,107 @@ get_header();
 
 <main id="mainContent" class="archive-property">
 
-    <!-- Sub-hero -->
-    <?php get_template_part('template-parts/section', 'subhero'); ?>
+	<!-- Sub-hero -->
+	<?php get_template_part( 'template-parts/section', 'subhero' ); ?>
 
-    <section id="propertyList" class="property-list section container">
+	<section id="propertyList" class="property-list section container">
 
-        <?php if (have_posts()) : ?>
-            <ul class="property-list__items">
-                <?php while (have_posts()) : the_post(); ?>
+		<?php if ( have_posts() ) : ?>
+			<ul class="property-list__items">
+				<?php while ( have_posts() ) : the_post(); ?>
 
-                    <?php
-                    /*──────── カスタムフィールド取得 ────────*/
-                    $price   = get_post_meta(get_the_ID(), 'price',   true); // 価格（テキスト）
-                    $address = get_post_meta(get_the_ID(), 'address', true); // 住所
-                    $access  = get_post_meta(get_the_ID(), 'access',  true); // アクセス
+					<?php
+					/*──────── カスタムフィールド取得 ────────*/
+					$price   = get_post_meta( get_the_ID(), 'price',   true );
+					$address = get_post_meta( get_the_ID(), 'address', true );
+					$access  = get_post_meta( get_the_ID(), 'access',  true );
 
-                    /*──────── プレースホルダー ────────*/
-                    $placeholder     = __('—', 'sanai-textdomain');
-                    $address_display = $address !== '' ? esc_html($address) : $placeholder;
-                    $access_display  = $access  !== '' ? esc_html($access) : $placeholder;
-                    $price_display   = $price   !== '' ? esc_html($price) : $placeholder;
+					/*──────── プレースホルダー ────────*/
+					$placeholder     = __( '—', 'sanai-textdomain' );
+					$address_display = $address !== '' ? esc_html( $address ) : $placeholder;
+					$access_display  = $access  !== '' ? esc_html( $access )  : $placeholder;
+					$price_display   = $price   !== '' ? esc_html( $price )   : $placeholder;
 
-                    /*──────── サムネイル処理 ────────*/
-                    if (has_post_thumbnail()) {
-                        $thumb = get_the_post_thumbnail(
-                            get_the_ID(),
-                            'medium',
-                            [
-                                'class' => 'property-list__thumbnail',
-                                'alt'   => the_title_attribute(['echo' => false]),
-                            ]
-                        );
-                    } else {
-                        // property_images メタに保存されている添付 ID 配列から 1 枚目を取得
-                        $ids = (array) get_post_meta(get_the_ID(), 'property_images', true);
-                        if (! empty($ids)) {
-                            $thumb = wp_get_attachment_image(
-                                $ids[0],
-                                'medium',
-                                false,
-                                [
-                                    'class' => 'property-list__thumbnail',
-                                    'alt'   => the_title_attribute(['echo' => false]),
-                                ]
-                            );
-                        } else {
-                            $thumb = '<img src="' . esc_url(get_template_directory_uri() . '/assets/img/no-image.png') . '"'
-                                . ' alt="' . esc_attr__('No Image', 'sanai-textdomain') . '"'
-                                . ' class="property-list__thumbnail" />';
-                        }
-                    }
-                    ?>
+					/*──────── サムネイル取得 ────────*/
+					$thumb_args = [
+						'class' => 'property-list__thumbnail',
+						'alt'   => the_title_attribute( [ 'echo' => false ] ),
+					];
 
-                    <li class="property-list__item">
-                        <a href="<?php the_permalink(); ?>" class="property-list__link">
+					if ( has_post_thumbnail() ) {
+						$thumb = get_the_post_thumbnail( get_the_ID(), 'medium', $thumb_args );
+					} else {
+						/* property_images メタに保存されている添付 ID 配列から 1 枚目を取得 */
+						$ids = (array) get_post_meta( get_the_ID(), 'property_images', true );
+						if ( ! empty( $ids ) ) {
+							$thumb = wp_get_attachment_image( $ids[0], 'medium', false, $thumb_args );
+						} else {
+							/* --- 画像無し → coming-soon.png を表示 --- */
+							$thumb = sprintf(
+								'<img src="%s" alt="%s" class="%s" />',
+								esc_url( get_template_directory_uri() . '/assets/img/coming-soon.png' ),
+								esc_attr__( 'Coming Soon', 'sanai-textdomain' ),
+								esc_attr( $thumb_args['class'] )
+							);
+						}
+					}
+					?>
 
-                            <!-- 1. 画像 -->
-                            <figure class="property-list__image">
-                                <?php echo $thumb; ?>
-                            </figure>
+					<li class="property-list__item">
+						<a href="<?php the_permalink(); ?>" class="property-list__link">
 
-                            <div class="property-list__info">
-                                <!-- 2. タイトル -->
-                                <h2 class="property-list__title"><?php the_title(); ?></h2>
+							<!-- 1. 画像 -->
+							<figure class="property-list__image">
+								<?php echo $thumb; ?>
+							</figure>
 
-                                <!-- 3. 住所 -->
-                                <p class="property-list__address">
-                                    <i class="bi bi-geo-alt-fill me-1"></i>
-                                    <?php echo $address_display; ?>
-                                </p>
+							<div class="property-list__info">
+								<!-- 2. タイトル -->
+								<h2 class="property-list__title"><?php the_title(); ?></h2>
 
-                                <!-- 4. アクセス -->
-                                <p class="property-list__access">
-                                    <i class="bi bi-train-front-fill me-1"></i>
-                                    <?php echo $access_display; ?>
-                                </p>
+								<!-- 3. 住所 -->
+								<p class="property-list__address">
+									<i class="bi bi-geo-alt-fill me-1"></i>
+									<?php echo $address_display; ?>
+								</p>
 
-                                <!-- 5. 価格 -->
-                                <p class="property-list__price">
-                                    <i class="bi bi-currency-yen me-1"></i>
-                                    <?php echo $price_display; ?>
-                                </p>
-                            </div>
-                        </a>
-                    </li>
+								<!-- 4. アクセス -->
+								<p class="property-list__access">
+									<i class="bi bi-train-front-fill me-1"></i>
+									<?php echo $access_display; ?>
+								</p>
 
-                <?php endwhile; ?>
-            </ul>
+								<!-- 5. 価格 -->
+								<p class="property-list__price">
+									<i class="bi bi-currency-yen me-1"></i>
+									<?php echo $price_display; ?>
+								</p>
+							</div>
+						</a>
+					</li>
 
-            <!-- ページネーション -->
-            <?php
-            echo get_the_posts_pagination(
-                [
-                    'mid_size'           => 2,
-                    'prev_text'          => __('« 前へ', 'sanai-textdomain'),
-                    'next_text'          => __('次へ »', 'sanai-textdomain'),
-                    'screen_reader_text' => __('物件一覧ページナビゲーション', 'sanai-textdomain'),
-                ]
-            );
-            ?>
+				<?php endwhile; ?>
+			</ul>
 
-        <?php else : ?>
-            <p><?php esc_html_e('現在、物件情報はありません。', 'sanai-textdomain'); ?></p>
-        <?php endif; ?>
-    </section>
+			<!-- ページネーション -->
+			<?php
+			echo get_the_posts_pagination(
+				[
+					'mid_size'           => 2,
+					'prev_text'          => __( '« 前へ', 'sanai-textdomain' ),
+					'next_text'          => __( '次へ »', 'sanai-textdomain' ),
+					'screen_reader_text' => __( '物件一覧ページナビゲーション', 'sanai-textdomain' ),
+				]
+			);
+			?>
 
-    <!-- CTA -->
-    <?php get_template_part('template-parts/section', 'cta'); ?>
+		<?php else : ?>
+			<p><?php esc_html_e( '現在、物件情報はありません。', 'sanai-textdomain' ); ?></p>
+		<?php endif; ?>
+	</section>
+
+	<!-- CTA -->
+	<?php get_template_part( 'template-parts/section', 'cta' ); ?>
 
 </main>
 
