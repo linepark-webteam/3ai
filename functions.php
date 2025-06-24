@@ -22,12 +22,10 @@ require_once get_template_directory() . '/inc/theme-setup.php';
 require_once get_template_directory() . '/inc/custom-post-types.php';
 
 // 4.独自物件投稿フォーム
-// require_once get_template_directory() . '/inc/property-entry.php';
 require_once get_template_directory() . '/inc/property-entry/loader.php';
 
 // 5. デフォルトナビコールバック
 require_once get_template_directory() . '/inc/navigation.php';
 
-// 6. 物件メタボックス
-// require_once get_template_directory() . '/inc/meta-boxes.php';
-
+// 6. 一覧表示件数など WP_Query の調整
+require_once get_template_directory() . '/inc/query-filters.php';
