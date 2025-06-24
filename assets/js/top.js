@@ -88,18 +88,30 @@ document.addEventListener("DOMContentLoaded", () => {
 
   animateChars(".hero__title", 0.2, 0.06, 2);
   animateChars(".hero__subtitle", 0.8, 0.05, 2);
-
-  /* ---------- 3. Service Reveal ---------- */
-  const cards = document.querySelectorAll(".service__item");
-  const io = new IntersectionObserver(
-    (entries) =>
-      entries.forEach((ent) => {
-        if (ent.isIntersecting) {
-          ent.target.classList.add("is-visible");
-          io.unobserve(ent.target);
-        }
-      }),
-    { threshold: 0.2, rootMargin: "0px 0px -10% 0px" }
-  );
-  cards.forEach((card) => io.observe(card));
 });
+
+/* ---------- 3. Service Reveal ---------- */
+(() => {
+  const cards = gsap.utils.toArray('.service__item');   // ← NodeList を配列化
+
+  /* ▼ NEW : 1 枚ずつ ScrollTrigger でアニメ */
+  cards.forEach((card, i) => {
+    gsap.fromTo(
+      card,
+      { opacity: 0, y: 40, scale: 0.9 },
+      {
+        opacity: 1,
+        y: 0,
+        scale: 1,
+        duration: 0.7,
+        ease: 'power3.out',
+        delay: i * 0.15,          // 下からスタガー
+        scrollTrigger: {
+          trigger: card,
+          start: 'top 80%',       // 80% ビューポートに入ったら
+          toggleActions: 'play none none none',
+        },
+      }
+    );
+  });
+})();
