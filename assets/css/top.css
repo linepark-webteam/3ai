@@ -4,11 +4,10 @@
 
 :root {
   --c-bg-gradient-start: #f0f4ff;
-  --c-bg-gradient-end:   #ffffff;
+  --c-bg-gradient-end: #ffffff;
   --c-card-shadow: 0 4px 12px rgba(0 0 0 / 0.05);
-  --c-card-shadow-hover: 0 8px 20px rgba(0 0 0 / 0.10);
+  --c-card-shadow-hover: 0 8px 20px rgba(0 0 0 / 0.1);
 }
-
 
 /*------------------------------
   Hero Section
@@ -21,7 +20,7 @@
   align-items: center;
   justify-content: center;
   color: var(--c-white);
-   /* 背景位置を変数へバインド */
+  /* 背景位置を変数へバインド */
   --heroY: 0px; /* ← デフォルト値 */
   background: url("../img/top-hero-01.webp") center/cover no-repeat;
   background-position: center calc(50% + var(--heroY));
@@ -29,7 +28,9 @@
 }
 /* モバイルは固定スクロールを切って負荷を軽減（任意） */
 @media (max-width: 768px) {
-  .hero { background-attachment: scroll; }
+  .hero {
+    background-attachment: scroll;
+  }
 }
 
 .hero__overlay {
@@ -100,12 +101,9 @@
   padding: 2rem 1rem 2.25rem;
   text-align: center;
   box-shadow: var(--c-card-shadow);
-  isolation: isolate;               /* ホバー時に影重なりを抑制 */
-  transition:
-    opacity 0.6s ease,
-    transform 0.6s ease,
-    box-shadow 0.3s ease;
-  opacity: 0;                       /* IntersectionObserver で解除 */
+  isolation: isolate; /* ホバー時に影重なりを抑制 */
+  transition: opacity 0.6s ease, transform 0.6s ease, box-shadow 0.3s ease;
+  opacity: 0; /* IntersectionObserver で解除 */
   transform: translateY(40px);
 }
 
@@ -133,7 +131,7 @@
   font-size: 1.125rem;
   font-weight: 600;
   margin: 0;
-  color:var(--c-secondary);
+  color: var(--c-secondary);
 }
 
 /*==================================================
@@ -178,7 +176,9 @@
 ==================================================*/
 /* 例：タブレットで列間余白を縮小 */
 @media (max-width: 768px) {
-  .service__grid { gap: 1.5rem; }
+  .service__grid {
+    gap: 1.5rem;
+  }
 }
 
 /*------------------------------
@@ -208,18 +208,19 @@
 
 .property__info {
   padding: 1rem;
+  color: #d24e00;
 }
 
 .property__name {
   font-size: var(--fs-lg);
   font-weight: 600;
   margin-bottom: 0.5rem;
-  color: var(--c-secondary);
+  /* color: var(--c-secondary); */
 }
 
 .property__price {
   font-size: var(--fs-base);
-  color: var(--c-primary);
+  color: #d24e00;
   margin-bottom: 1rem;
 }
 
@@ -234,6 +235,28 @@
 }
 .btn--small:hover {
   background-color: var(--c-secondary-light);
+}
+
+/*------------------------------
+  Property Highlights – "一覧を見る" CTA
+------------------------------*/
+.property__more {
+  margin-top: 1.5rem;
+  text-align: right;
+}
+.property__more-link {
+  box-sizing: border-box;
+  display: inline-block;
+  font-size: var(--fs-base);
+  font-weight: 500;
+  color: var(--c-primary);
+  text-decoration: none;
+  /* padding: 0.6rem 2rem; */
+  transition: background 0.3s ease, color 0.3s ease;
+}
+.property__more-link:hover,
+.property__more-link:focus-visible {
+  text-decoration: underline;
 }
 
 /*------------------------------
@@ -281,7 +304,6 @@
 .notice__more-link:hover {
   text-decoration: underline;
 }
-
 
 /*------------------------------
   レスポンシブ調整

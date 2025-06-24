@@ -1,59 +1,92 @@
 <?php
 /**
  * template-parts/section-property.php
- * Property Highlights セクション用テンプレートパーツ
- * 
+ * Property Highlights セクション
+ *
  * @package Sanai_WP_Theme
- * @since 1.0.0
+ * @since   1.0.0
  */
 ?>
 <section id="property" class="property section container">
-  <div class="section-head">
-    <h2 class="section-title"><?php esc_html_e('最新物件', 'sanai-textdomain'); ?></h2>
-  </div>
-  <div class="property__slider">
-    <?php
-    $args = [
-      'post_type'      => 'property',
-      'posts_per_page' => 5,
-      'orderby'        => 'date',
-      'order'          => 'DESC',
-    ];
-    $slider_query = new WP_Query($args);
-    if ($slider_query->have_posts()) :
-      while ($slider_query->have_posts()) : $slider_query->the_post();
-        // 画像・価格は前と同じ取得方法
-        $img_id  = get_post_thumbnail_id();
-        $img_url = wp_get_attachment_image_url($img_id, 'medium');
-        $price   = get_post_meta(get_the_ID(), 'price', true);
-    ?>
-      <div class="property__card">
-        <!-- 画像表示 -->
-        <?php if ($img_url) : ?>
-          <img src="<?php echo esc_url($img_url); ?>"
-               alt="<?php the_title_attribute(); ?>"
-               class="property__image" />
-        <?php else : ?>
-          <img src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/img/property01.webp"
-               alt="<?php esc_attr_e('ダミー物件画像', 'sanai-textdomain'); ?>"
-               class="property__image" />
-        <?php endif; ?>
-        <div class="property__info">
-          <h3 class="property__name"><?php the_title(); ?></h3>
-          <p class="property__price">
-            <?php echo esc_html($price); ?><?php esc_html_e('円～', 'sanai-textdomain'); ?>
-          </p>
-          <a href="<?php the_permalink(); ?>" class="btn btn--small">
-            <?php esc_html_e('詳細を見る', 'sanai-textdomain'); ?>
-          </a>
-        </div>
-      </div>
-    <?php
-      endwhile;
-      wp_reset_postdata();
-    else :
-      echo '<p>' . esc_html__('現在、公開されている物件はありません。', 'sanai-textdomain') . '</p>';
-    endif;
-    ?>
-  </div>
+	<div class="section-head">
+		<h2 class="section-title"><?php esc_html_e( '最新物件', 'sanai-textdomain' ); ?></h2>
+	</div>
+
+	<div class="property__slider">
+	<?php
+	$args = [
+		'post_type'      => 'property',
+		'posts_per_page' => 5,
+		'orderby'        => 'date',
+		'order'          => 'DESC',
+	];
+	$q = new WP_Query( $args );
+
+	if ( $q->have_posts() ) :
+		while ( $q->have_posts() ) : $q->the_post();
+
+			/* ---------- 1. 画像 ---------- */
+			$thumb_args = [ 'class'=>'property__image', 'alt'=>the_title_attribute(['echo'=>false]) ];
+			if ( has_post_thumbnail() ){
+				$img_html = get_the_post_thumbnail( get_the_ID(), 'medium', $thumb_args );
+			}else{
+				$ids = (array) get_post_meta( get_the_ID(), 'property_images', true );
+				if ( ! empty( $ids ) ){
+					$img_html = wp_get_attachment_image( $ids[0], 'medium', false, $thumb_args );
+				}else{
+					$img_html = sprintf(
+						'<img src="%s" alt="%s" class="property__image" />',
+						esc_url( get_template_directory_uri().'/assets/img/coming-soon.png' ),
+						esc_attr__( 'Coming Soon', 'sanai-textdomain' )
+					);
+				}
+			}
+
+			/* ---------- 2. メタ情報 ---------- */
+			$price   = get_post_meta( get_the_ID(), 'price',   true );
+			$address = get_post_meta( get_the_ID(), 'address', true );
+			$access  = get_post_meta( get_the_ID(), 'access',  true );
+
+			$placeholder = __( '—', 'sanai-textdomain' );
+			$price_d   = $price   !== '' ? esc_html( $price )   : $placeholder;
+			$address_d = $address !== '' ? esc_html( $address ) : $placeholder;
+			$access_d  = $access  !== '' ? esc_html( $access )  : $placeholder;
+	?>
+		<div class="property__card">
+			<a href="<?php the_permalink(); ?>" class="property__link">
+				<?php echo $img_html; ?>
+
+				<div class="property__info">
+					<h3 class="property__name"><?php the_title(); ?></h3>
+
+					<p class="property__address">
+						<i class="bi bi-geo-alt-fill me-1"></i><?php echo $address_d; ?>
+					</p>
+					<p class="property__access">
+						<i class="bi bi-train-front-fill me-1"></i><?php echo $access_d; ?>
+					</p>
+
+					<p class="property__price">
+						<i class="bi bi-currency-yen me-1"></i><?php echo $price_d; ?>
+						<?php if ( $price !== '' ) esc_html_e( '円～', 'sanai-textdomain' ); ?>
+					</p>
+				</div>
+			</a>
+		</div>
+	<?php
+		endwhile;
+		wp_reset_postdata();
+	else :
+		echo '<p>'. esc_html__( '現在、公開されている物件はありません。', 'sanai-textdomain' ) .'</p>';
+	endif;
+	?>
+	</div><!-- /.property__slider -->
+
+	<!-- ===== 一覧リンク ===== -->
+	<div class="property__more">
+		<a href="<?php echo esc_url( get_post_type_archive_link( 'property' ) ); ?>"
+		   class="property__more-link">
+			<?php esc_html_e( '物件一覧を見る', 'sanai-textdomain' ); ?>
+		</a>
+	</div>
 </section>

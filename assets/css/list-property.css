@@ -86,6 +86,7 @@
   font-weight: 600;
 }
 .property-list__title {
+  /* color: var(--c-secondary); */
   font-size: 1.1rem;
   font-weight: 700;
   margin: 0 0 0.5rem;
