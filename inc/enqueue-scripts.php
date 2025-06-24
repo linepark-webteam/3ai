@@ -77,22 +77,27 @@ function sanai_enqueue_assets()
         true
     );
 
-    /*
-	 * 3) 共通メイン JS
-	 *    - jQuery（既存依存）＋ GSAP＋ScrollTrigger を順番保証
-	 * -------------------------------------------------- */
+    /* --- 共通メイン JS（全ページ）--- */
     wp_enqueue_script(
         'sanai-main-js',
         get_template_directory_uri() . '/assets/js/main.js',
-        ['jquery', 'gsap', 'gsap-scrolltrigger'],
+        ['jquery'],        // 共通 JS は jQuery だけ依存
         $ver,
         true
     );
 
-    /*
-	 * 4) 物件個別ページ JS
-	 *    ※依存関係がなければ [] のままで構いません
-	 * -------------------------------------------------- */
+    /* --- TOPページ専用 JS --- */
+    if (is_front_page() || is_home()) {
+        wp_enqueue_script(
+            'sanai-top-js',
+            get_template_directory_uri() . '/assets/js/top.js',
+            ['gsap', 'gsap-scrolltrigger'], // Hero アニメ用に GSAP 依存
+            $ver,
+            true
+        );
+    }
+
+    //* --- 物件個別ページ JS --- */
     wp_enqueue_script(
         'sanai-property-single',
         get_template_directory_uri() . '/assets/js/property-single.js',
