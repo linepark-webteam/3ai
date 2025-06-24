@@ -15,7 +15,8 @@ function sanai_nl2br_safe(string $v)
 }
 ?>
 
-<main id="mainContent" class="single-property section container">
+<main id="mainContent" class="single-property">
+    <section class="section container">
     <article <?php post_class('property-detail'); ?>>
 
         <?php
@@ -133,6 +134,10 @@ function sanai_nl2br_safe(string $v)
         </section>
 
     </article>
+    </section>
+
+    <?php get_template_part('template-parts/section', 'cta'); ?>
+
 </main>
 
 <?php get_footer(); ?>
