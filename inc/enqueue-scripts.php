@@ -63,6 +63,16 @@ function sanai_enqueue_assets()
         $ver,
         true
     );
+
+    /* --- 物件個別ページ JS --- */
+    wp_enqueue_script(
+    'sanai-property-single',
+    get_template_directory_uri() . '/assets/js/property-single.js',
+    [],
+    $ver,
+    true
+);
+
 }
 add_action('wp_enqueue_scripts', 'sanai_enqueue_assets');
 

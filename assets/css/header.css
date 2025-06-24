@@ -34,6 +34,7 @@
 }
 .logo {
   width: 6vw;
+  min-width: 60px;
   height: auto;
   position: relative;
   z-index: 1001;
