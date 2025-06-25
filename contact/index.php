@@ -206,7 +206,10 @@
                     value="1"
                     required>
                 <label class="form-check-label" for="agree">
-                    <?php esc_html_e('プライバシーポリシーに同意する', 'sanai-textdomain'); ?>
+                    <a href="<?php echo esc_url(home_url('/privacy-policy/')); ?>" target="_blank" style="text-decoration: underline;">
+                    <?php esc_html_e('プライバシーポリシー', 'sanai-textdomain'); ?>
+                    </a>
+                    <?php esc_html_e('に同意する', 'sanai-textdomain'); ?>
                     <span class="required">※</span>
                 </label>
             </div>

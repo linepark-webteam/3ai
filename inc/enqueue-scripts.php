@@ -55,6 +55,10 @@ function sanai_enqueue_assets()
         wp_enqueue_style('sanai-contact', get_template_directory_uri() . '/assets/css/contact.css', ['sanai-contact-common'], $ver);
     }
 
+        if (is_page('privacy-policy')) {
+        wp_enqueue_style('sanai-privacy-policy', get_template_directory_uri() . '/assets/css/privacy-policy.css', ['sanai-common'], $ver);
+    }
+
     /*
 	 * 1) GSAP 本体
 	 * -------------------------------------------------- */
