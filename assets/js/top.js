@@ -199,3 +199,63 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 })();
 
+/* ---------- 7. Notice セクション ---------- */
+(() => {
+  const section = document.querySelector("#notice");
+  if (!section) return;
+
+  /* 7-1 タイトル：左→右スライド */
+  gsap.from("#notice .section-title", {
+    x: -80,
+    opacity: 0,
+    duration: 0.9,
+    ease: "power3.out",
+    scrollTrigger: {
+      trigger: section,
+      start: "top 85%",
+      toggleActions: "play none none none",
+    },
+  });
+
+  /* 7-2 CTA ボタン：同じループ効果を再利用 */
+  const noticeLink = document.querySelector(".notice__more-link");
+  if (noticeLink) {
+    ScrollTrigger.create({
+      trigger: noticeLink,
+      start: "top 90%",
+      onEnter: () =>
+        gsap.to(noticeLink.querySelector(".notice__more-icon"), {
+          keyframes: [
+            { opacity: 1, x: 8, duration: 0.35 },
+            { opacity: 1, x: 0, duration: 0.35 },
+            { opacity: 0, x: -8, duration: 0.35, delay: 0.6 },
+          ],
+          repeat: -1,
+          ease: "power1.inOut",
+        }),
+      onLeave: () =>
+        gsap.killTweensOf(noticeLink.querySelector(".notice__more-icon")),
+      onEnterBack(self) {
+        self.vars.onEnter();
+      },
+      onLeaveBack(self) {
+        self.vars.onLeave();
+      },
+    });
+  }
+
+  /* 7-3 個別お知らせ：1 枚ずつフェードアップ＋スタガー */
+  const items = gsap.utils.toArray(".notice__item");
+  gsap.to(items, {
+    opacity: 1,
+    y: 0,
+    duration: 0.7,
+    ease: "power3.out",
+    stagger: 0.1,
+    scrollTrigger: {
+      trigger: section,
+      start: "top 88%",
+      toggleActions: "play none none none",
+    },
+  });
+})();

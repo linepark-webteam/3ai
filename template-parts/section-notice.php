@@ -1,4 +1,5 @@
 <?php
+
 /**
  * template-parts/section-notice.php
  * notice（お知らせ）セクション用テンプレートパーツ
@@ -8,9 +9,11 @@
  */
 ?>
 <section id="notice" class="notice section container">
+
   <div class="section-head">
     <h2 class="section-title"><?php esc_html_e('お知らせ', 'sanai-textdomain'); ?></h2>
   </div>
+
   <ul class="notice__list">
     <?php
     $paged = get_query_var('paged', 1);
@@ -48,8 +51,10 @@
 
   <div class="notice__more text-end">
     <a href="<?php echo esc_url(home_url('/notice/')); ?>"
-       class="notice__more-link">
+      class="notice__more-link">
       <?php esc_html_e('一覧を見る', 'sanai-textdomain'); ?>
+      <i class="bi bi-caret-right-fill notice__more-icon" aria-hidden="true"></i>
     </a>
   </div>
+
 </section>
