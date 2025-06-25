@@ -73,7 +73,7 @@ get_header();
 
     </section><!-- /#privacyPolicy -->
 
-    <!-- CTA（共通パーツを呼び出し） -->
+    <!-- お問い合わせ CTA -->
     <?php get_template_part('template-parts/section', 'cta'); ?>
 
 </main>

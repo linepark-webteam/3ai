@@ -18,6 +18,7 @@
   justify-content: flex-start;
   align-items: baseline;
   gap: 0.5rem;
+  margin: 1rem 0;
 }
 
 .notice__date {
@@ -31,6 +32,7 @@
 .navigation.pagination {
   display: flex;
   justify-content: center;
+  margin-top: 3rem;
 }
 
 .nav-links {

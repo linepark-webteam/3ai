@@ -44,6 +44,9 @@ get_header();
     <?php endif; ?>
   </section>
 
+    <!-- お問い合わせ CTA -->
+    <?php get_template_part('template-parts/section', 'cta'); ?>
+    
 </main>
 
 <?php
