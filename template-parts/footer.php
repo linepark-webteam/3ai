@@ -3,6 +3,15 @@
  * フッターテンプレート (template-parts/footer.php)
  */
 ?>
+<?php
+/* ===========================================
+ * Back-to-Top Button
+ * ======================================== */
+?>
+<button id="backToTop" class="back-to-top" aria-label="<?php esc_attr_e( 'ページトップへ戻る', 'sanai-textdomain' ); ?>">
+  <i class="bi bi-chevron-up" aria-hidden="true"></i>
+</button>
+
 <!-- フッター -->
 <footer class="site-footer">
   <div class="footer-inner container">

@@ -93,3 +93,24 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 })();
+
+/* ===================================================
+ * Back-to-Top Button
+ *===================================================*/
+document.addEventListener('DOMContentLoaded', () => {
+  const btn = document.getElementById('backToTop');
+  if (!btn) return;
+
+  /* ① スクロール位置に応じて表示／非表示 */
+  const toggleVisibility = () => {
+    const scrolled = window.scrollY || document.documentElement.scrollTop;
+    btn.classList.toggle('is-visible', scrolled > 400); // 400px 以上スクロールしたら表示
+  };
+  toggleVisibility();            // 1回目の判定
+  window.addEventListener('scroll', toggleVisibility, { passive: true });
+
+  /* ② クリックでスムーズに TOP へ */
+  btn.addEventListener('click', () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+});
