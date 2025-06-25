@@ -15,19 +15,19 @@ session_start();
  * 2) CSRF（nonce）検証
  * ─────────────────────────────────────────── */
 if (
-  ! isset( $_POST['contact_send_nonce'] ) ||
-  ! wp_verify_nonce( $_POST['contact_send_nonce'], 'contact_send' )
+	! isset( $_POST['contact_send_nonce'] ) ||
+	! wp_verify_nonce( $_POST['contact_send_nonce'], 'contact_send' )
 ) {
-  wp_safe_redirect( home_url( '/contact' ) );
-  exit;
+	wp_safe_redirect( home_url( '/contact' ) );
+	exit;
 }
 
 /* ─────────────────────────────────────────────
  * 3) セッションにデータが無ければ入力画面へ
  * ─────────────────────────────────────────── */
 if ( empty( $_SESSION['contact_data'] ) ) {
-  wp_safe_redirect( home_url( '/contact' ) );
-  exit;
+	wp_safe_redirect( home_url( '/contact' ) );
+	exit;
 }
 
 $data = $_SESSION['contact_data'];
@@ -36,28 +36,49 @@ $data = $_SESSION['contact_data'];
  * 4) ラベル変換用配列
  * ─────────────────────────────────────────── */
 $type_labels = [
-  'property' => __( '物件について', 'sanai-textdomain' ),
-  'recruit'  => __( '求人について', 'sanai-textdomain' ),
-  'others'   => __( 'その他', 'sanai-textdomain' ),
+	'property' => __( '物件について', 'sanai-textdomain' ),
+	'recruit'  => __( '求人について', 'sanai-textdomain' ),
+	'others'   => __( 'その他', 'sanai-textdomain' ),
 ];
 
 $reply_labels = [
-  'email' => __( 'メールでの返信', 'sanai-textdomain' ),
-  'tel'   => __( '電話での返信', 'sanai-textdomain' ),
-  'any'   => __( 'どちらでも可', 'sanai-textdomain' ),
+	'email' => __( 'メールでの返信', 'sanai-textdomain' ),
+	'tel'   => __( '電話での返信', 'sanai-textdomain' ),
+	'any'   => __( 'どちらでも可', 'sanai-textdomain' ),
 ];
 
-/* 値が配列に存在しない場合はそのまま出力 */
 $inquiry_type_label = $type_labels[ $data['inquiry_type'] ] ?? $data['inquiry_type'];
-$reply_type_label   = $reply_labels[ $data['reply_type'] ] ?? $data['reply_type'];
+$reply_type_label   = $reply_labels[ $data['reply_type'] ]   ?? $data['reply_type'];
 
 /* ─────────────────────────────────────────────
- * 5) メール本文を組み立て
+ * 5) 送信先（管理者 & ユーザー）を決定
  * ─────────────────────────────────────────── */
-$admin_to   = get_option( 'admin_email' );
-$user_to    = $data['email'];
-$subject    = sprintf( __( '【お問い合わせ】%s 様より', 'sanai-textdomain' ), $data['user_name'] );
-$headers    = [ 'Content-Type: text/plain; charset=UTF-8' ];
+
+/** 5-1) 管理者ロールのメールアドレスをすべて取得 */
+$admins = get_users(
+	[
+		'role'    => 'administrator',
+		'fields'  => [ 'user_email' ],
+		'orderby' => 'ID',
+	]
+);
+$admin_emails = wp_list_pluck( $admins, 'user_email' ); // ['owner@example.jp', 'staff@example.jp', …]
+
+/** 5-2) 取得できなかった場合は fallback として一般設定の管理者メールを使用 */
+if ( empty( $admin_emails ) ) {
+	$admin_emails = [ get_option( 'admin_email' ) ];
+}
+
+/** 5-3) 送信者本人のメールアドレス */
+$user_email = $data['email'];
+
+/* ─────────────────────────────────────────────
+ * 6) メール本文を組み立て
+ * ─────────────────────────────────────────── */
+$subject_admin = sprintf( __( '【お問い合わせ】%s 様より', 'sanai-textdomain' ), $data['user_name'] );
+$subject_user  = __( 'お問い合わせありがとうございます', 'sanai-textdomain' );
+
+$headers = [ 'Content-Type: text/plain; charset=UTF-8' ];
 
 $message  = "以下の内容でお問い合わせを受け付けました。\n\n";
 $message .= "【お問い合わせの種類】\n{$inquiry_type_label}\n\n";
@@ -71,16 +92,19 @@ $message .= "----------------------------------------\n";
 $message .= "※このメールはシステムからの自動送信です。\n";
 
 /* ─────────────────────────────────────────────
- * 6) メール送信（管理者・ユーザー両方へ）
+ * 7) メール送信
  * ─────────────────────────────────────────── */
-wp_mail( $admin_to, $subject, $message, $headers );     // 管理者宛
-wp_mail( $user_to,  __( 'お問い合わせありがとうございます', 'sanai-textdomain' ), $message, $headers ); // ご本人宛
+
+/** 7-1) 管理者全員へ送信（配列渡し OK） */
+wp_mail( $admin_emails, $subject_admin, $message, $headers );
+
+/** 7-2) 送信者本人へ控えを送信 */
+wp_mail( $user_email, $subject_user, $message, $headers );
 
 /* ─────────────────────────────────────────────
- * 7) セッションを破棄して完了ページへ遷移
+ * 8) セッションを破棄して完了ページへ遷移
  * ─────────────────────────────────────────── */
 unset( $_SESSION['contact_data'] );
 
-/* 完了ページへリダイレクト */
 wp_safe_redirect( get_theme_file_uri( 'contact/thanks.php' ) );
 exit;
