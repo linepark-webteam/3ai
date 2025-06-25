@@ -20,7 +20,7 @@ function sanai_default_global_nav()
         ['title' => '会社概要',    'url' => home_url('/company')],
         ['title' => '採用情報',    'url' => home_url('/recruit')],
         ['title' => 'お問い合わせ', 'url' => home_url('/contact')],
-        ['title' => 'プライバシーポリシー', 'url' => home_url('/privacy')],
+        ['title' => 'プライバシーポリシー', 'url' => home_url('/privacy-policy')],
     ];
 
     echo '<nav class="global-nav"><ul class="global-nav__list">';
