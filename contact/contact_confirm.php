@@ -1,46 +1,42 @@
 <?php
 /* =====================================================
- * 02. contact/contact_confirm.php – 内容確認
- * テーマ配下 /contact/ に配置
+ * contact/contact_confirm.php – 内容確認
  * ===================================================*/
-
 require_once dirname(__DIR__, 4) . '/wp-load.php';
 session_start();
 
-/* ▼ ここで共通 → 個別の順に enqueue */
+/* ─ enqueue（共通＋確認専用 CSS） ─ */
 wp_enqueue_style(
   'sanai-contact-common',
-  get_theme_file_uri( 'assets/css/contact-common.css' ),
-  [ 'sanai-common' ],  /* 依存は共通に合わせる */
+  get_theme_file_uri('assets/css/contact-common.css'),
+  ['sanai-common'],
   '1.0.0'
 );
-
 wp_enqueue_style(
   'sanai-contact-confirm',
-  get_theme_file_uri( 'assets/css/contact_confirm.css' ),
-  [ 'sanai-contact-common' ],
+  get_theme_file_uri('assets/css/contact_confirm.css'),
+  ['sanai-contact-common'],
   '1.0.0'
 );
 
-/* ---------- 1) CSRF & リクエストバリデーション ---------- */
+/* ---------- 1) CSRF ---------- */
 if (
-  ! isset($_POST['contact_nonce']) ||
-  ! wp_verify_nonce($_POST['contact_nonce'], 'contact_submit')
+  !isset($_POST['contact_nonce']) ||
+  !wp_verify_nonce($_POST['contact_nonce'], 'contact_submit')
 ) {
   wp_safe_redirect(home_url('/contact'));
   exit;
 }
 
-/* ---------- 2) ハニーポット（Bot）チェック ---------- */
-if (! empty($_POST['contact_hp'])) {
+/* ---------- 2) ハニーポット ---------- */
+if (!empty($_POST['contact_hp'])) {
   wp_safe_redirect(home_url('/contact'));
   exit;
 }
 
-/* ---------- 3) 必須項目チェック ---------- */
+/* ---------- 3) 必須チェック ---------- */
 $required = ['inquiry_type', 'user_name', 'tel', 'email', 'reply_type', 'message', 'agree'];
 $errors   = [];
-
 foreach ($required as $key) {
   if (empty($_POST[$key])) {
     $labels = [
@@ -55,44 +51,39 @@ foreach ($required as $key) {
     $errors[] = sprintf(__('%s は必須項目です。', 'sanai-textdomain'), $labels[$key]);
   }
 }
-
 if ($errors) {
-  /* エラーを入力画面へ返す */
   $_SESSION['contact_errors'] = $errors;
   wp_safe_redirect(home_url('/contact'));
   exit;
 }
 
-/* ---------- 4) 入力値を整形してセッション保存 ---------- */
+/* ---------- 4) 整形してセッション保存 ---------- */
 $type_labels = [
   'property' => __('物件について', 'sanai-textdomain'),
   'recruit'  => __('求人について', 'sanai-textdomain'),
-  'others'   => __('その他',   'sanai-textdomain'),
+  'others'   => __('その他', 'sanai-textdomain'),
 ];
 $reply_labels = [
   'email' => __('メールでの返信', 'sanai-textdomain'),
-  'tel'   => __('電話での返信',   'sanai-textdomain'),
-  'any'   => __('どちらでも可',   'sanai-textdomain'),
+  'tel'   => __('電話での返信', 'sanai-textdomain'),
+  'any'   => __('どちらでも可', 'sanai-textdomain'),
 ];
-
-$inquiry_label = $type_labels[$_POST['inquiry_type']] ?? '';
-$reply_label   = $reply_labels[$_POST['reply_type']] ?? '';
 
 $data = [
   'inquiry_type'        => sanitize_text_field($_POST['inquiry_type']),
-  'inquiry_type_label'  => $inquiry_label,
+  'inquiry_type_label'  => $type_labels[$_POST['inquiry_type']] ?? '',
   'company_name'        => sanitize_text_field($_POST['company_name']),
   'user_name'           => sanitize_text_field($_POST['user_name']),
   'tel'                 => sanitize_text_field($_POST['tel']),
   'email'               => sanitize_email($_POST['email']),
   'reply_type'          => sanitize_text_field($_POST['reply_type']),
-  'reply_type_label'    => $reply_label,           // ★ ここを追加
+  'reply_type_label'    => $reply_labels[$_POST['reply_type']] ?? '',
   'message'             => sanitize_textarea_field($_POST['message']),
+  'agree'               => '1',
 ];
-
 $_SESSION['contact_data'] = $data;
 
-/* ---------- 5) 画面表示 ---------- */
+/* ---------- 5) 画面 ---------- */
 get_header();
 ?>
 
@@ -100,14 +91,8 @@ get_header();
   <section class="contact-confirm section container">
     <h1 class="section-title"><?php esc_html_e('お問い合わせ内容の確認', 'sanai-textdomain'); ?></h1>
 
-    <?php
-    // index.php  → $step = 1;
-    // confirm.php → $step = 2;
-    // thanks.php  → $step = 3;
-    get_template_part('template-parts/contact', 'progress', ['step' => 2]);
-    ?>
+    <?php get_template_part('template-parts/contact', 'progress', ['step' => 2]); ?>
 
-    <!-- 入力内容の一覧表示 -->
     <dl class="contact-confirm__list">
       <dt><?php esc_html_e('お問い合わせの種類', 'sanai-textdomain'); ?></dt>
       <dd><?php echo esc_html($data['inquiry_type_label']); ?></dd>
@@ -131,7 +116,6 @@ get_header();
       <dd><?php echo nl2br(esc_html($data['message'])); ?></dd>
     </dl>
 
-    <!-- 送信／戻る -->
     <form
       action="<?php echo esc_url(get_theme_file_uri('contact/contact_send.php')); ?>"
       method="post"
@@ -142,7 +126,7 @@ get_header();
         <?php esc_html_e('送信する', 'sanai-textdomain'); ?>
       </button>
 
-      <a href="<?php echo esc_url(home_url('/contact')); ?>" class="btn btn-outline-secondary btn-lg">
+      <a href="<?php echo esc_url(home_url('/contact')); ?>" class="btn btn-secondary btn-lg">
         <?php esc_html_e('戻る', 'sanai-textdomain'); ?>
       </a>
     </form>

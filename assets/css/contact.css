@@ -1,54 +1,60 @@
-
 /*==================================================
   Contact 入力・完了ページ専用 (assets/css/contact.css)
 ==================================================*/
 
+/* ─ サブヒーロー ─ */
 .subhero {
-  /* contactのsubhero専用の画像を指定 */
   background: url("../img/subhero-contact-bg.webp") center/cover no-repeat;
   background-attachment: fixed;
 }
-@media (max-width: 768px) {
-  .subhero {
-    background-attachment: scroll;
-  }
-}
+@media (max-width:768px){ .subhero{ background-attachment:scroll; } }
 
+/* ラジオ列 */
 .contact-form__radios {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: baseline;
-    gap: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: .5rem;
 }
 
+/* 罫線を見やすく */
 .form-control,
 .form-check-input[type=radio],
 .form-check-input[type=checkbox] {
-    border: solid 1px;
-    border-color: gray;
+  border: 1px solid gray;
 }
 
-/* アラート（入力ページ） */
-.alert-danger {
-  margin-bottom: 2rem;
+/* textarea用 */
+#messageCounter {
+  color: #fff;
 }
+
+/* アラート */
+.alert-danger { margin-bottom: 2rem; }
 
 /* 完了ページ中央寄せ */
-.contact-thanks p {
-  margin-top: 1rem;
-}
+.contact-thanks p { margin-top: 1rem; }
 
-/* ボタン (Bootstrap 未読込時の補強) */
+/*― プライマリ / セカンダリボタン ―*/
 .btn-primary {
-  background: var(--c-steps);
+  background: #f6a62e;            /* ★ オレンジ */
+  border-color: #f6a62e;
   color: #fff;
-  padding: 0.75rem 2.5rem;
-  border-radius: 0.5rem;
+  padding: .75rem 2.5rem;
+  border-radius: .5rem;
 }
-.btn-outline-secondary {
+.btn-primary:hover,
+.btn-primary:focus {
+  background: #e39324;
+  border-color: #e39324;
+}
+.btn-secondary {
   border: 2px solid var(--c-gray-500);
   color: var(--c-gray-500);
-  padding: 0.75rem 2.5rem;
-  border-radius: 0.5rem;
+  padding: .75rem 2.5rem;
+  border-radius: .5rem;
 }
+
+/*==================================================
+  Contact 確認ページ専用 (assets/css/contact_confirm.css)
+  ※このファイルは既存で問題ないため省略
+==================================================*/
