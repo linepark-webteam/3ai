@@ -256,27 +256,71 @@
   background-color: var(--c-secondary-light);
 }
 
-/*------------------------------
-  Property Highlights – "一覧を見る" CTA
-------------------------------*/
-.property__more {
-  margin-top: 1.5rem;
-  text-align: right;
+/*--------------------------------------------------
+  Property Highlights – CTA ボタン
+--------------------------------------------------*/
+.property__more{
+  margin-top:1.5rem;
+  text-align:right;                 /* セクション内で右寄せ */
 }
-.property__more-link {
-  box-sizing: border-box;
-  display: inline-block;
-  font-size: var(--fs-base);
-  font-weight: 500;
-  color: var(--c-primary);
-  text-decoration: none;
-  /* padding: 0.6rem 2rem; */
-  transition: background 0.3s ease, color 0.3s ease;
+
+/* ボタン本体 */
+.property__more-link{
+  position:relative;                /* アイコンを絶対配置する基準 */
+  display:inline-block;
+  padding:.7rem 3rem;/* 左右同じ値 → テキスト中央寄せ */
+  font-size:var(--fs-base,1rem);
+  font-weight:600;
+  color:#fff;
+  background:linear-gradient(135deg,#0d6efd 0%,#45b3ff 100%);
+  border-radius:.4rem;
+  box-shadow:0 3px 8px rgba(0,0,0,.12);
+  text-decoration:none;
+  overflow:hidden;
+  transition:
+    background .3s ease,
+    box-shadow .3s ease,
+    filter .3s ease;
 }
+
 .property__more-link:hover,
-.property__more-link:focus-visible {
-  text-decoration: underline;
+.property__more-link:focus-visible{
+  filter:brightness(1.07);
+  box-shadow:0 4px 12px rgba(0,0,0,.15);
 }
+
+/* ---- テキストを中央に固定 ---- */
+.property__more-label{
+  display:block;
+  text-align:center;
+  pointer-events:none;              /* クリック領域を妨げない */
+}
+
+/*--------------------------------------------------
+  アイコン：右端に絶対配置 ＋ ループアニメ
+--------------------------------------------------*/
+.property__more-icon{
+  position:absolute;
+  top:50%;
+  right:1.2rem;                     /* ボタン右端からアイコンまでの余白 */
+  transform:translate(-8px,-50%);   /* 初期位置：少し左へ & 縦中央 */
+  font-size:1rem;
+  opacity:0;
+  animation:ctaArrow 1.8s linear infinite;
+}
+
+@keyframes ctaArrow{
+  0%   {opacity:0;   transform:translate(-8px,-50%);}
+  15%  {opacity:1;   transform:translate(0,-50%);}
+  70%  {opacity:1;   transform:translate(0,-50%);}
+  100% {opacity:0;   transform:translate(8px,-50%);}
+}
+
+/* モーション削減設定を尊重 */
+@media(prefers-reduced-motion:reduce){
+  .property__more-icon{animation:none;}
+}
+
 
 /*------------------------------
   notice セクション
@@ -350,3 +394,17 @@
     padding: 1.5rem;
   }
 }
+
+/* Animation Styles */
+
+/* Property Section */
+.property__slider {
+  opacity: 0;
+  transform: translateY(40px);
+}
+.property__card {
+  opacity: 0;
+  transform: translateY(30px) scale(0.92);
+}
+
+

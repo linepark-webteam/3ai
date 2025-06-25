@@ -38,7 +38,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  /* ---------- 2. 文字アニメーション ---------- */
+  /* ---------- 2. Hero 文字アニメーション ---------- */
   const animateChars = (
     selector,
     startDelay = 0.3,
@@ -90,9 +90,42 @@ document.addEventListener("DOMContentLoaded", () => {
   animateChars(".hero__subtitle", 0.8, 0.05, 2);
 });
 
-/* ---------- 3. Service Reveal ---------- */
+/* ---------- 3. Service 見出しアニメ ---------- */
 (() => {
-  const cards = gsap.utils.toArray('.service__item');   // ← NodeList を配列化
+  const head = document.querySelector("#service .section-head");
+  if (!head) return;
+
+  /* タイトル（左→右へスライド＋フェード） */
+  gsap.from("#service .section-title", {
+    x: -80,
+    opacity: 0,
+    duration: 0.9,
+    ease: "power3.out",
+    scrollTrigger: {
+      trigger: head,
+      start: "top 85%",
+      toggleActions: "play none none none",
+    },
+  });
+
+  /* サブタイトル（下→上フェード／少し遅延） */
+  gsap.from("#service .section-subtitle", {
+    x: -80,
+    opacity: 0,
+    duration: 0.7,
+    delay: 0.5,
+    ease: "power3.out",
+    scrollTrigger: {
+      trigger: head,
+      start: "top 85%",
+      toggleActions: "play none none none",
+    },
+  });
+})();
+
+/* ---------- 4. Service カードのスライドアップ ---------- */
+(() => {
+  const cards = gsap.utils.toArray(".service__item"); // ← NodeList を配列化
 
   /* ▼ NEW : 1 枚ずつ ScrollTrigger でアニメ */
   cards.forEach((card, i) => {
@@ -104,14 +137,65 @@ document.addEventListener("DOMContentLoaded", () => {
         y: 0,
         scale: 1,
         duration: 0.7,
-        ease: 'power3.out',
-        delay: i * 0.15,          // 下からスタガー
+        ease: "power3.out",
+        delay: i * 0.15, // 下からスタガー
         scrollTrigger: {
           trigger: card,
-          start: 'top 80%',       // 80% ビューポートに入ったら
-          toggleActions: 'play none none none',
+          start: "top 80%", // 80% ビューポートに入ったら
+          toggleActions: "play none none none",
         },
       }
     );
   });
 })();
+
+/* ---------- 5. Property Highlights アニメ ---------- */
+(() => {
+  const section = document.querySelector("#property");
+  const slider = document.querySelector(".property__slider");
+  const cards = gsap.utils.toArray(".property__card");
+  if (!section || !slider || !cards.length) return;
+
+  /* 5-1 タイトル（左→右） */
+  gsap.from("#property .section-title", {
+    x: -80,
+    opacity: 0,
+    duration: 0.9,
+    ease: "power3.out",
+    scrollTrigger: {
+      trigger: section,
+      start: "top 80%",
+      toggleActions: "play none none none",
+    },
+  });
+
+  /* 5-2 スライダー全体（フェードアップ） */
+  gsap.to(slider, {
+    opacity: 1,
+    y: 0,
+    duration: 0.8,
+    ease: "power3.out",
+    scrollTrigger: {
+      trigger: slider,
+      start: "top 85%",
+      toggleActions: "play none none none",
+    },
+  });
+
+  /* 5-3 各カードをスタガーでフェード＆スケール */
+  gsap.to(cards, {
+    opacity: 1,
+    y: 0,
+    scale: 1,
+    duration: 0.7,
+    ease: "power3.out",
+    stagger: 0.12,
+    delay: 0.1,
+    scrollTrigger: {
+      trigger: slider,
+      start: "top 85%",
+      toggleActions: "play none none none",
+    },
+  });
+})();
+
