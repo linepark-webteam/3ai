@@ -2,7 +2,7 @@
 
 /**
  * inc/navigation.php
- * デフォルトメニューのコールバック定義
+ * デフォルトナビゲーションメニューのコールバック定義
  */
 
 if (! defined('ABSPATH')) {
@@ -20,6 +20,7 @@ function sanai_default_global_nav()
         ['title' => '会社概要',    'url' => home_url('/company')],
         ['title' => '採用情報',    'url' => home_url('/recruit')],
         ['title' => 'お問い合わせ', 'url' => home_url('/contact')],
+        ['title' => 'プライバシーポリシー', 'url' => home_url('/privacy')],
     ];
 
     echo '<nav class="global-nav"><ul class="global-nav__list">';
@@ -43,6 +44,7 @@ function sanai_default_mobile_nav()
         ['title' => '物件情報',    'url' => home_url('/corp-property-list')],
         ['title' => '会社概要',    'url' => home_url('/company')],
         ['title' => '採用情報',    'url' => home_url('/recruit')],
+        ['title' => 'お知らせ',    'url' => home_url('/notice')],
     ];
 
     // ▼ <nav> 内：通常リンク
