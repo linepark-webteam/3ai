@@ -29,3 +29,6 @@ require_once get_template_directory() . '/inc/navigation.php';
 
 // 6. 一覧表示件数など WP_Query の調整
 require_once get_template_directory() . '/inc/query-filters.php';
+
+// 7. SMTP／メール設定
+require_once get_template_directory() . '/inc/mailer-settings.php';
