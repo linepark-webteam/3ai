@@ -42,7 +42,7 @@ function sanai_property_entry_form() {
 		}
 	}
 
-	$img_note = sprintf( __( '※ ギャラリーは最大 %d 枚まで登録できます', 'sanai-textdomain' ), 10 );
+	$img_note = sprintf( __( '※ ギャラリーは最大 %d 枚まで登録できます', 'sanai-textdomain' ), 9 );
 ?>
 
 <style>
@@ -121,7 +121,7 @@ function sanai_property_entry_form() {
 				<td>
 					<label class="file-chooser">
 						<span class="file-label"><?php esc_html_e( '画像を追加', 'sanai-textdomain' ); ?></span>
-						<input type="file" id="property_images_input" name="property_images[]" accept="image/*" data-max="10" multiple hidden>
+						<input type="file" id="property_images_input" name="property_images[]" accept="image/*" data-max="9" multiple hidden>
 					</label>
 
 					<ul id="gallery_list" class="sortable-list"
