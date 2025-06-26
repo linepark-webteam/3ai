@@ -133,4 +133,11 @@ get_header();
   </section>
 </main>
 
+<script>
+  /* 確認画面の履歴を /contact に置換 */
+  if (history.replaceState) {
+    history.replaceState(null, '', '<?php echo esc_url( home_url( '/contact/' ) ); ?>');
+  }
+</script>
+
 <?php get_footer(); ?>
