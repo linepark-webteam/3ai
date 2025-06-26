@@ -25,7 +25,7 @@
       'menu_class'      => 'footer-nav__list',
       'depth'           => 1,
       // 未設定時はデフォルトのナビゲーションを出力
-      'fallback_cb'     => 'sanai_default_global_nav',
+      'fallback_cb'     => 'sanai_default_footer_nav',
     ] );
     ?>
 

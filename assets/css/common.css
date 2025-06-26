@@ -229,6 +229,27 @@ img {
   }
 }
 
+/* ===============================
+ナビゲーション共通スタイル 
+現在ページ (= .is-current)に色と下線を付与 
+=============================== */
+.global-nav__item.is-current > a,
+.drawer-nav__item.is-current > a {
+  color: var(--c-primary-dark);
+  position: relative;
+}
+.global-nav__item.is-current > a::after,
+.drawer-nav__item.is-current > a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: -4px;
+  width: 100%;
+  height: 2px;
+  background: var(--c-primary-dark);
+  border-radius: 1px;
+}
+
 /*------------------------------
   Subhero Section（下層ページ共通サブヒーロー）
 ------------------------------*/

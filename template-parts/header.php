@@ -4,7 +4,6 @@
  * ヘッダーテンプレート (template-parts/header.php)
  */
 ?>
-
 <!DOCTYPE html>
 <html <?php language_attributes(); ?>>
 
@@ -15,53 +14,47 @@
 </head>
 
 <body <?php body_class(); ?>>
-  <!-- ヘッダー -->
+  <div id="drawerOverlay" class="drawer-overlay" hidden></div>
   <header class="site-header">
-    <div class="header-inner container-fruid">
-      <!-- サイトロゴ（カスタムロゴを有効化している場合は以下のように出力可能） -->
+    <div class="header-inner container-fluid">
+
+      <!-- ── Logo ──────────────────────────── -->
       <?php if (function_exists('the_custom_logo') && has_custom_logo()) : ?>
         <div class="logo"><?php the_custom_logo(); ?></div>
       <?php else : ?>
         <a href="<?php echo esc_url(home_url('/')); ?>" class="logo">
-          <img src="<?php echo esc_url(get_template_directory_uri()); ?>/assets/img/logo.webp" alt="<?php bloginfo('name'); ?>" />
+          <img
+            src="<?php echo esc_url(get_template_directory_uri() . '/assets/img/logo.webp'); ?>"
+            alt="<?php bloginfo('name'); ?>" />
         </a>
       <?php endif; ?>
 
-      <?php
-      // グローバルナビゲーション（PC用）
-      wp_nav_menu([
-        'theme_location'  => 'global_nav',
-        'container'       => 'nav',
-        'container_class' => 'global-nav',
-        'menu_class'      => 'global-nav__list',
-        'depth'           => 1,
-        // メニュー未設定時にはデフォルトの「サービス…」リストを出力
-        'fallback_cb'     => 'sanai_default_global_nav',
-      ]);
-      ?>
-
-      <!-- Menu ラベル + ハンバーガー -->
+      <!-- ── Menu Toggle ───────────────────── -->
       <div class="menu-toggle" role="button" tabindex="0">
-        <span class="menu-toggle__text" id="menu-label">Menu</span>
-        <button id="hamburger-btn"
+        <span class="menu-toggle__text" id="menuLabel">Menu</span>
+        <button
+          id="hamburgerBtn"
           class="hamburger"
-          aria-label="メニューを開く"
-          aria-controls="site-global-nav"
+          aria-label="<?php esc_attr_e('メニューを開く', 'sanai-textdomain'); ?>"
+          aria-controls="drawerNav"
           aria-expanded="false">
           <span class="hamburger__line"></span>
           <span class="hamburger__line"></span>
         </button>
       </div>
 
+      <!-- ── Drawer Navigation  ※PC/SP 共通──────── -->
       <?php
-      // モバイルメニュー
       wp_nav_menu([
         'theme_location'  => 'global_nav',
         'container'       => 'nav',
-        'container_class' => 'mobile-nav',
-        'menu_class'      => 'mobile-nav__list',
+        'container_class' => 'drawer-nav',          // ← 統一クラス
+        'container_id'    => 'drawerNav',
+        'menu_class'      => 'drawer-nav__list',
         'depth'           => 1,
-        'fallback_cb'     => 'sanai_default_mobile_nav',
+        'fallback_cb'     => 'sanai_default_drawer_nav',
       ]);
       ?>
+
+    </div><!-- /.header-inner -->
   </header>

@@ -8,17 +8,56 @@
 if (! defined('ABSPATH')) {
     exit;
 }
-
 /**
- * PC用デフォルトグローバルナビ
+ * ドロワーナビ（PC・SP 共通）
  */
-function sanai_default_global_nav()
+function sanai_default_drawer_nav()
 {
     $items = [
         ['title' => '事業内容',    'url' => home_url('/services')],
         ['title' => '物件情報',    'url' => home_url('/corp-property-list')],
         ['title' => '会社概要',    'url' => home_url('/company')],
         ['title' => '採用情報',    'url' => home_url('/recruit')],
+        ['title' => 'お知らせ',    'url' => home_url('/notice')],
+    ];
+
+    echo '<nav id="drawerNav" class="drawer-nav"><ul class="drawer-nav__list">';
+    foreach ($items as $item) {
+        printf(
+            '<li class="drawer-nav__item"><a href="%s">%s</a></li>',
+            esc_url($item['url']),
+            esc_html($item['title'])
+        );
+    }
+    echo '</ul>';
+
+    // CTA ボタン
+?>
+    <div class="drawer-nav__cta">
+        <a href="<?php echo esc_url(home_url('/contact/')); ?>"
+            class="btn drawer-nav__btn">
+            <?php esc_html_e('お問い合わせ', 'sanai-textdomain'); ?>
+        </a>
+        <a href="tel:045-951-2722"
+            class="btn drawer-nav__btn">
+            <i class="bi bi-telephone-fill"></i> 045-951-2722
+        </a>
+    </div>
+    </nav>
+<?php
+}
+
+/**
+ * デフォルトフッターナビ
+ */
+function sanai_default_footer_nav()
+{
+    $items = [
+        ['title' => '事業内容',    'url' => home_url('/services')],
+        ['title' => '物件情報',    'url' => home_url('/corp-property-list')],
+        ['title' => '会社概要',    'url' => home_url('/company')],
+        ['title' => '採用情報',    'url' => home_url('/recruit')],
+        ['title' => 'お知らせ',    'url' => home_url('/notice')],
         ['title' => 'お問い合わせ', 'url' => home_url('/contact')],
         ['title' => 'プライバシーポリシー', 'url' => home_url('/privacy-policy')],
     ];
@@ -32,45 +71,4 @@ function sanai_default_global_nav()
         );
     }
     echo '</ul></nav>';
-}
-
-/**
- * モバイル用デフォルトナビ（＋CTA）
- */
-function sanai_default_mobile_nav()
-{
-    $items = [
-        ['title' => '事業内容',    'url' => home_url('/services')],
-        ['title' => '物件情報',    'url' => home_url('/corp-property-list')],
-        ['title' => '会社概要',    'url' => home_url('/company')],
-        ['title' => '採用情報',    'url' => home_url('/recruit')],
-        ['title' => 'お知らせ',    'url' => home_url('/notice')],
-    ];
-
-    // ▼ <nav> 内：通常リンク
-    echo '<nav class="mobile-nav"><ul class="mobile-nav__list">';
-    foreach ($items as $item) {
-        printf(
-            '<li class="mobile-nav__item"><a href="%s">%s</a></li>',
-            esc_url($item['url']),
-            esc_html($item['title'])
-        );
-    }
-    echo '</ul>';
-
-    // ▼ <nav> の直後：CTA 固定バー
-?>
-    <div class="mobile-nav__cta">
-        <a href="<?php echo esc_url(home_url('/contact/')); ?>"
-            class="btn  mobile-nav__btn">
-            お問い合わせ
-        </a>
-        <a href="tel:045-951-2722"
-            class="btn  mobile-nav__btn">
-            <i class="bi bi-telephone-fill"></i>
-            045-951-2722
-        </a>
-    </div>
-    </nav>
-<?php
 }

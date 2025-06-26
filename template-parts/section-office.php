@@ -14,7 +14,7 @@
   </h2>
   <div class="office__photo">
     <img
-      src="<?php echo esc_url( get_template_directory_uri() . '/assets/img/test.jpg' ); ?>"
+      src="<?php echo esc_url( get_template_directory_uri() . '/assets/img/coming-soon.png' ); ?>"
       alt="<?php esc_attr_e( '社屋写真', 'sanai-textdomain' ); ?>"
     >
     <p>

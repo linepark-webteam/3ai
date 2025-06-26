@@ -6,93 +6,128 @@
  *      assets/js/top.js に分離済み
  * -------------------------------------------------- */
 
-/* ==================================================
- * 1. ハンバーガーメニュー
- * ================================================== */
+/* ===================================================
+ * 1. ハンバーガーメニュー（PC/SP 共通 Drawer）
+ *   - SP(〜1023px)   : 全画面ドロワー＋bodyスクロール固定
+ *   - PC(1024px〜)   : 右サイドドロワー＋オーバーレイ
+ *   ※ overlay 要素  <div id="drawerOverlay" class="drawer-overlay" hidden></div>
+ *===================================================*/
 document.addEventListener('DOMContentLoaded', () => {
-  const hamburger = document.querySelector('#hamburger-btn');
-  const mobileNav = document.querySelector('.mobile-nav');
-  if (!hamburger || !mobileNav) return;
+  const hamburger   = document.getElementById('hamburgerBtn');
+  const drawerNav   = document.getElementById('drawerNav');
+  const overlay     = document.getElementById('drawerOverlay'); // 追加
+  const label       = document.getElementById('menuLabel');
+  const menuToggle  = document.querySelector('.menu-toggle');
+  const MQ_PC       = window.matchMedia('(min-width: 1024px)');
+  const ANIM_MS     = 450;
 
-  const ANIM_MS   = 450;
-  const label     = document.getElementById('menu-label');
-  const menuToggle = document.querySelector('.menu-toggle');
+  if (!hamburger || !drawerNav) return;
 
-  /* ------- OPEN ------- */
+  /* ---------- OPEN ---------- */
   const openMenu = () => {
-    mobileNav.classList.remove('is-closing');
+    drawerNav.classList.remove('is-closing');
+    drawerNav.classList.add('is-open');
     hamburger.classList.add('is-active');
-    mobileNav.classList.add('is-open');
-    label.textContent = 'Close';
     hamburger.setAttribute('aria-expanded', 'true');
-    document.body.classList.add('nav-open');
+    label.textContent = 'Close';
+
+    if (MQ_PC.matches) {                     // PC：サイドドロワー
+      if (overlay) {
+        overlay.hidden = false;
+        overlay.classList.add('is-active');
+      }
+    } else {                                 // SP：全画面ドロワー
+      document.body.classList.add('nav-open');
+    }
   };
 
-  /* ------- CLOSE ------- */
+  /* ---------- CLOSE ---------- */
   const closeMenu = () => {
     hamburger.classList.remove('is-active');
-    mobileNav.classList.add('is-closing');
+    drawerNav.classList.add('is-closing');
     label.textContent = 'Menu';
     hamburger.setAttribute('aria-expanded', 'false');
 
+    // アニメーション終了後に完全クローズ
     setTimeout(() => {
-      mobileNav.classList.remove('is-open', 'is-closing');
-      document.body.classList.remove('nav-open');
+      drawerNav.classList.remove('is-open', 'is-closing');
+
+      if (MQ_PC.matches) {
+        if (overlay) {
+          overlay.classList.remove('is-active');
+          overlay.hidden = true;
+        }
+      } else {
+        document.body.classList.remove('nav-open');
+      }
     }, ANIM_MS);
   };
 
-  /* ------- TOGGLE ------- */
-  const toggle = () =>
+  /* ---------- TOGGLE ---------- */
+  const toggleMenu = () =>
     hamburger.classList.contains('is-active') ? closeMenu() : openMenu();
 
-  /* ① ボタンクリック */
-  hamburger.addEventListener('click', (e) => {
+  /* ① ボタンまたはラベルクリック */
+  menuToggle.addEventListener('click', (e) => {
     e.stopPropagation();
-    toggle();
+    toggleMenu();
   });
 
-  /* ② ラベルや余白クリック */
-  menuToggle.addEventListener('click', toggle);
-
-  /* ③ キーボード操作 */
+  /* ② キーボード操作（Enter / Space） */
   menuToggle.addEventListener('keydown', (e) => {
     if (e.key === 'Enter' || e.key === ' ') {
       e.preventDefault();
-      toggle();
+      toggleMenu();
     }
   });
 
-  /* ④ 769px 以上でリセット */
-  window.addEventListener('resize', () => {
-    if (window.matchMedia('(min-width: 769px)').matches) {
-      hamburger.classList.remove('is-active');
-      mobileNav.classList.remove('is-open', 'is-closing');
-      hamburger.setAttribute('aria-expanded', 'false');
-      document.body.classList.remove('nav-open');
+  /* ③ オーバーレイ／メニュー外クリックで閉じる（PC時のみ有効） */
+  if (overlay) {
+    overlay.addEventListener('click', closeMenu);
+  }
+  drawerNav.addEventListener('click', (e) => {
+    if (e.target === drawerNav && !MQ_PC.matches) closeMenu(); // SP時の背景クリック
+  });
+
+  /* ④ ESC キーで閉じる */
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && hamburger.classList.contains('is-active')) {
+      closeMenu();
     }
+  });
+
+  /* ⑤ リサイズ時リセット */
+  window.addEventListener('resize', () => {
+    // ブレイクポイントを跨いだ場合はメニューを強制的に閉じる
+    if (!drawerNav.classList.contains('is-open')) return;
+    closeMenu();
   });
 });
 
-
 /* ==================================================
  * 2. 現在ページに .is-current を付与
- * ================================================== */
+ *==================================================*/
 (() => {
   const LINKS = document.querySelectorAll(
-    '.global-nav__item > a, .mobile-nav__item > a'
+    '.global-nav__item > a, .drawer-nav__item > a'
   );
   if (!LINKS.length) return;
 
-  const currentPath = location.pathname.replace(/\/$/, ''); // 末尾スラッシュ統一
+  // 現在のパス（末尾スラッシュを統一）
+  const currentPath = location.pathname.replace(/\/$/, '');
 
   LINKS.forEach((link) => {
     const linkPath = link.pathname.replace(/\/$/, '');
-    // 完全一致 or 親ディレクトリ一致
-    if (currentPath === linkPath || currentPath.startsWith(linkPath + '/')) {
-      link.parentElement.classList.add('is-current');
-    }
+    // ホーム（"/"）は完全一致のみ、それ以外は親階層でもマッチ
+    const isCurrent =
+      linkPath === ''
+        ? currentPath === ''
+        : currentPath === linkPath || currentPath.startsWith(linkPath + '/');
+
+    if (isCurrent) link.parentElement.classList.add('is-current');
   });
 })();
+
 
 /* ===================================================
  * Back-to-Top Button
