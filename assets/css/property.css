@@ -4,22 +4,67 @@
 ==================================================*/
 
 /* ---------- 1. 画像レイアウト ---------- */
-/* メイン画像 → 地図画像 → ギャラリー の順に縦並び */
+/* 画像列全体（縦並び：メイン → 地図 → ギャラリー） */
 .single-property .property-images {
-  display: flex; /* ← grid から flex-column へ */
+  display: flex;
   flex-direction: column;
   gap: 1rem;
 }
-.property-main-img,
+
+/* メイン画像行（← ボタン | 画像 | → ボタン） */
+.property-main-wrap {
+  display: flex;
+  align-items: center; /* ← 高さをピタッと中央揃え */
+  justify-content: center;
+  overflow: visible; /* outside に矢印をはみ出させる用 */
+  position: relative;
+}
+
+/* メイン画像本体 */
+.property-main-img {
+  width: 70vw;
+  height: auto;
+  object-fit: cover;
+  transition: opacity 0.4s ease;
+}
+
+/* 地図サムネイル */
 .property-map-thumb img {
   width: 100%;
   height: auto;
   object-fit: cover;
 }
 
-/* ギャラリー（横並びサムネイル） */
+/* ← / → ナビゲーションボタン */
+.property-nav {
+  flex: 0 0 2.5rem; /* 固定幅で shrink させない */
+  aspect-ratio: 1 / 1;
+  background: rgba(0 0 0 / 0.5);
+  color: #fff;
+  border: none;
+  border-radius: 50%;
+  font-size: 1.25rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background 0.25s;
+  z-index: 2;
+}
+
+/* ボタンを画像の“外”に寄せる */
+.property-prev {
+  margin-right: -1.25rem;
+} /* –幅の半分 */
+.property-next {
+  margin-left: -1.25rem;
+}
+
+.property-nav:hover {
+  background: rgba(0 0 0 / 0.7);
+}
+
+/* ---------- 2. ギャラリー（横並びサムネイル） ---------- */
 .property-gallery {
-  margin: 1rem 0;
+  margin: 0.5rem 0;
   padding: 0;
   list-style: none;
   display: flex;
@@ -32,9 +77,13 @@
   object-fit: cover;
   border-radius: 4px;
   cursor: pointer;
+  transition: opacity 0.3s;
+}
+.property-gallery li img:hover {
+  opacity: 0.75;
 }
 
-/* ---------- 2. タイトル ---------- */
+/* ---------- 3. タイトル ---------- */
 .property-title {
   font-size: 1.8rem;
   font-weight: 700;
@@ -42,7 +91,7 @@
   margin: 0 0 1rem;
 }
 
-/* ---------- 3. サマリー ---------- */
+/* ---------- 4. サマリー ---------- */
 .property-summary {
   display: flex;
   flex-wrap: wrap;
@@ -56,7 +105,6 @@
   width: 100%;
   column-gap: 0.3rem;
 }
-/* ラベルと値 */
 .summary-label {
   flex: 0 0 6.5rem;
   font-weight: 600;
@@ -67,15 +115,15 @@
   word-break: break-word;
 }
 
-/* ---------- 4. お問い合わせボタン ---------- */
+/* ---------- 5. お問い合わせボタン ---------- */
 .property-contact {
   display: inline-block;
   margin-top: 0.5rem;
 }
 
-/* ---------- 5. 物件概要 ---------- */
+/* ---------- 6. 物件概要テーブル ---------- */
 .property-overview {
-  font-size: 1.4rem; /* 少し大きめ */
+  font-size: 1.4rem;
   font-weight: 700;
   margin: 2rem 0 1rem;
 }
@@ -91,10 +139,11 @@
 .property-spec__table th {
   width: 30%;
   background: #0d6efd;
+  color: #fff;
   font-weight: 600;
 }
 
-/* ---------- 6. レスポンシブ---------- */
+/* ---------- 7. レスポンシブ ---------- */
 @media (max-width: 768px) {
   .property-title {
     font-size: 1.5rem;
@@ -102,15 +151,18 @@
   .summary-label {
     flex: 0 0 5.5rem;
   }
+  .property-nav {
+    flex-basis: 2rem;
+    font-size: 1rem;
+  }
+  .property-prev {
+    margin-right: -1rem;
+  }
+  .property-next {
+    margin-left: -1rem;
+  }
   .property-gallery li img {
     width: 15vw;
     height: 15vw;
-    object-fit: cover;
-    border-radius: 4px;
   }
-}
-
-/* For Animation */
-.property-main-img {
-  transition: opacity 0.4s ease;
 }
