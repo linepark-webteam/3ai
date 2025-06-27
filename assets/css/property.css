@@ -65,20 +65,20 @@
 
 /* ---------- 2. ギャラリー（横スクロール式サムネイル） ---------- */
 .property-gallery {
-  margin: 1rem 0;
-  padding-block: 0.75rem; 
+  margin: 1rem auto;
+  padding-block: 0.75rem;
   list-style: none;
   display: flex;
   flex-wrap: nowrap; /* 折り返さず 1 行固定 */
   gap: 1.2rem;
   overflow-x: auto; /* 横スクロールを許可 */
-  overflow-y: visible;    /* 縦方向ははみ出し表示 */
+  overflow-y: visible; /* 縦方向ははみ出し表示 */
   overscroll-behavior-x: contain; /* スクロールバウンスを抑制 */
   -webkit-overflow-scrolling: touch;
   scroll-snap-type: x mandatory; /* 必要ならスナップ */
 }
 
-/* スクロールバーを目立たなく（お好みで） */
+/* スクロールバーを目立たなく */
 .property-gallery::-webkit-scrollbar {
   height: 6px;
 }
@@ -113,12 +113,21 @@
 /* 左端がアクティブの時は右側へだけ拡大 */
 .property-gallery li:first-child img.is-active {
   transform-origin: left center;
+  margin-right: 10px;
 }
 
 /* 右端がアクティブの時は左側へだけ拡大 */
 .property-gallery li:last-child img.is-active {
   transform-origin: right center;
+  margin-left: 10px;
 }
+/* .property-gallery.is-dragging {
+  user-select: none;
+  cursor: grabbing;
+}
+.property-gallery {
+  cursor: grab;
+} */
 
 /* ---------- 3. タイトル ---------- */
 .property-title {
@@ -199,7 +208,7 @@
     margin-left: 0.5rem;
   }
   .property-gallery li img {
-    width: 22vw;
-    height: 22vw;
+    width: 15vw;
+    height: 15vw;
   }
 }

@@ -3,12 +3,10 @@
   -----------------------------------------------
   ・クリック / ←→ ボタン / キーボード
   ・サムネイルクリック・横ドラッグ / スワイプ
-  ・メイン画像横ドラッグ / スワイプ　←★ NEW
+  ・メイン画像横ドラッグ / スワイプ
   ですべて画像を切替え、ギャラリーを同期
 ==================================================*/
-/*==================================================
-  assets/js/property-single.js
-==================================================*/
+
 document.addEventListener('DOMContentLoaded', () => {
   /* ---------- 要素取得 ---------- */
   const mainImg = document.getElementById('propertyMainImg');
@@ -22,6 +20,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const sources = thumbs.map(img => img.dataset.full || img.src);
   let current   = sources.indexOf(mainImg.src);
   if (current === -1) current = 0;
+  thumbs.forEach(img => img.setAttribute('draggable', 'false'));
 
   /* ---------- ヘルパー ---------- */
   const scrollThumbIntoView = idx => {
@@ -32,14 +31,13 @@ document.addEventListener('DOMContentLoaded', () => {
     thumbs[idx]?.classList.add('is-active');
     scrollThumbIntoView(idx);
   };
-  setActiveThumb(current); // 初期化
+  setActiveThumb(current);
 
   const switchImage = idx => {
     if (idx === current) return;
     current = (idx + sources.length) % sources.length;
     setActiveThumb(current);
 
-    /* フェード切替 */
     mainImg.style.opacity = 0;
     mainImg.addEventListener('transitionend', function handler () {
       mainImg.removeEventListener('transitionend', handler);
@@ -74,13 +72,11 @@ document.addEventListener('DOMContentLoaded', () => {
   /* ---------- 4. ギャラリー横ドラッグ（スクロールのみ） ---------- */
   (() => {
     let isDown = false, startX = 0, scrollStart = 0;
-
     const down = e => {
       isDown = true;
       gallery.classList.add('is-dragging');
       startX = (e.pageX || e.touches[0].pageX);
       scrollStart = gallery.scrollLeft;
-      e.preventDefault();
     };
     const move = e => {
       if (!isDown) return;
@@ -92,45 +88,37 @@ document.addEventListener('DOMContentLoaded', () => {
       gallery.classList.remove('is-dragging');
     };
 
-    /* マウス */
     gallery.addEventListener('mousedown', down);
     gallery.addEventListener('mousemove', move);
     document.addEventListener('mouseup', up);
 
-    /* タッチ */
-    gallery.addEventListener('touchstart', down, { passive: true });
-    gallery.addEventListener('touchmove',  move, { passive: true });
+    gallery.addEventListener('touchstart', down,  { passive:false }); /* ★ 変更 */
+    gallery.addEventListener('touchmove',  move,  { passive:true  });
     gallery.addEventListener('touchend',   up);
   })();
 
-  /* ---------- 5. メイン画像横ドラッグ／スワイプで切替 ---------- */
+  /* ---------- 5. メイン画像横ドラッグ／スワイプ ---------- */
   (() => {
     let isDown = false, startX = 0;
-    const TH = 40; // 判定距離(px)
-
+    const TH = 40;
     const down = e => {
       isDown = true;
       startX = (e.pageX || e.touches[0].pageX);
       e.preventDefault();
     };
-    const move = () => {}; // 必要なし（移動は判定のみ）
-    const up   = e => {
+    const up = e => {
       if (!isDown) return;
       isDown = false;
       const endX = (e.pageX || (e.changedTouches && e.changedTouches[0].pageX) || startX);
       const diff = endX - startX;
-      if (diff >  TH) switchImage(current - 1); // 右へ払う → 前へ
-      if (diff < -TH) switchImage(current + 1); // 左へ払う → 次へ
+      if (diff >  TH) switchImage(current - 1);
+      if (diff < -TH) switchImage(current + 1);
     };
 
-    /* マウス */
     mainImg.addEventListener('mousedown', down);
-    mainImg.addEventListener('mousemove', move);
-    document.addEventListener('mouseup', up);
+    document.addEventListener('mouseup',   up);
 
-    /* タッチ */
-    mainImg.addEventListener('touchstart', down, { passive: true });
-    mainImg.addEventListener('touchmove',  move, { passive: true });
+    mainImg.addEventListener('touchstart', down, { passive:false }); /* ★ 変更 */
     mainImg.addEventListener('touchend',   up);
   })();
 });
