@@ -19,7 +19,7 @@
   max-height: 680px;
   min-height: 320px;
 
-  position: relative; /*← → ボタンの絶対配置用 */
+  position: relative; /* ← → ボタンの絶対配置用 */
   display: flex;
   align-items: center;
   justify-content: center;
