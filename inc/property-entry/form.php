@@ -1,19 +1,23 @@
 <?php
+
 /**
  * inc/property-entry/form.php
  * 物件登録／編集フォーム – サムネイル + ギャラリー(統合リスト)
  */
-if ( ! defined( 'ABSPATH' ) ) { exit; }
+if (! defined('ABSPATH')) {
+	exit;
+}
 
-function sanai_property_entry_form() {
+function sanai_property_entry_form()
+{
 
-	$post_id = isset( $_GET['post_id'] ) ? intval( $_GET['post_id'] ) : 0;
+	$post_id = isset($_GET['post_id']) ? intval($_GET['post_id']) : 0;
 	$is_edit = $post_id > 0;
 
-	if ( isset( $_GET['saved'] ) && 'true' === $_GET['saved'] ) {
+	if (isset($_GET['saved']) && 'true' === $_GET['saved']) {
 		echo '<div class="notice notice-success is-dismissible"><p>'
-		     . esc_html__( '物件を保存しました。', 'sanai-textdomain' )
-		     . '</p></div>';
+			. esc_html__('物件を保存しました。', 'sanai-textdomain')
+			. '</p></div>';
 	}
 
 	/* 既存値 -------------------------------------------------- */
@@ -27,175 +31,192 @@ function sanai_property_entry_form() {
 	$existing_ids      = [];    // 既存ギャラリー
 	$thumb_id          = 0;     // 既存サムネイル
 
-	if ( $is_edit && get_post_type( $post_id ) === 'property' ) {
-		$defaults['property_title']   = get_post_meta( $post_id, 'property_title',   true );
-		$defaults['property_price']   = get_post_meta( $post_id, 'price',            true );
-		$defaults['property_address'] = get_post_meta( $post_id, 'address',          true );
-		$defaults['property_access']  = get_post_meta( $post_id, 'access',           true );
-		$existing_ids                 = (array) get_post_meta( $post_id, 'property_images', true );
-		$thumb_id                     = get_post_thumbnail_id( $post_id );
+	if ($is_edit && get_post_type($post_id) === 'property') {
+		$defaults['property_title']   = get_post_meta($post_id, 'property_title',   true);
+		$defaults['property_price']   = get_post_meta($post_id, 'price',            true);
+		$defaults['property_address'] = get_post_meta($post_id, 'address',          true);
+		$defaults['property_access']  = get_post_meta($post_id, 'access',           true);
+		$existing_ids                 = (array) get_post_meta($post_id, 'property_images', true);
+		$thumb_id                     = get_post_thumbnail_id($post_id);
 
-		foreach ( get_post_meta( $post_id ) as $k => $v ) {
-			if ( str_starts_with( $k, 'ov_' ) ) {
-				$overview_defaults[ substr( $k, 3 ) ] = $v[0];
+		foreach (get_post_meta($post_id) as $k => $v) {
+			if (str_starts_with($k, 'ov_')) {
+				$overview_defaults[substr($k, 3)] = $v[0];
 			}
 		}
 	}
 
-	$img_note = sprintf( __( '※ ギャラリーは最大 %d 枚まで登録できます', 'sanai-textdomain' ), 9 );
+	$max_gallery = 10;
+	$img_note = sprintf(__('※ ギャラリーは最大 %d 枚まで登録できます', 'sanai-textdomain'), $max_gallery);
 ?>
 
-<style>
-/* ------- 共通サムネイルサイズ ------- */
-#gallery_list img,
-#thumb_preview img,
-#existing_thumb {
-	width: 96px;
-	height: 96px;
-	object-fit: cover;
-	border-radius: 4px;
-}
+	<style>
+		/* ------- 共通サムネイルサイズ ------- */
+		#gallery_list img,
+		#thumb_preview img,
+		#existing_thumb {
+			width: 96px;
+			height: 96px;
+			object-fit: cover;
+			border-radius: 4px;
+		}
 
-/* ------- 番号ラベル ------- */
-.img-label{
-	position:absolute;left:4px;top:4px;
-	background:#000c;color:#fff;font-size:11px;
-	padding:2px 4px;border-radius:3px;
-	pointer-events:none;
-}
+		/* ------- 番号ラベル ------- */
+		.img-label {
+			position: absolute;
+			left: 4px;
+			top: 4px;
+			background: #000c;
+			color: #fff;
+			font-size: 11px;
+			padding: 2px 4px;
+			border-radius: 3px;
+			pointer-events: none;
+		}
 
-/* ------- 疑似ファイルボタン ------- */
-.file-chooser{
-	display:inline-block;
-	cursor:pointer;
-	background:#0073aa;color:#fff;
-	padding:6px 12px;border-radius:4px;font-size:13px;
-}
-.file-chooser:hover{ background:#006090; }
-.file-label{ pointer-events:none; } /* テキスト選択抑制 */
-</style>
+		/* ------- 疑似ファイルボタン ------- */
+		.file-chooser {
+			display: inline-block;
+			cursor: pointer;
+			background: #0073aa;
+			color: #fff;
+			padding: 6px 12px;
+			border-radius: 4px;
+			font-size: 13px;
+		}
 
-<div class="wrap">
-	<h1 class="wp-heading-inline">
-		<?php echo $is_edit ? esc_html__( '物件を編集', 'sanai-textdomain' )
-		                    : esc_html__( '物件登録', 'sanai-textdomain' ); ?>
-	</h1>
+		.file-chooser:hover {
+			background: #006090;
+		}
 
-	<form method="post" action="<?php echo esc_url( admin_url( 'admin-post.php' ) ); ?>" enctype="multipart/form-data">
-		<?php wp_nonce_field( 'sanai_property_entry', 'sanai_property_nonce' ); ?>
-		<input type="hidden" name="action" value="sanai_save_property">
-		<?php if ( $is_edit ) : ?>
-			<input type="hidden" name="post_id" value="<?php echo esc_attr( $post_id ); ?>">
-		<?php endif; ?>
+		.file-label {
+			pointer-events: none;
+		}
 
-		<table class="form-table">
+		/* テキスト選択抑制 */
+	</style>
 
-			<!-- タイトル -->
-			<tr>
-				<th><label for="property_title"><?php esc_html_e( '物件タイトル', 'sanai-textdomain' ); ?></label></th>
-				<td><textarea id="property_title" name="property_title" rows="3" class="large-text" required><?php echo esc_textarea( $defaults['property_title'] ); ?></textarea></td>
-			</tr>
+	<div class="wrap">
+		<h1 class="wp-heading-inline">
+			<?php echo $is_edit ? esc_html__('物件を編集', 'sanai-textdomain')
+				: esc_html__('物件登録', 'sanai-textdomain'); ?>
+		</h1>
 
-			<!-- サムネイル -->
-			<tr>
-				<th><label for="property_thumbnail_input"><?php esc_html_e( 'サムネイル画像(1枚)', 'sanai-textdomain' ); ?></label></th>
-				<td>
-					<label class="file-chooser">
-						<span class="file-label"><?php esc_html_e( '画像を選択', 'sanai-textdomain' ); ?></span>
-						<input type="file" id="property_thumbnail_input" name="property_thumbnail" accept="image/*" hidden>
-					</label>
+		<form method="post" action="<?php echo esc_url(admin_url('admin-post.php')); ?>" enctype="multipart/form-data">
+			<?php wp_nonce_field('sanai_property_entry', 'sanai_property_nonce'); ?>
+			<input type="hidden" name="action" value="sanai_save_property">
+			<?php if ($is_edit) : ?>
+				<input type="hidden" name="post_id" value="<?php echo esc_attr($post_id); ?>">
+			<?php endif; ?>
 
-					<div id="thumb_preview" style="margin-top:.75rem;display:flex;gap:.5rem;"></div>
+			<table class="form-table">
 
-					<?php if ( $thumb_id ) : ?>
-						<?php echo wp_get_attachment_image( $thumb_id, 'thumbnail', false, [ 'id'=>'existing_thumb' ] ); ?>
-					<?php endif; ?>
-
-					<p class="description"><?php esc_html_e( 'クリックで削除できます', 'sanai-textdomain' ); ?></p>
-				</td>
-			</tr>
-
-			<!-- ギャラリー -->
-			<tr>
-				<th><label for="property_images_input"><?php esc_html_e( 'ギャラリー画像', 'sanai-textdomain' ); ?></label></th>
-				<td>
-					<label class="file-chooser">
-						<span class="file-label"><?php esc_html_e( '画像を追加', 'sanai-textdomain' ); ?></span>
-						<input type="file" id="property_images_input" name="property_images[]" accept="image/*" data-max="9" multiple hidden>
-					</label>
-
-					<ul id="gallery_list" class="sortable-list"
-						style="display:flex;flex-wrap:wrap;gap:.5rem;margin:0;padding:0;list-style:none;">
-						<?php foreach ( $existing_ids as $eid ) : ?>
-							<li class="sortable-item" data-id="<?php echo esc_attr( $eid ); ?>" style="position:relative;">
-								<span class="img-label"></span>
-								<?php echo wp_get_attachment_image( $eid, 'thumbnail', false ); ?>
-								<button type="button" class="del-btn"
-								        style="position:absolute;top:2px;right:2px;background:#d00;color:#fff;border:none;width:24px;height:24px;border-radius:50%;line-height:22px;text-align:center;cursor:pointer;">×</button>
-								<input type="hidden" name="order_ids[]" value="<?php echo esc_attr( $eid ); ?>">
-							</li>
-						<?php endforeach; ?>
-					</ul>
-
-					<p class="description"><?php echo esc_html( $img_note ); ?></p>
-				</td>
-			</tr>
-
-			<!-- 基本情報 -->
-			<tr>
-				<th><label for="property_price"><?php esc_html_e( '価格', 'sanai-textdomain' ); ?></label></th>
-				<td><textarea id="property_price" name="property_price" rows="2" class="large-text"><?php echo esc_textarea( $defaults['property_price'] ); ?></textarea></td>
-			</tr>
-
-			<tr>
-				<th><label for="property_address"><?php esc_html_e( '所在地', 'sanai-textdomain' ); ?></label></th>
-				<td><textarea id="property_address" name="property_address" rows="2" class="large-text"><?php echo esc_textarea( $defaults['property_address'] ); ?></textarea></td>
-			</tr>
-
-			<tr>
-				<th><label for="property_access"><?php esc_html_e( 'アクセス', 'sanai-textdomain' ); ?></label></th>
-				<td><textarea id="property_access" name="property_access" rows="2" class="large-text"><?php echo esc_textarea( $defaults['property_access'] ); ?></textarea></td>
-			</tr>
-		</table>
-
-		<!-- 物件概要 -->
-		<h2><?php esc_html_e( '物件概要', 'sanai-textdomain' ); ?></h2>
-		<table class="form-table">
-			<?php
-			$overview_fields = [
-				'name'            => '物件名称',
-				'land_right'      => '土地権利',
-				'type'            => '物件種別',
-				'land_size'       => '土地面積',
-				'units'           => '販売棟数',
-				'floor_size'      => '物件（専有）面積',
-				'layout'          => '間取',
-				'structure'       => '建物構造',
-				'completion'      => '完成',
-				'parking'         => '駐車場',
-				'transaction'     => '取引態様',
-				'road'            => '接道状況',
-				'zone'            => '用途地域',
-				'coverage'        => '建ぺい率',
-				'floor_area'      => '容積率',
-				'management_cmp'  => '管理会社',
-				'management_form' => '管理形態',
-				'fee'             => 'マンション管理費',
-				'repair'          => '修繕費関係',
-				'note'            => '備考',
-			];
-			foreach ( $overview_fields as $key => $label ) :
-				$val = $overview_defaults[ $key ] ?? '';
-				?>
+				<!-- タイトル -->
 				<tr>
-					<th><label for="ov_<?php echo esc_attr( $key ); ?>"><?php echo esc_html( $label ); ?></label></th>
-					<td><textarea id="ov_<?php echo esc_attr( $key ); ?>" name="overview[<?php echo esc_attr( $key ); ?>]" rows="2" class="large-text"><?php echo esc_textarea( $val ); ?></textarea></td>
+					<th><label for="property_title"><?php esc_html_e('物件タイトル', 'sanai-textdomain'); ?></label></th>
+					<td><textarea id="property_title" name="property_title" rows="3" class="large-text" required><?php echo esc_textarea($defaults['property_title']); ?></textarea></td>
 				</tr>
-			<?php endforeach; ?>
-		</table>
 
-		<?php submit_button( $is_edit ? __( '物件を更新', 'sanai-textdomain' ) : __( '物件を登録', 'sanai-textdomain' ) ); ?>
-	</form>
-</div>
+				<!-- サムネイル -->
+				<tr>
+					<th><label for="property_thumbnail_input"><?php esc_html_e('サムネイル画像(1枚)', 'sanai-textdomain'); ?></label></th>
+					<td>
+						<label class="file-chooser">
+							<span class="file-label"><?php esc_html_e('画像を選択', 'sanai-textdomain'); ?></span>
+							<input type="file" id="property_thumbnail_input" name="property_thumbnail" accept="image/*" hidden>
+						</label>
+
+						<div id="thumb_preview" style="margin-top:.75rem;display:flex;gap:.5rem;"></div>
+
+						<?php if ($thumb_id) : ?>
+							<?php echo wp_get_attachment_image($thumb_id, 'thumbnail', false, ['id' => 'existing_thumb']); ?>
+						<?php endif; ?>
+
+						<p class="description"><?php // esc_html_e('クリックで削除できます', 'sanai-textdomain'); ?></p>
+					</td>
+				</tr>
+
+				<!-- ギャラリー -->
+				<tr>
+					<th><label for="property_images_input"><?php esc_html_e('ギャラリー画像(10枚まで)', 'sanai-textdomain'); ?></label></th>
+					<td>
+						<label class="file-chooser">
+							<span class="file-label"><?php esc_html_e('画像を追加', 'sanai-textdomain'); ?></span>
+							<input type="file" id="property_images_input" name="property_images[]" accept="image/*" data-max="<?php echo esc_attr( $max_gallery ); ?>" multiple hidden>
+						</label>
+
+						<ul id="gallery_list" class="sortable-list"
+							style="display:flex;flex-wrap:wrap;gap:.5rem;margin:0;padding:0;list-style:none;">
+							<?php foreach ($existing_ids as $eid) : ?>
+								<li class="sortable-item" data-id="<?php echo esc_attr($eid); ?>" style="position:relative;">
+									<span class="img-label"></span>
+									<?php echo wp_get_attachment_image($eid, 'thumbnail', false); ?>
+									<button type="button" class="del-btn"
+										style="position:absolute;top:2px;right:2px;background:#d00;color:#fff;border:none;width:24px;height:24px;border-radius:50%;line-height:22px;text-align:center;cursor:pointer;">×</button>
+									<input type="hidden" name="order_ids[]" value="<?php echo esc_attr($eid); ?>">
+								</li>
+							<?php endforeach; ?>
+						</ul>
+
+						<p class="description"><?php echo esc_html($img_note); ?></p>
+					</td>
+				</tr>
+
+				<!-- 基本情報 -->
+				<tr>
+					<th><label for="property_price"><?php esc_html_e('価格', 'sanai-textdomain'); ?></label></th>
+					<td><textarea id="property_price" name="property_price" rows="2" class="large-text"><?php echo esc_textarea($defaults['property_price']); ?></textarea></td>
+				</tr>
+
+				<tr>
+					<th><label for="property_address"><?php esc_html_e('所在地', 'sanai-textdomain'); ?></label></th>
+					<td><textarea id="property_address" name="property_address" rows="2" class="large-text"><?php echo esc_textarea($defaults['property_address']); ?></textarea></td>
+				</tr>
+
+				<tr>
+					<th><label for="property_access"><?php esc_html_e('アクセス', 'sanai-textdomain'); ?></label></th>
+					<td><textarea id="property_access" name="property_access" rows="2" class="large-text"><?php echo esc_textarea($defaults['property_access']); ?></textarea></td>
+				</tr>
+			</table>
+
+			<!-- 物件概要 -->
+			<h2><?php esc_html_e('物件概要', 'sanai-textdomain'); ?></h2>
+			<table class="form-table">
+				<?php
+				$overview_fields = [
+					'name'            => '物件名称',
+					'land_right'      => '土地権利',
+					'type'            => '物件種別',
+					'land_size'       => '土地面積',
+					'units'           => '販売棟数',
+					'floor_size'      => '物件（専有）面積',
+					'layout'          => '間取',
+					'structure'       => '建物構造',
+					'completion'      => '完成',
+					'parking'         => '駐車場',
+					'transaction'     => '取引態様',
+					'road'            => '接道状況',
+					'zone'            => '用途地域',
+					'coverage'        => '建ぺい率',
+					'floor_area'      => '容積率',
+					'management_cmp'  => '管理会社',
+					'management_form' => '管理形態',
+					'fee'             => 'マンション管理費',
+					'repair'          => '修繕費関係',
+					'note'            => '備考',
+				];
+				foreach ($overview_fields as $key => $label) :
+					$val = $overview_defaults[$key] ?? '';
+				?>
+					<tr>
+						<th><label for="ov_<?php echo esc_attr($key); ?>"><?php echo esc_html($label); ?></label></th>
+						<td><textarea id="ov_<?php echo esc_attr($key); ?>" name="overview[<?php echo esc_attr($key); ?>]" rows="2" class="large-text"><?php echo esc_textarea($val); ?></textarea></td>
+					</tr>
+				<?php endforeach; ?>
+			</table>
+
+			<?php submit_button($is_edit ? __('物件を更新', 'sanai-textdomain') : __('物件を登録', 'sanai-textdomain')); ?>
+		</form>
+	</div>
 <?php
 }
