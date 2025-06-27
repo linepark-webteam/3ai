@@ -68,6 +68,32 @@ function sanai_property_entry_form()
 			border-radius: 3px;
 			pointer-events: none;
 		}
+
+		/* 疑似ファイルボタン */
+		.file-chooser {
+			display: inline-block;
+			cursor: pointer;
+			background: #0073aa;
+			color: #fff;
+			padding: 6px 12px;
+			border-radius: 4px;
+			font-size: 13px;
+		}
+
+		.file-chooser:hover {
+			background: #006090;
+		}
+
+		.file-label {
+			pointer-events: none;
+		}
+
+		/* Drag & Drop ハイライト */
+		#thumb_preview.is-dragover,
+		#gallery_list.is-dragover {
+			outline: 2px dashed #0073aa;
+			background: #f1faff;
+		}
 	</style>
 
 	<div class="wrap">
@@ -90,11 +116,11 @@ function sanai_property_entry_form()
 						<button type="button" id="media_thumb_btn" class="button"><?php esc_html_e('メディアを選択', 'sanai-textdomain'); ?></button>
 						<input type="file" id="property_thumbnail_input" name="property_thumbnail" accept="image/*" hidden>
 
+						<label class="file-chooser" for="property_thumbnail_input" style="margin-left:.5rem;"><span class="file-label"><?php esc_html_e('画像をアップロード', 'sanai-textdomain'); ?></span></label>
 						<input type="hidden" id="property_thumbnail_id" name="property_thumbnail_id" value="<?php echo esc_attr($thumb_id); ?>">
 						<div id="thumb_preview" style="margin-top:.75rem;display:flex;gap:.5rem;"></div>
 						<?php if ($thumb_id): ?><?php echo wp_get_attachment_image($thumb_id, 'thumbnail', false, ['id' => 'existing_thumb']); ?><?php endif; ?>
-						<p class="description"><?php // esc_html_e('クリックで削除できます', 'sanai-textdomain'); 
-												?></p>
+						<p class="description"><?php // esc_html_e('クリックで削除できます', 'sanai-textdomain'); ?></p>
 					</td>
 				</tr>
 
@@ -105,16 +131,11 @@ function sanai_property_entry_form()
 						<button type="button" id="media_gallery_btn" class="button"><?php esc_html_e('メディアを選択', 'sanai-textdomain'); ?></button>
 						<input type="file" id="property_images_input" name="property_images[]" accept="image/*" data-max="<?php echo esc_attr($max_gallery); ?>" multiple hidden>
 
-						<ul id="gallery_list" class="sortable-list" style="display:flex;flex-wrap:wrap;gap:.5rem;margin: 1rem 0 0;padding:0;list-style:none;">
+						<label class="file-chooser" for="property_images_input" style="margin-left:.5rem;"><span class="file-label"><?php esc_html_e('画像をアップロード', 'sanai-textdomain'); ?></span></label>
 
-							<?php foreach ($existing_ids as $eid): ?>
-								<li class="sortable-item" data-id="<?php echo esc_attr($eid); ?>" style="position:relative;">
-									<span class="img-label"></span>
-									<?php echo wp_get_attachment_image($eid, 'thumbnail', false); ?>
-									<button type="button" class="del-btn" style="position:absolute;top:2px;right:2px;background:#d00;color:#fff;border:none;width:24px;height:24px;border-radius:50%;line-height:22px;cursor:pointer;">×</button>
-									<input type="hidden" name="order_ids[]" value="<?php echo esc_attr($eid); ?>">
-								</li>
-							<?php endforeach; ?>
+						<ul id="gallery_list" class="sortable-list" style="display:flex;flex-wrap:wrap;gap:.5rem;margin:0;padding:0;list-style:none;">
+
+							<?php foreach ($existing_ids as $eid): ?><li class="sortable-item" data-id="<?php echo esc_attr($eid); ?>" style="position:relative;"><span class="img-label"></span><?php echo wp_get_attachment_image($eid, 'thumbnail', false); ?><button type="button" class="del-btn" style="position:absolute;top:2px;right:2px;background:#d00;color:#fff;border:none;width:24px;height:24px;border-radius:50%;line-height:22px;cursor:pointer;">×</button><input type="hidden" name="order_ids[]" value="<?php echo esc_attr($eid); ?>"></li><?php endforeach; ?>
 						</ul>
 						<p class="description"><?php echo esc_html($img_note); ?></p>
 					</td>

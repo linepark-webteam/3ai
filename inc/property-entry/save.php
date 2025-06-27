@@ -1,5 +1,4 @@
 <?php
-
 /**
  * inc/property-entry/save.php
  */
@@ -10,9 +9,8 @@ if (! defined('ABSPATH')) {
 add_action('admin_post_sanai_save_property',        'sanai_save_property');
 add_action('admin_post_nopriv_sanai_save_property', 'sanai_save_property');
 
-function sanai_save_property()
-{
-
+function sanai_save_property() {
+    // 権限・nonce チェック
     if (
         ! isset($_POST['sanai_property_nonce'])
         || ! wp_verify_nonce($_POST['sanai_property_nonce'], 'sanai_property_entry')
@@ -21,12 +19,11 @@ function sanai_save_property()
         wp_die(__('権限がありません。', 'sanai-textdomain'));
     }
 
+    // 投稿作成 or 更新
     $post_id   = isset($_POST['post_id']) ? intval($_POST['post_id']) : 0;
     $is_update = $post_id > 0;
 
-    $title_raw  = wp_kses_post($_POST['property_title'] ?? '');
-    $title_flat = trim(preg_replace('/\s+/', ' ', $title_raw));
-
+    $title_flat = trim(preg_replace('/\s+/', ' ', wp_kses_post($_POST['property_title'] ?? '')));
     if ($is_update) {
         wp_update_post([
             'ID'         => $post_id,
@@ -38,22 +35,22 @@ function sanai_save_property()
             'post_type'   => 'property',
             'post_status' => 'publish',
         ], true);
-        if (is_wp_error($post_id)) wp_die($post_id->get_error_message());
+        if (is_wp_error($post_id)) {
+            wp_die($post_id->get_error_message());
+        }
     }
 
-    /* 基本メタ */
-    foreach (
-        [
-            'property_title'   => 'property_title',
-            'property_price'   => 'price',
-            'property_address' => 'address',
-            'property_access'  => 'access',
-        ] as $f => $m
-    ) {
+    // 基本メタ
+    foreach ([
+        'property_title'   => 'property_title',
+        'property_price'   => 'price',
+        'property_address' => 'address',
+        'property_access'  => 'access',
+    ] as $f => $m) {
         update_post_meta($post_id, $m, wp_kses_post($_POST[$f] ?? ''));
     }
 
-    /* 物件概要 */
+    // 物件概要
     if (isset($_POST['overview'])) {
         foreach ($_POST['overview'] as $k => $v) {
             update_post_meta($post_id, 'ov_' . sanitize_key($k), wp_kses_post($v));
@@ -61,10 +58,16 @@ function sanai_save_property()
     }
 
     /*------------ サムネイル ------------*/
-    if (isset($_POST['delete_thumb'])) {
+    // ① media library で選択した ID があれば優先
+    if (! empty($_POST['property_thumbnail_id'])) {
+        set_post_thumbnail($post_id, intval($_POST['property_thumbnail_id']));
+    }
+    // ② 削除フラグ
+    elseif (isset($_POST['delete_thumb'])) {
         delete_post_thumbnail($post_id);
     }
-    if (! empty($_FILES['property_thumbnail']['name'])) {
+    // ③ file-upload
+    elseif (! empty($_FILES['property_thumbnail']['name'])) {
         require_once ABSPATH . 'wp-admin/includes/file.php';
         require_once ABSPATH . 'wp-admin/includes/media.php';
         require_once ABSPATH . 'wp-admin/includes/image.php';
@@ -94,12 +97,18 @@ function sanai_save_property()
 
         $files = [];
         foreach ($_FILES['property_images'] as $k => $arr) {
-            foreach ($arr as $i => $v) $files[$i][$k] = $v;
+            foreach ($arr as $i => $v) {
+                $files[$i][$k] = $v;
+            }
         }
         foreach ($files as $f) {
-            if ($f['error'] !== UPLOAD_ERR_OK) continue;
+            if ($f['error'] !== UPLOAD_ERR_OK) {
+                continue;
+            }
             $att = media_handle_sideload($f, $post_id);
-            if (! is_wp_error($att)) $new_ids[] = $att;
+            if (! is_wp_error($att)) {
+                $new_ids[] = $att;
+            }
         }
     }
 
@@ -110,6 +119,7 @@ function sanai_save_property()
         set_post_thumbnail($post_id, $all_ids[0]);
     }
 
+    // リダイレクト
     wp_safe_redirect(
         admin_url('admin.php?page=sanai_property_entry&post_id=' . $post_id . '&saved=true'),
         303
