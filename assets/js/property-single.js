@@ -1,124 +1,135 @@
 /*==================================================
   assets/js/property-single.js
   -----------------------------------------------
-  ・クリック / ←→ ボタン / キーボード
-  ・サムネイルクリック・横ドラッグ / スワイプ
-  ・メイン画像横ドラッグ / スワイプ
-  ですべて画像を切替え、ギャラリーを同期
+  - レターボックス（propertyMainWrap）横ドラッグ/スワイプ で画像切替
+  - レターボックス クリック/タップ でライトボックス表示
+  - サムネイルクリック・前後ボタン・キーボード ← → も対応
 ==================================================*/
-
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener("DOMContentLoaded", () => {
   /* ---------- 要素取得 ---------- */
-  const mainImg = document.getElementById('propertyMainImg');
-  const gallery = document.getElementById('propertyGallery');
-  const prevBtn = document.getElementById('imgPrev');
-  const nextBtn = document.getElementById('imgNext');
-  if (!mainImg || !gallery) return;
+  const mainWrap = document.getElementById("propertyMainWrap");
+  const mainImg = document.getElementById("propertyMainImg");
+  const gallery = document.getElementById("propertyGallery");
+  const prevBtn = document.getElementById("imgPrev");
+  const nextBtn = document.getElementById("imgNext");
+  const lb = document.getElementById("imgLightbox");
+  const lbImg = document.getElementById("lbImg");
+  const lbClose = document.querySelector(".lb-close");
+  if (!mainImg || !gallery || !mainWrap) return;
 
-  /* ---------- 初期データ ---------- */
-  const thumbs  = [...gallery.querySelectorAll('img')];
-  const sources = thumbs.map(img => img.dataset.full || img.src);
-  let current   = sources.indexOf(mainImg.src);
+  /* ---------- データ ---------- */
+  const thumbs = [...gallery.querySelectorAll("img")];
+  const sources = thumbs.map((img) => img.dataset.full || img.src);
+  let current = sources.indexOf(mainImg.src);
   if (current === -1) current = 0;
-  thumbs.forEach(img => img.setAttribute('draggable', 'false'));
 
   /* ---------- ヘルパー ---------- */
-  const scrollThumbIntoView = idx => {
-    thumbs[idx]?.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
-  };
-  const setActiveThumb = idx => {
-    thumbs.forEach(t => t.classList.remove('is-active'));
-    thumbs[idx]?.classList.add('is-active');
-    scrollThumbIntoView(idx);
+  const scrollThumbIntoView = (i) =>
+    thumbs[i]?.scrollIntoView({
+      behavior: "smooth",
+      block: "nearest",
+      inline: "center",
+    });
+
+  const setActiveThumb = (i) => {
+    thumbs.forEach((t) => t.classList.remove("is-active"));
+    thumbs[i]?.classList.add("is-active");
+    scrollThumbIntoView(i);
   };
   setActiveThumb(current);
 
-  const switchImage = idx => {
-    if (idx === current) return;
-    current = (idx + sources.length) % sources.length;
+  const switchImage = (i) => {
+    if (i === current) return;
+    current = (i + sources.length) % sources.length;
     setActiveThumb(current);
 
     mainImg.style.opacity = 0;
-    mainImg.addEventListener('transitionend', function handler () {
-      mainImg.removeEventListener('transitionend', handler);
+    mainImg.addEventListener("transitionend", function h() {
+      mainImg.removeEventListener("transitionend", h);
       mainImg.src = sources[current];
       if (mainImg.complete) {
-        requestAnimationFrame(() => { mainImg.style.opacity = 1; });
+        requestAnimationFrame(() => (mainImg.style.opacity = 1));
       } else {
-        mainImg.addEventListener('load', () => { mainImg.style.opacity = 1; }, { once: true });
+        mainImg.addEventListener("load", () => (mainImg.style.opacity = 1), {
+          once: true,
+        });
       }
     });
   };
 
   /* ---------- 1. サムネイルクリック ---------- */
-  gallery.addEventListener('click', e => {
-    const img = e.target.closest('img');
+  gallery.addEventListener("click", (e) => {
+    const img = e.target.closest("img");
     if (!img) return;
     const idx = thumbs.indexOf(img);
     if (idx !== -1) switchImage(idx);
   });
 
   /* ---------- 2. 前後ボタン ---------- */
-  prevBtn?.addEventListener('click', () => switchImage(current - 1));
-  nextBtn?.addEventListener('click', () => switchImage(current + 1));
+  prevBtn?.addEventListener("click", () => switchImage(current - 1));
+  nextBtn?.addEventListener("click", () => switchImage(current + 1));
 
   /* ---------- 3. キーボード ← / → ---------- */
-  document.addEventListener('keydown', e => {
+  document.addEventListener("keydown", (e) => {
     if (sources.length < 2) return;
-    if (e.key === 'ArrowLeft')  switchImage(current - 1);
-    if (e.key === 'ArrowRight') switchImage(current + 1);
+    if (e.key === "ArrowLeft") switchImage(current - 1);
+    if (e.key === "ArrowRight") switchImage(current + 1);
   });
 
-  /* ---------- 4. ギャラリー横ドラッグ（スクロールのみ） ---------- */
-  (() => {
-    let isDown = false, startX = 0, scrollStart = 0;
-    const down = e => {
-      isDown = true;
-      gallery.classList.add('is-dragging');
-      startX = (e.pageX || e.touches[0].pageX);
-      scrollStart = gallery.scrollLeft;
-    };
-    const move = e => {
-      if (!isDown) return;
-      const x = (e.pageX || e.touches[0].pageX);
-      gallery.scrollLeft = scrollStart - (x - startX);
-    };
-    const up = () => {
-      isDown = false;
-      gallery.classList.remove('is-dragging');
-    };
+  /* ---------- 4. レターボックス横ドラッグ/スワイプ ---------- */
+  const THRESHOLD = 40; // スワイプ判定距離
+  let isDown = false;
+  let startX = 0;
+  let didSwipe = false; // ★ クリックとの二重発火を防ぐフラグ
 
-    gallery.addEventListener('mousedown', down);
-    gallery.addEventListener('mousemove', move);
-    document.addEventListener('mouseup', up);
+  const pointerDown = (e) => {
+    if (e.target.closest(".property-nav")) return; // 矢印上は除外
+    isDown = true;
+    startX = e.pageX || e.touches[0].pageX;
+    didSwipe = false;
+    e.preventDefault();
+  };
+  const pointerUp = (e) => {
+    if (!isDown) return;
+    isDown = false;
+    const endX =
+      e.pageX || (e.changedTouches && e.changedTouches[0].pageX) || startX;
+    const diff = endX - startX;
+    if (Math.abs(diff) > THRESHOLD) {
+      didSwipe = true;
+      if (diff > 0) switchImage(current - 1); // 右へ払う → 前
+      else switchImage(current + 1); // 左へ払う → 次
+    }
+  };
 
-    gallery.addEventListener('touchstart', down,  { passive:false }); /* ★ 変更 */
-    gallery.addEventListener('touchmove',  move,  { passive:true  });
-    gallery.addEventListener('touchend',   up);
-  })();
+  mainWrap.addEventListener("mousedown", pointerDown);
+  document.addEventListener("mouseup", pointerUp);
+  mainWrap.addEventListener("touchstart", pointerDown, { passive: false });
+  mainWrap.addEventListener("touchend", pointerUp);
 
-  /* ---------- 5. メイン画像横ドラッグ／スワイプ ---------- */
-  (() => {
-    let isDown = false, startX = 0;
-    const TH = 40;
-    const down = e => {
-      isDown = true;
-      startX = (e.pageX || e.touches[0].pageX);
-      e.preventDefault();
-    };
-    const up = e => {
-      if (!isDown) return;
-      isDown = false;
-      const endX = (e.pageX || (e.changedTouches && e.changedTouches[0].pageX) || startX);
-      const diff = endX - startX;
-      if (diff >  TH) switchImage(current - 1);
-      if (diff < -TH) switchImage(current + 1);
-    };
+  /* ---------- 5. ライトボックス ---------- */
+  const openLB = () => {
+    lbImg.src = sources[current];
+    lb.removeAttribute("hidden");
+  };
+  const closeLB = () => lb.setAttribute("hidden", "");
 
-    mainImg.addEventListener('mousedown', down);
-    document.addEventListener('mouseup',   up);
+  // レターボックスクリック（矢印以外）
+  mainWrap.addEventListener("click", (e) => {
+    if (didSwipe) {
+      // 直前にスワイプしていたら無視
+      didSwipe = false;
+      return;
+    }
+    if (!e.target.closest(".property-nav")) openLB();
+  });
 
-    mainImg.addEventListener('touchstart', down, { passive:false }); /* ★ 変更 */
-    mainImg.addEventListener('touchend',   up);
-  })();
+  // ライトボックスを閉じる
+  lb.addEventListener("click", (e) => {
+    if (e.target === lb) closeLB();
+  });
+  lbClose?.addEventListener("click", closeLB);
+  document.addEventListener("keydown", (e) => {
+    if (e.key === "Escape") closeLB();
+  });
 });

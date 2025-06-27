@@ -47,7 +47,7 @@ function sanai_nl2br_safe(string $v)
             ?>
 
             <!-- メインイメージ表示部分 -->
-            <div class="property-main-wrap">
+            <div class="property-main-wrap" id="propertyMainWrap">
                 <button type="button"
                     id="imgPrev"
                     class="property-nav property-prev"
@@ -142,6 +142,11 @@ function sanai_nl2br_safe(string $v)
                     </tbody>
                 </table>
             </section>
+
+            <div id="imgLightbox" class="img-lightbox" hidden>
+                <span class="lb-close" aria-label="close">&times;</span>
+                <img id="lbImg" src="" alt="">
+            </div>
 
         </article>
     </section>
