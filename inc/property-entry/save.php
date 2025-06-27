@@ -1,4 +1,8 @@
 <?php
+
+/**
+ * inc/property-entry/save.php
+ */
 if (! defined('ABSPATH')) {
     exit;
 }
