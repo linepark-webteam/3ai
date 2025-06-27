@@ -46,7 +46,7 @@ function sanai_nl2br_safe(string $v)
             $map_img = get_post_meta(get_the_ID(), 'map_image', true);
             ?>
 
-            <!-- ▼ ここを flex 行にまとめる ▼ -->
+            <!-- メインイメージ表示部分 -->
             <div class="property-main-wrap">
                 <button type="button"
                     id="imgPrev"
@@ -55,7 +55,7 @@ function sanai_nl2br_safe(string $v)
                     &#9664;
                 </button>
 
-                <?php echo $main_img; /* ← 既存のメイン画像タグ */ ?>
+                <?php echo $main_img; ?>
 
                 <button type="button"
                     id="imgNext"
@@ -64,13 +64,6 @@ function sanai_nl2br_safe(string $v)
                     &#9654;
                 </button>
             </div>
-            <!-- ▲ ここまで ▲ -->
-
-            <?php if ($map_img) : ?>
-                <div class="property-map-thumb">
-                    <img src="<?php echo esc_url($map_img); ?>" alt="<?php esc_attr_e('地図', 'sanai-textdomain'); ?>">
-                </div>
-            <?php endif; ?>
 
             <?php if (! empty($gallery_ids)) : ?>
                 <ul class="property-gallery" id="propertyGallery">
